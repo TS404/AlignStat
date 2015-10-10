@@ -4,12 +4,14 @@
 
 library("ade4")
 library("seqinr")
+library("AlikeAlignmentAligner")
 percent <- function(x, digits = 1, format = "f", ...) {
   paste0(formatC(100 * x, format = format, digits = digits, ...), "%")
 }
 
-ref.fa <- file.choose()
-aln.fa <- file.choose()
+
+ref.fa <- "data-raw/Alignment A.FA"
+aln.fa <- "data-raw/Alignment B.FA"
 
 ################
 # FASTA import #
@@ -79,8 +81,8 @@ means = matrix(nrow = dim(aln2)[1],   # number of test alignment columns
                ncol = dim(ref2)[1])   # number of ref2 columns
 
 # Making matrix for results data
-results = matrix(nrow = 10,           # matrix for results
-                 ncol = dim(ref2)[1]) # number of ref2 columns
+
+results = rcpp_align(ref2,aln2)
 row.names(results)<-c("ColumnMatch",  # 1
                       "NonGap",       # 2
                       "Cys",          # 3
@@ -93,15 +95,15 @@ row.names(results)<-c("ColumnMatch",  # 1
                       "Score")        # 10
 
 # Calculating identity score
-for(k in 1:dim(ref2)[1]){                         # for each (k) column of the ref2 alignment
-  for(i in 1:dim(aln2)[1]){                       # for each (i) column of the aln2 alignment                               
-    for(j in 1:dim(ref2)[2]){                     # for each (j) sequence
-      ident[i,j] = identical(ref2[k,j],aln2[i,j]) # perform identity test
-      means[i,k] = mean(ident[i,])                # all-against-all column identity (ref2 vs aln2)
-    }
-  }
-  results[1,k] = which.max(means[,k])             # "ColumnMatch" which aln column had best match to each ref column
-}
+# for(k in 1:dim(ref2)[1]){                         # for each (k) column of the ref2 alignment
+#   for(i in 1:dim(aln2)[1]){                       # for each (i) column of the aln2 alignment                               
+#     for(j in 1:dim(ref2)[2]){                     # for each (j) sequence
+#       ident[i,j] = identical(ref2[k,j],aln2[i,j]) # perform identity test
+#       means[i,k] = mean(ident[i,])                # all-against-all column identity (ref2 vs aln2)
+#     }
+#   }
+#   results[1,k] = which.max(means[,k])             # "ColumnMatch" which aln column had best match to each ref column
+# }
 
 
 

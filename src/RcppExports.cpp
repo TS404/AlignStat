@@ -5,13 +5,15 @@
 
 using namespace Rcpp;
 
-// rcpp_hello_world
-List rcpp_hello_world();
-RcppExport SEXP AlikeAlignmentAligner_rcpp_hello_world() {
+// rcpp_align
+NumericMatrix rcpp_align(CharacterMatrix ref, CharacterMatrix aln);
+RcppExport SEXP AlikeAlignmentAligner_rcpp_align(SEXP refSEXP, SEXP alnSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
-    __result = Rcpp::wrap(rcpp_hello_world());
+    Rcpp::traits::input_parameter< CharacterMatrix >::type ref(refSEXP);
+    Rcpp::traits::input_parameter< CharacterMatrix >::type aln(alnSEXP);
+    __result = Rcpp::wrap(rcpp_align(ref, aln));
     return __result;
 END_RCPP
 }
