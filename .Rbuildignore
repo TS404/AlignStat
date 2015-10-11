@@ -1,4 +1,3 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
-R/AlignmentAligner.R
 ^data-raw$

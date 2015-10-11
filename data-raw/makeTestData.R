@@ -18,6 +18,10 @@ aln.fa <- "Alignment B.FA"
 data.frame(read.fasta(ref.fa,set.attributes=FALSE)) -> ref   # convert to data frame of letters
 data.frame(read.fasta(aln.fa,set.attributes=FALSE)) -> aln   # convert to data frame of letters
 
+devtools::use_data(ref,overwrite =TRUE)
+devtools::use_data(aln,overwrite=TRUE)
+
+
 ###########################################
 # Replacing letters with letter+occurance #
 ###########################################
@@ -112,6 +116,42 @@ for(k in 1:dim(ref2)[1]){                         # for each (k) column of the r
   results[1,k] = which.max(means[,k])             # "ColumnMatch" which aln column had best match to each ref column
 }
 cat("CI ",ci)
-devtools::use_data(results,overwrite=TRUE)
-devtools::use_data(ident,overwrite=TRUE)
+#devtools::use_data(ident,overwrite=TRUE)
 
+
+cat = matrix(nrow = dim(ref)[1], # number of ref columns
+             ncol = dim(ref)[2]) # number sequences
+
+# Combining matrices
+for (x in 1:dim(ref)[1]){
+  for (y in 1:dim(ref)[2]){
+    paste(ref2[x,y],aln2[results[1,x],y])->cat[x,y]
+  }
+}
+
+# Categorise mismatches
+cat2 <- cat
+gsub(x = cat2, pattern = "([a-z][0-9]+) \\1",       replacement = "M") -> cat2  # Match
+gsub(x = cat2, pattern = "[-] NA",                  replacement = "G") -> cat2  # Gap
+gsub(x = cat2, pattern = "[-] ([a-z][0-9]+)",       replacement = "I") -> cat2  # Insertion
+gsub(x = cat2, pattern = "([a-z][0-9]+) NA",        replacement = "D") -> cat2  # Deletion
+gsub(x = cat2, pattern = "[a-z][0-9]+ [a-z][0-9]+", replacement = "S") -> cat2  # Substitution
+
+# Write categories to results
+results[4,] <- t(rowMeans(cat2=="M")) # "Match"
+results[5,] <- t(rowMeans(cat2=="G")) # "Gap(con)"
+results[6,] <- t(rowMeans(cat2=="I")) # "Insertion"
+results[7,] <- t(rowMeans(cat2=="D")) # "Deletion"
+results[8,] <- t(rowMeans(cat2=="S")) # "Substitution"
+# Ref column gappiness
+results[2,] <- (1-t(rowMeans(ref=="-")))               # "NonGap" 
+# Ref cysteine occurance
+results[3,] <- (t(rowMeans(ref=="c")))                 # "Cys"
+# Correct Match scores to take gappiness into account
+results[9,] <- results[4,]/(1-results[5,])             # "FinalMatch"
+
+# Final mean!!!!!
+results[10,1] <- sum(results[4,])/sum(1-results[5,])   # "Score"
+results[10,1] -> score
+
+devtools::use_data(results,overwrite=TRUE)
