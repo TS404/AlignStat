@@ -15,8 +15,8 @@ percent <- function(x, digits = 1, format = "f", ...) {
 #' @examples
 #' data(ref)
 #' data(aln)
-#' results <- align_alignments(ref,aln)
-#' proportion_cys_plot(results,ref)
+#' res_list <- align_alignments(ref,aln)
+#' proportion_cys_plot(res_list$results,ref)
 proportion_cys_plot <- function(results,ref){
 
   plot (results[9,],
@@ -40,8 +40,8 @@ proportion_cys_plot <- function(results,ref){
 #' @examples
 #' data(ref)
 #' data(aln)
-#' results <- align_alignments(ref,aln)
-#' category_proportions_plot(results)
+#' res_list <- align_alignments(ref,aln)
+#' category_proportions_plot(res_list$results)
 category_proportions_plot <- function(results){
 
   # Category proportions
@@ -62,9 +62,9 @@ category_proportions_plot <- function(results){
 #' @examples
 #' data(ref)
 #' data(aln)
-#' results <- align_alignments(ref,aln)
-#' alignment_heatmap(results)
-alignment_heatmap <- function(results,aln,ref){
+#' res_list <- align_alignments(ref,aln)
+#' alignment_heatmap(res_list$results,res_list$means,aln,ref)
+alignment_heatmap <- function(results,means,aln,ref){
   heatmap.2(t(t(means)/results[2,]),                            # gap-scaled data matrix
             trace        = "none",                              # no trace line
             key          = "FALSE",                             # no key

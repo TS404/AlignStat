@@ -2,7 +2,7 @@
 #'
 #' @param ref.fa Reference against which to score
 #' @param aln.fa Alignment to score against reference
-#' @return Results matrix with one column per sequence and the following rows
+#' @return List containing results and means. Results is a matrix with one column per sequence and the following rows
 #' \itemize{
 #'  \item ColumnMatch 
 #'  \item NonGap
@@ -20,13 +20,16 @@
 #' @examples
 #' data(ref)
 #' data(aln)
-#' results <- align_alignments(ref,aln)
+#' res_list <- align_alignments(ref,aln)
 #'
-align_alignments <- function(ref.fa,aln.fa){
+align_alignments <- function(ref,aln){
 
-  data.frame(read.fasta(ref.fa,set.attributes=FALSE)) -> ref
-  data.frame(read.fasta(aln.fa,set.attributes=FALSE)) -> aln
-
+  if (!is.data.frame(ref)){
+    data.frame(read.fasta(ref,set.attributes=FALSE)) -> ref
+  } 
+  if (!is.data.frame(aln)){
+    data.frame(read.fasta(aln,set.attributes=FALSE)) -> aln
+  }
   ###########################################
   # Replacing letters with letter+occurance #
   ###########################################
@@ -82,14 +85,15 @@ align_alignments <- function(ref.fa,aln.fa){
   # Alignment identity calculation #
   ##################################
 
-  ident = matrix(nrow = dim(aln2)[1],   # number of aln2 columns to test
-                 ncol = dim(ref2)[2])   # number of sequences
-  means = matrix(nrow = dim(aln2)[1],   # number of test alignment columns
-                 ncol = dim(ref2)[1])   # number of ref2 columns
+#   ident = matrix(nrow = dim(aln2)[1],   # number of aln2 columns to test
+#                  ncol = dim(ref2)[2])   # number of sequences
+#   means = matrix(nrow = dim(aln2)[1],   # number of test alignment columns
+#                  ncol = dim(ref2)[1])   # number of ref2 columns
 
   # Making matrix for results data
-
-  results = rcpp_align(ref2,aln2)
+  # browser()
+  res_list = rcpp_align(ref2,aln2)
+  results = res_list$results
   row.names(results)<-c("ColumnMatch",  # 1
                         "NonGap",       # 2
                         "Cys",          # 3
@@ -137,7 +141,8 @@ align_alignments <- function(ref.fa,aln.fa){
   results[9,] <- results[4,]/(1-results[5,])             # "FinalMatch"
 
   # Final mean!!!!!
+  results[10,] <- rep(NA,ncol(results))
   results[10,1] <- sum(results[4,])/sum(1-results[5,])   # "Score"
-  results[10,1] -> score
-  results
+  # results[10,1] -> score
+  list(results=results,means=res_list$means)
 }

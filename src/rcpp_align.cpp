@@ -3,7 +3,7 @@
 using namespace Rcpp;
 
 // [[Rcpp::export]]
-NumericMatrix rcpp_align(CharacterMatrix ref,
+List rcpp_align(CharacterMatrix ref,
                          CharacterMatrix aln) {
 
   int nrow_ref = ref.nrow();
@@ -11,7 +11,8 @@ NumericMatrix rcpp_align(CharacterMatrix ref,
   int ncol_ref = ref.ncol();
 
   NumericMatrix results(10,nrow_ref);    
-              
+  NumericMatrix means(nrow_aln,nrow_ref);
+    
   int ci = 0;
   for(int k=0;k < nrow_ref;k++){
 
@@ -30,13 +31,16 @@ NumericMatrix rcpp_align(CharacterMatrix ref,
         }
       }
       double mn_ik = (1.0*ident_count)/(1.0*ncol_ref);
+      means(i,k) = mn_ik;
       if ( mn_ik > maxval){
         maxi=i;
         maxval = mn_ik;
-
       }
     }
     results(0,k) = maxi+1;
   }
-  return(results);
+  
+  List retlist = List::create(Rcpp::Named("results")=results,
+                              Rcpp::Named("means")=means);
+  return(retlist);
 }

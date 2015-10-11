@@ -116,7 +116,7 @@ for(k in 1:dim(ref2)[1]){                         # for each (k) column of the r
   results[1,k] = which.max(means[,k])             # "ColumnMatch" which aln column had best match to each ref column
 }
 cat("CI ",ci)
-#devtools::use_data(ident,overwrite=TRUE)
+devtools::use_data(means,overwrite=TRUE)
 
 
 cat = matrix(nrow = dim(ref)[1], # number of ref columns

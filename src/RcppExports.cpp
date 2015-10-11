@@ -6,7 +6,7 @@
 using namespace Rcpp;
 
 // rcpp_align
-NumericMatrix rcpp_align(CharacterMatrix ref, CharacterMatrix aln);
+List rcpp_align(CharacterMatrix ref, CharacterMatrix aln);
 RcppExport SEXP AlikeAlignmentAligner_rcpp_align(SEXP refSEXP, SEXP alnSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
