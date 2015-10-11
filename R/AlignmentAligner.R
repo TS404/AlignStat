@@ -33,48 +33,8 @@ align_alignments <- function(ref,aln){
   ###########################################
   # Replacing letters with letter+occurance #
   ###########################################
-
-  # New matrix for numbered ref sequences
-  ref.num = matrix(nrow = dim(ref)[1], # number of ref columns
-                   ncol = dim(ref)[2]) # number sequences
-  ref2    = matrix(nrow = dim(ref)[1], # number of ref columns
-                   ncol = dim(ref)[2]) # number sequences
-
-  # Number ref residues by their occurance
-  for (s in 1:dim(ref)[2]){
-    for (l in 1:dim(ref)[1]){
-      ref.num[l,s] = sum(ref[1:l,s]==ref[l,s])
-      paste(ref[,s],ref.num[,s])->ref2[,s]
-    }  
-  }
-
-  # Remove extra space and de-number gaps
-  gsub(x = ref2, pattern = " ",     replacement = "")  -> ref2
-  gsub(x = ref2, pattern = "[-].*", replacement = "-") -> ref2
-
-  # New matrix for numbered sequences
-  aln.num = matrix(nrow = dim(aln)[1], # number of aln columns
-                   ncol = dim(aln)[2]) # number sequences
-
-  ##################
-
-  # New matrix for numbered aln sequences
-  aln.num = matrix(nrow = dim(aln)[1], # number of aln columns
-                   ncol = dim(aln)[2]) # number sequences
-  aln2 = matrix(nrow = dim(aln)[1], # number of aln columns
-                  ncol = dim(aln)[2]) # number sequences
-
-  # Number aln residues by their occurance
-  for (s in 1:dim(aln)[2]){
-    for (l in 1:dim(aln)[1]){
-      aln.num[l,s] = sum(aln[1:l,s]==aln[l,s])
-      paste(aln[,s],aln.num[,s])->aln2[,s]
-    }  
-  }
-
-  # Remove extra space and de-number gaps
-  gsub(x = aln2, pattern = " ",     replacement = "")  -> aln2
-  gsub(x = aln2, pattern = "[-].*", replacement = "-") -> aln2
+  ref2 <- prepare_alignment_matrix(ref)
+  aln2 <- prepare_alignment_matrix(aln)
 
   # Replacing "-" with NA in the test alignment means
   # that gaps don't count towards column matching score
@@ -85,13 +45,6 @@ align_alignments <- function(ref,aln){
   # Alignment identity calculation #
   ##################################
 
-#   ident = matrix(nrow = dim(aln2)[1],   # number of aln2 columns to test
-#                  ncol = dim(ref2)[2])   # number of sequences
-#   means = matrix(nrow = dim(aln2)[1],   # number of test alignment columns
-#                  ncol = dim(ref2)[1])   # number of ref2 columns
-
-  # Making matrix for results data
-  # browser()
   res_list = rcpp_align(ref2,aln2)
   results = res_list$results
   row.names(results)<-c("ColumnMatch",  # 1
@@ -145,4 +98,26 @@ align_alignments <- function(ref,aln){
   results[10,1] <- sum(results[4,])/sum(1-results[5,])   # "Score"
   # results[10,1] -> score
   list(results=results,means=res_list$means)
+}
+
+
+prepare_alignment_matrix <- function(alnmat){
+
+  rn = matrix(nrow = nrow(alnmat), # number of ref columns
+                   ncol = ncol(alnmat)) # number sequences
+  mat2    = matrix(nrow = nrow(alnmat), # number of ref columns
+                   ncol = ncol(alnmat)) # number sequences
+  
+  # Number ref residues by their occurance
+  for (s in 1:ncol(alnmat)){
+    for (l in 1:nrow(alnmat)){
+      rn[l,s] = sum(alnmat[1:l,s]==alnmat[l,s])
+      paste(alnmat[,s],rn[,s])->mat2[,s]
+    }  
+  }
+  
+  # Remove extra space and de-number gaps
+  gsub(x = mat2, pattern = " ",     replacement = "")  -> mat2
+  gsub(x = mat2, pattern = "[-].*", replacement = "-") -> mat2
+  mat2
 }
