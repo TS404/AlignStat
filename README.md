@@ -4,11 +4,13 @@
 # Installation
 
 install.packages("devtools")
+
 devtools::install_github("iracooke/AlikeAlignmentAligner")
 
 # Example Usage
 
 data(ref)
+
 data(aln)
 
 res_list <- align_alignments(ref,aln)
