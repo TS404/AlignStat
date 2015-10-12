@@ -11,6 +11,6 @@ devtools::install_github("iracooke/AlikeAlignmentAligner")
 data(ref)
 data(aln)
 
-results_list <- align_alignments(ref,aln)
+res_list <- align_alignments(ref,aln)
 
 alignment_heatmap(res_list$results,res_list$means,aln,ref)
