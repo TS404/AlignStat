@@ -1,0 +1,3 @@
+useDynLib(AlikeAlignmentAligner)
+exportPattern("^[[:alpha:]]+")
+importFrom(Rcpp, evalCpp)

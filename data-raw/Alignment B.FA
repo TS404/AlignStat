@@ -1,0 +1,64 @@
+>NaD1(1MR4)/1-47 (N. alata - NaD1) Plant-(C8)-type gi|159162710|
+--------RECKTE-------SNTFPGICIT------------KPPCRKACIS-E-KF----------TDGHCSK----------ILRRCLCTKP-C----------------
+>GmD3/1-44 (G. max - prob LOC102669975) Plant-(C8 misc)-type gi|571550504|
+CFCYFSCPGLCAKR-------SKTWSGWCGS------------SNNCDKQCRTKE-GA----------THGACH---------------------------------------
+>AtD221/1-31 (A. thaliana - DLP266) Plant-(C8)-type gi|332196243|
+--------------------------GSCNN------------DNTCHDTCPG-C-------------RITQCIF------------RQCVCTR--C----------------
+>TsD1/1-45 (T. species - Ts-PDF) Plant-(C8)-type [no gi] (CS143)
+--------KMCQTT-------SHAF--SCVN------------DSGCSGSCEK-Q-GF----------ASGKCDG----------VRRRCTCYEK-C----------------
+>PhD1(1N4N)/1-47 (P. hybrida - Phd1) Plant-(Petunia )-type gi|38492523|
+--------ATCKAEC-------PTWDSVCIN------------KKPCVACCKK---AK---------FSDGHCSK----------ILRRCLCTKE-C----------------
+>NbD2/1-58 (N. benthamiana - Nb-PDF) Plant-(C8)-type [no gi] (CS168)
+--------KYCWKK-------NHKWHGPCHY------------SYKCNHHCKHYF-GA----------EYGVCKKYQWGHKHHHWAKYACYCYSP-C----------------
+>CanD7/1-47 (C. annuum - thionin-like) Plant-(C8+1)-type gi|6552502|
+--------EICCKE--------LTKPVKCSS------------DPLCQKLCMEKE-KY----------EDGHCFT----------ILSKCLCMKR-C----------------
+>AlD2/1-62 (A. lyrata - prob 903744) Plant-(C8)-type gi|297824339|
+--------SECLKEYGVDDDGDDVGFRFCAPR---------IFPTLCYRRCQKDK-GA----------KGGKCLWDEEGS-----GNVKCLCDF--C----------------
+>BrS2(1UGL)/1-50 (B. rapa - S-locus 11) Plant sex-(Sloc11-a)-type gi|158853052|
+-----NLMKRCTR--------GFRKLGKCTTLEE----------EKCKTLYPR-G-Q-------------CTCSDSKM-------NTHSCDCKS--C----------------
+>BrS19/1-55 (B. rapa - S-locus) Plant sex-(Sloc11-a)-type gi|7209504|
+-----NLMNRCTR--------ELPFPGKCGSSED----------GGCIKLYSS-E-KK-------LHPSRCECEPRY--------KARFCRCKI--C----------------
+>EsS6/1-66 (E. salsugineum - prob S-locus v10024151mg) Plant sex-(Sloc11-a)-type gi|557088590|
+-----EIRPWCQSR-------QQTFDGLCQKNII----------TQCYNELVK-T-FEGSLGQLGPIETGCSCFSLPQ-------NKHLCSCPFIPC----------------
+>BrS13/1-49 (B. rapa - S-locus 11-64) Plant sex-(Sloc11-a+CCC)-type gi|270381566|
+-----NVRKRCPN--------SFTLGGDCGISGK----------SACVSSYKN-K-----------KKSDCSCRNIE--------GVGTCCC---------------------
+>AotD1(2LR5)/1-34 (A. otae - Micasin) Fungus-(C6)-type gi|392935432|
+--------------------------FGCPF-----------NENECHAHCLS-I-GR----------KFGFCAGP---------LRATCTC---------------------
+>AteD2/1-42 (A. terreus - Atesin 3) Fungus-(C6)-type gi|156179583|
+--------------------------SSCQLGDIWG-----AGDAACSASCIA-Q-GEGY--------HGGHCND-----------DSVCVCNY-------------------
+>CglD2/1-39 (C. globosum - Cglosin 1C) Fungus-(Fungal NC6+2)-type gi|88178907|
+-------------------------SVCCSFPDPV-------GGLCCEAHCQQ-I-GH---------LEGGQCTA-----------QNVCVCG--------------------
+>ZtD1/1-30 (Z. tritici - prob Zytrisin 83081) Fungus-(C6)-type gi|398388411|
+--------------------------KPCV--------------GNCPDTCRP-S-GH----------DGGYCNY----------HTGTCVC---------------------
+>MgaD1(1FJN)/1-37 (M. galloprovincialis - defensin MGD-1) Mollusc-(Mollusc )-type gi|51317001|
+--------------------------FGCPN------------NYQCHRHCKSIPGRC-----------GGYCGGW---------HRLRCTCYR--C----------------
+>MgaD9/1-37 (M. galloprovincialis - defensin) Mollusc-(Mollusc )-type gi|378748964|
+--------------------------FGCPLN-----------QHRCHVHCLA-A-NC----------KGGYCGGW---------FRLKCRCIG--C----------------
+>RpD12/1-39 (R. philippinarum - defensin) Mollusc-(Mollusc )-type gi|399762321|
+--------------------------FGCPKS-----------EYVCHNHCKNSV-GC----------RGGYCDAWT--------ARQRCTCYG--C----------------
+>CgD17/1-38 (C. gigas - defensin) Mollusc-(Mollusc )-type gi|346655549|
+--------------------------FGCPGD-----------QYECNRHCRS-I-GC----------RAGYCDAAT--------LWLRCTRTG--C----------------
+>HviD1(1I2V)/1-40 (H. virescens - Mutant Of Heliomicin) Insect-(C6)-type gi|159162452|
+--------------------------GSCVWG-------AVNYTSDCNGECLL-R-GY----------KGGHCGSF---------ANVNCWCET-------------------
+>LoD1/1-32 (L. obliqua - protease inhibitor 9) Insect-(C6)-type gi|56462336|
+--------------------------VKCN------------YKTSCAGVCQG-K-GY----------KDGYCYK----------LSRTCYC---------------------
+>CliD1/1-33 (C. limpidus - Cll-dlp) Scorpion-(C6)-type gi|49182286|
+--------------------------GACQF-------------WSCNSSCIS-R-GY----------RQGYCWGI---------QYKYCQCQ--------------------
+>HsaD1/1-42 (H. saltator - TPA: defensin-1a) Insect-(C6)-type gi|386642833|
+--------------------------VTCDLLS-WTSKWFSFNNSACAAKCLV-Q-RR----------RGGSCSG------------GVCVCR--------------------
+>MmTx1(1SN1)/1-54 (M. martensii - neurotoxin Bmk M1) Scorpion-(AlphaTx)-type gi|6573542|
+----------------------HNCVYECAR------------NEYCNDLCTK-N-GA----------KSGYCQWVG-------KYGNGCWCIELPD---NVPIRV-PG--KC
+>TsTx1/1-55 (T. serrulatus - Tityustoxin V) Scorpion-(AlphaTx)-type gi|1173404| (CS385)
+----------------------DNCAFACFGY----------DNAYCDKLCKD-K-KA----------DDGYCVW----------SP-DCYCYGLPEHILKEPTKT-SG--RC
+>TpTx2/1-54 (T. pachyurus - toxin Tpa6; T-a NaTx7.4) Scorpion-(AlphaTx)-type gi|487523606|
+----------------------NNCKIYCPD------------TDVCKDTCKNRA-SA----------PDGKCDG----------W-NSCYCFKVPD---HIPVWGDPGTKPC
+>MoTx9/1-58 (M. occitanus - toxin Boma6d) Scorpion-(AlphaTx)-type gi|41017872|
+----------------------YNCVYHCGR------------DAYCNELCSK-N-GAK------SRTRGGYCHWFG-------PHGDACWCIDLPN---NVPIKV-EG--KC
+>PITx2(2PTA)/1-32 (P. Imperator - Pitx-Ka toxin) Scorpion-(C6)-type gi|253723304|
+--------------------------ISCT------------NPKQCYPHCKK-E-TGY---------PNAKCMN------------RKCKCF--------------------
+>OdTx2/1-33 (O. doriae - a-KTx 3.11; OdK2) Scorpion-(C6)-type gi|226722889|
+-------------------------DVKCR------------GSPQCIQPCKD-A-GM----------RFGKCMN------------GKCHCTP-------------------
+>MeTx28/1-28 (M. eupeus - venom K-toxin) Scorpion-(C6)-type gi|148970463|
+--------------------------VSC---------------EDCPEHCAT-K-D-----------QRAKCDN------------DKCVCEP-------------------
+>LqTx21/1-34 (L. quinquestriatus - prob toxin Lqh 8/6) Scorpion-(SmallTx )-type gi|2500707|
+-------------------------CSPCFTTDQQ-------MTKKCYDCCGG-K-G------------KGKCYG------------PQCIC---------------------

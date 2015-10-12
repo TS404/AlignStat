@@ -8,8 +8,8 @@ percent <- function(x, digits = 1, format = "f", ...) {
   paste0(formatC(100 * x, format = format, digits = digits, ...), "%")
 }
 
-ref.fa <- file.choose()
-aln.fa <- file.choose()
+ref.fa <- "Alignment A.FA"
+aln.fa <- "Alignment B.FA"
 
 ################
 # FASTA import #
@@ -17,6 +17,10 @@ aln.fa <- file.choose()
 
 data.frame(read.fasta(ref.fa,set.attributes=FALSE)) -> ref   # convert to data frame of letters
 data.frame(read.fasta(aln.fa,set.attributes=FALSE)) -> aln   # convert to data frame of letters
+
+devtools::use_data(ref,overwrite =TRUE)
+devtools::use_data(aln,overwrite=TRUE)
+
 
 ###########################################
 # Replacing letters with letter+occurance #
@@ -92,22 +96,28 @@ row.names(results)<-c("ColumnMatch",  # 1
                       "FinalMatch",   # 9
                       "Score")        # 10
 
+library(devtools)
+
+devtools::use_data(ref2,overwrite =TRUE)
+devtools::use_data(aln2,overwrite=TRUE)
+
 # Calculating identity score
+ci = 0
 for(k in 1:dim(ref2)[1]){                         # for each (k) column of the ref2 alignment
   for(i in 1:dim(aln2)[1]){                       # for each (i) column of the aln2 alignment                               
     for(j in 1:dim(ref2)[2]){                     # for each (j) sequence
-      ident[i,j] = identical(ref2[k,j],aln2[i,j]) # perform identity test
+      ident[i,j] = identical(ref2[k,j],aln2[i,j])
+      if ( ident[i,j] ){
+        ci = ci + 1
+        }# perform identity test
       means[i,k] = mean(ident[i,])                # all-against-all column identity (ref2 vs aln2)
     }
   }
   results[1,k] = which.max(means[,k])             # "ColumnMatch" which aln column had best match to each ref column
 }
+cat("CI ",ci)
+devtools::use_data(means,overwrite=TRUE)
 
-
-
-############################
-# Categorising differences # 
-############################
 
 cat = matrix(nrow = dim(ref)[1], # number of ref columns
              ncol = dim(ref)[2]) # number sequences
@@ -144,53 +154,4 @@ results[9,] <- results[4,]/(1-results[5,])             # "FinalMatch"
 results[10,1] <- sum(results[4,])/sum(1-results[5,])   # "Score"
 results[10,1] -> score
 
-
-#########
-# Plots #
-#########
-
-# Match proportion + Cys
-plot (results[9,],
-      type = "l",
-      ylim = c(-0.2, 1),
-      xlab = "Column",
-      ylab = "Identity")
-lines(-results[3,]/5, 
-      type = "h")
-text (x = dim(ref)[1]+5,
-      y = 0.9,
-      label = paste("Av =",percent(score)),
-      pos = 2)
-
-# Category proportions
-plot (results[6,]/(1-results[5,]), col="blue" ,type="l",
-      ylim = c(-0, 1), xlab="Column", ylab="Category")         # Ins
-lines(results[7,]/(1-results[5,]), col="red"  ,type="l")       # Del
-lines(results[8,]/(1-results[5,]), col="green",type="l")       # Sub
-#lines(results[4,]/(1-results[5,]), col="black",type="l",lwd=2) # Match overlayed
-
-# Heatmap
-library("gplots")
-heatmap.2(t(t(means)/results[2,]),                            # gap-scaled data matrix
-          trace        = "none",                              # no trace line
-          key          = "FALSE",                             # no key
-          dendrogram   = "none",                              # no dendrograms
-          Rowv         = "FALSE",                             # no dendrograms
-          Colv         = "FALSE",                             # no dendrograms
-          density.info = "none",                              # no histogram
-          labRow       = 1:dim(aln)[1]*c(rep(NA,9),TRUE),     # label every 10th row
-          labCol       = 1:dim(ref)[1]*c(rep(NA,9),TRUE),     # label every 10th col
-          xlab         = "Reference alignment",               # x axis label    
-          ylab 	       = "Comparison alignment",              # y axis label
-          col          = grey.colors(256, start=1, end=0))    # colours
-
-#########
-
-
-
-
-
-
-
-
-
+devtools::use_data(results,overwrite=TRUE)
