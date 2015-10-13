@@ -41,14 +41,6 @@ test_that("prepare_alignment_matrix() produces correct outputs",{
   
 })
 
-test_that("fast_prepare_alignment_matrix() produces correct outputs",{
-  data(ref)
-  data(ref2)
-  r2 <- fast_prepare_alignment_matrix(ref)
-  expect_equal(ref2,r2)
-  
-})
-
 context("Performance")
 
 test_that("align_alignments() is fast enough",{
