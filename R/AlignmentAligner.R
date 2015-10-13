@@ -58,27 +58,7 @@ align_alignments <- function(ref,aln){
                         "FinalMatch",   # 9
                         "Score")        # 10
 
-  ############################
-  # Categorising differences # 
-  ############################
-
-  cat = matrix(nrow = dim(ref)[1], # number of ref columns
-               ncol = dim(ref)[2]) # number sequences
-
-  # Combining matrices
-  for (x in 1:dim(ref)[1]){
-    for (y in 1:dim(ref)[2]){
-      paste(ref2[x,y],aln2[results[1,x],y])->cat[x,y]
-    }
-  }
-
-  # Categorise mismatches
-  cat2 <- cat
-  gsub(x = cat2, pattern = "([a-z][0-9]+) \\1",       replacement = "M") -> cat2  # Match
-  gsub(x = cat2, pattern = "[-] NA",                  replacement = "G") -> cat2  # Gap
-  gsub(x = cat2, pattern = "[-] ([a-z][0-9]+)",       replacement = "I") -> cat2  # Insertion
-  gsub(x = cat2, pattern = "([a-z][0-9]+) NA",        replacement = "D") -> cat2  # Deletion
-  gsub(x = cat2, pattern = "[a-z][0-9]+ [a-z][0-9]+", replacement = "S") -> cat2  # Substitution
+  cat2 <- res_list$cat
 
   # Write categories to results
   results[4,] <- t(rowMeans(cat2=="M")) # "Match"

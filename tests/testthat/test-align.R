@@ -5,6 +5,7 @@ test_that("rpp_align() produces correct results", {
   data(aln2)
   data(results)
   data(means)
+  data(cat2)
 
   scores <- rcpp_align(ref2,aln2)
 
@@ -13,6 +14,8 @@ test_that("rpp_align() produces correct results", {
   expect_equal(sresults[1,],results[1,])
   smeans = scores$means
   expect_equal(smeans,means)
+  
+  expect_equal(scores$cat,cat2)
 })
 
 

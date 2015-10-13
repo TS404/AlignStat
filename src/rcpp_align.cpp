@@ -68,7 +68,34 @@ List rcpp_align(CharacterMatrix ref,
     results(0,k) = maxi+1;
   }
   
+  CharacterMatrix cat(nrow_ref,ncol_ref);
+
+  // Categorise differences
+  for (int i=0;i<nrow_ref;i++){
+    for(int j=0;j<ncol_ref;j++){
+      String ref_value = ref(i,j);
+      String aln_value = aln(results(0,i)-1,j);
+
+      if ( ref_value == aln_value){
+        cat(i,j) = "M";
+      } else if ( ref_value=="-"){
+        if ( aln_value==NA_STRING){
+          cat(i,j) = "G";
+        } else {
+          cat(i,j) = "I";
+        }
+      } else {
+        if (aln_value==NA_STRING){
+          cat(i,j) = "D";
+        } else {
+          cat(i,j) = "S";
+        }
+      }
+    }
+  }
+  
   List retlist = List::create(Rcpp::Named("results")=results,
-                              Rcpp::Named("means")=means);
+                              Rcpp::Named("means")=means,
+                              Rcpp::Named("cat")=cat);
   return(retlist);
 }
