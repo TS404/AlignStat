@@ -100,22 +100,9 @@ align_alignments <- function(ref,aln){
   list(results=results,means=res_list$means)
 }
 
-
 prepare_alignment_matrix <- function(alnmat){
 
-  rn = matrix(nrow = nrow(alnmat), # number of ref columns
-                   ncol = ncol(alnmat)) # number sequences
-  mat2    = matrix(nrow = nrow(alnmat), # number of ref columns
-                   ncol = ncol(alnmat)) # number sequences
-  
-  # Number ref residues by their occurance
-  for (s in 1:ncol(alnmat)){
-    for (l in 1:nrow(alnmat)){
-      rn[l,s] = sum(alnmat[1:l,s]==alnmat[l,s])
-      paste(alnmat[,s],rn[,s])->mat2[,s]
-    }  
-  }
-  
+  mat2 <- rcpp_prepare_alignment_matrix(as.matrix(alnmat))
   # Remove extra space and de-number gaps
   gsub(x = mat2, pattern = " ",     replacement = "")  -> mat2
   gsub(x = mat2, pattern = "[-].*", replacement = "-") -> mat2
