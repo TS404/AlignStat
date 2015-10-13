@@ -31,3 +31,33 @@ test_that("align_alignments() produces correct results", {
   expect_equal(smeans,means)
 })
 
+
+test_that("prepare_alignment_matrix() produces correct outputs",{
+  data(ref)
+  data(ref2)
+  r2 <- prepare_alignment_matrix(ref)
+  
+  expect_equal(ref2,r2)
+  
+})
+
+test_that("fast_prepare_alignment_matrix() produces correct outputs",{
+  data(ref)
+  data(ref2)
+  r2 <- fast_prepare_alignment_matrix(ref)
+  expect_equal(ref2,r2)
+  
+})
+
+context("Performance")
+
+test_that("align_alignments() is fast enough",{
+  data(ref)
+  data(aln)
+  timing <- system.time(align_alignments(ref,aln))
+  
+  cat("\nAlign alignments took: ",timing)
+  expect_less_than(timing[1],1)
+})
+
+

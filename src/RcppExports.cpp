@@ -5,6 +5,17 @@
 
 using namespace Rcpp;
 
+// rcpp_prepare_alignment_matrix
+CharacterMatrix rcpp_prepare_alignment_matrix(CharacterMatrix ref);
+RcppExport SEXP AlikeAlignmentAligner_rcpp_prepare_alignment_matrix(SEXP refSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< CharacterMatrix >::type ref(refSEXP);
+    __result = Rcpp::wrap(rcpp_prepare_alignment_matrix(ref));
+    return __result;
+END_RCPP
+}
 // rcpp_align
 List rcpp_align(CharacterMatrix ref, CharacterMatrix aln);
 RcppExport SEXP AlikeAlignmentAligner_rcpp_align(SEXP refSEXP, SEXP alnSEXP) {

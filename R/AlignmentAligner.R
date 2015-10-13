@@ -33,8 +33,8 @@ align_alignments <- function(ref,aln){
   ###########################################
   # Replacing letters with letter+occurance #
   ###########################################
-  ref2 <- prepare_alignment_matrix(ref)
-  aln2 <- prepare_alignment_matrix(aln)
+  ref2 <- fast_prepare_alignment_matrix(ref)
+  aln2 <- fast_prepare_alignment_matrix(aln)
 
   # Replacing "-" with NA in the test alignment means
   # that gaps don't count towards column matching score
@@ -112,10 +112,19 @@ prepare_alignment_matrix <- function(alnmat){
   for (s in 1:ncol(alnmat)){
     for (l in 1:nrow(alnmat)){
       rn[l,s] = sum(alnmat[1:l,s]==alnmat[l,s])
-      paste(alnmat[,s],rn[,s])->mat2[,s]
-    }  
+    } 
+    paste(alnmat[,s],rn[,s])->mat2[,s]    
   }
   
+  # Remove extra space and de-number gaps
+  gsub(x = mat2, pattern = " ",     replacement = "")  -> mat2
+  gsub(x = mat2, pattern = "[-].*", replacement = "-") -> mat2
+  mat2
+}
+
+fast_prepare_alignment_matrix <- function(alnmat){
+
+  mat2 <- rcpp_prepare_alignment_matrix(as.matrix(alnmat))
   # Remove extra space and de-number gaps
   gsub(x = mat2, pattern = " ",     replacement = "")  -> mat2
   gsub(x = mat2, pattern = "[-].*", replacement = "-") -> mat2

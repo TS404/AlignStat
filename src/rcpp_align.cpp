@@ -3,6 +3,34 @@
 using namespace Rcpp;
 
 // [[Rcpp::export]]
+CharacterMatrix rcpp_prepare_alignment_matrix(CharacterMatrix ref){
+//   printf("hello");
+//   
+  int nrow = ref.nrow();
+  int ncol = ref.ncol();
+  
+  CharacterMatrix mat2(nrow,ncol);
+  
+  for (int s=0;s<ncol;s++){
+    std::map<String, int> base_counts;
+    for(int l=0;l<nrow;l++){
+      String b = ref(l,s);
+      if ( base_counts.count(b) == 0){
+        base_counts[b]=0;
+      }
+      
+      base_counts[b] +=1;
+      // printf("bc %i",base_counts[b]);
+      b += std::to_string(base_counts[b]);
+      // printf(" %s \n",b.get_cstring());      
+      mat2(l,s) = b;
+    }
+    
+  }
+  return mat2;
+}
+
+// [[Rcpp::export]]
 List rcpp_align(CharacterMatrix ref,
                          CharacterMatrix aln) {
 
