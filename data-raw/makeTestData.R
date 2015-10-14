@@ -137,6 +137,9 @@ gsub(x = cat2, pattern = "[-] ([a-z][0-9]+)",       replacement = "I") -> cat2  
 gsub(x = cat2, pattern = "([a-z][0-9]+) NA",        replacement = "D") -> cat2  # Deletion
 gsub(x = cat2, pattern = "[a-z][0-9]+ [a-z][0-9]+", replacement = "S") -> cat2  # Substitution
 
+devtools::use_data(cat,overwrite=TRUE);
+devtools::use_data(cat2,overwrite=TRUE);
+
 # Write categories to results
 results[4,] <- t(rowMeans(cat2=="M")) # "Match"
 results[5,] <- t(rowMeans(cat2=="G")) # "Gap(con)"
