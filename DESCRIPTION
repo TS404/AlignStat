@@ -11,6 +11,7 @@ Imports: Rcpp (>= 0.11.6),
     gplots,
     ade4,
     seqinr,
-    ggplot2
+    ggplot2,
+    reshape2
 LinkingTo: Rcpp
 Suggests: testthat

@@ -48,12 +48,18 @@ match_summary_plot <- function(results,ref,display=TRUE){
 #' category_proportions_plot(res_list$results)
 category_proportions_plot <- function(results){
 
-  # Category proportions
-  plot (results[6,]/(1-results[5,]), col="blue" ,type="l",
-        ylim = c(-0, 1), xlab="Column", ylab="Category")         # Ins
-  lines(results[7,]/(1-results[5,]), col="red"  ,type="l")       # Del
-  lines(results[8,]/(1-results[5,]), col="green",type="l")       # Sub
-  #lines(results[4,]/(1-results[5,]), col="black",type="l",lwd=2) # Match overlayed
+  plot_data <- data.frame(Insertion=results[6,]/(1-results[5,]),
+                         Deletion=results[7,]/(1-results[5,]),
+                         Substitution=results[8,]/(1-results[5,]),
+                         Column=1:ncol(results))
+  md <- melt(plot_data,id.vars='Column')
+  colnames(md) <- c('Column','Change','Proportion')
+  p <- ggplot(md,aes(x=Column,y=Proportion)) + geom_line(aes(color=Change))
+  
+  if (display){
+    print(p)
+  }
+  p
 }
 
 #' Alignment heatmap
