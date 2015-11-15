@@ -15,7 +15,7 @@ Category proportions plot
 \examples{
 data(ref)
 data(aln)
-results <- align_alignments(ref,aln)
-category_proportions_plot(results)
+res_list <- align_alignments(ref,aln)
+category_proportions_plot(res_list$results)
 }
 

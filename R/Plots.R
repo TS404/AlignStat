@@ -16,20 +16,24 @@ percent <- function(x, digits = 1, format = "f", ...) {
 #' data(ref)
 #' data(aln)
 #' res_list <- align_alignments(ref,aln)
-#' proportion_cys_plot(res_list$results,ref)
-proportion_cys_plot <- function(results,ref){
+#' match_summary_plot(res_list$results,ref)
+match_summary_plot <- function(results,ref,display=TRUE){
 
-  plot (results[9,],
-        type = "l",
-        ylim = c(-0.2, 1),
-        xlab = "Column",
-        ylab = "Identity")
-  lines(-results[3,]/5, 
-        type = "h")
-  text (x = dim(ref)[1]+5,
-        y = 0.9,
-        label = paste("Av =",percent(score)),
-        pos = 2)
+  identity <- results[9,]
+  proportion_cys <- results[3,]/5
+  col = 1:ncol(results)
+  plot_data = data.frame(Identity=identity,PropCys=proportion_cys,Column=col)
+
+  p <- ggplot(plot_data,aes(x=Column)) + geom_line(aes(y=Identity,colour="% Identity")) + geom_line(aes(y=-PropCys,colour="% Cysteines"))
+  p <- p +  theme(legend.title = element_blank())
+
+  score <- results[10,1]
+
+  p <- p + geom_text(x=90,y=0.6,label=paste("Av =",percent(score)))
+  if (display){
+    print(p)
+  }
+  p
 }
 
 #' Category proportions plot
