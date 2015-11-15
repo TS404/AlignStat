@@ -25,10 +25,10 @@
 align_alignments <- function(ref,aln){
 
   if (!is.data.frame(ref)){
-    data.frame(read.fasta(ref,set.attributes=FALSE)) -> ref
+    data.frame(seqinr::read.fasta(ref,set.attributes=FALSE)) -> ref
   } 
   if (!is.data.frame(aln)){
-    data.frame(read.fasta(aln,set.attributes=FALSE)) -> aln
+    data.frame(seqinr::read.fasta(aln,set.attributes=FALSE)) -> aln
   }
   
   if( !valid_alignments(ref,aln) ){

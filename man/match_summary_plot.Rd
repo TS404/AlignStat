@@ -4,12 +4,14 @@
 \alias{match_summary_plot}
 \title{Plot match proportion + Cys}
 \usage{
-match_summary_plot(results, ref)
+match_summary_plot(results, ref, display = TRUE)
 }
 \arguments{
 \item{results}{As produced by align_alignments}
 
 \item{ref}{Reference alignment}
+
+\item{whether}{to display plot}
 }
 \description{
 Plot match proportion + Cys
