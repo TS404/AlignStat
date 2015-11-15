@@ -32,7 +32,7 @@ align_alignments <- function(ref,aln){
   }
   
   if( !valid_alignments(ref,aln) ){
-    stop("both alignments must contain the same sets of sequences")
+    stop("both alignments must contain the same sets of sequences in the same order")
   }
   
   
