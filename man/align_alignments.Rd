@@ -4,7 +4,7 @@
 \alias{align_alignments}
 \title{Score the agreement between two alignments}
 \usage{
-align_alignments(ref.fa, aln.fa)
+align_alignments(ref, aln)
 }
 \arguments{
 \item{ref.fa}{Reference against which to score}
@@ -12,7 +12,7 @@ align_alignments(ref.fa, aln.fa)
 \item{aln.fa}{Alignment to score against reference}
 }
 \value{
-Results matrix with one column per sequence and the following rows
+List containing results and means. Results is a matrix with one column per sequence and the following rows
 \itemize{
  \item ColumnMatch
  \item NonGap
@@ -32,6 +32,6 @@ Score the agreement between two alignments
 \examples{
 data(ref)
 data(aln)
-results <- align_alignments(ref,aln)
+res_list <- align_alignments(ref,aln)
 }
 

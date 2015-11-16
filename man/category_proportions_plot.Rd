@@ -4,10 +4,12 @@
 \alias{category_proportions_plot}
 \title{Category proportions plot}
 \usage{
-category_proportions_plot(results)
+category_proportions_plot(results, display = TRUE)
 }
 \arguments{
 \item{results}{As produced by align_alignments}
+
+\item{whether}{to display plot}
 }
 \description{
 Category proportions plot
@@ -15,7 +17,7 @@ Category proportions plot
 \examples{
 data(ref)
 data(aln)
-results <- align_alignments(ref,aln)
-category_proportions_plot(results)
+res_list <- align_alignments(ref,aln)
+category_proportions_plot(res_list$results)
 }
 

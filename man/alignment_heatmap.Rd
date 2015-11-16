@@ -4,7 +4,7 @@
 \alias{alignment_heatmap}
 \title{Alignment heatmap}
 \usage{
-alignment_heatmap(results, aln, ref)
+alignment_heatmap(results, means, aln, ref, display = TRUE)
 }
 \arguments{
 \item{results}{As produced by align_alignments}
@@ -12,6 +12,8 @@ alignment_heatmap(results, aln, ref)
 \item{aln}{Alignment to align to ref}
 
 \item{ref}{Reference alignment}
+
+\item{whether}{to display plot}
 }
 \description{
 Alignment heatmap
@@ -19,7 +21,7 @@ Alignment heatmap
 \examples{
 data(ref)
 data(aln)
-results <- align_alignments(ref,aln)
-alignment_heatmap(results)
+res_list <- align_alignments(ref,aln)
+alignment_heatmap(res_list$results,res_list$means,aln,ref)
 }
 

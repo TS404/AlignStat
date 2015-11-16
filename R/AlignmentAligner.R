@@ -25,11 +25,17 @@
 align_alignments <- function(ref,aln){
 
   if (!is.data.frame(ref)){
-    data.frame(read.fasta(ref,set.attributes=FALSE)) -> ref
+    data.frame(seqinr::read.fasta(ref,set.attributes=FALSE)) -> ref
   } 
   if (!is.data.frame(aln)){
-    data.frame(read.fasta(aln,set.attributes=FALSE)) -> aln
+    data.frame(seqinr::read.fasta(aln,set.attributes=FALSE)) -> aln
   }
+  
+  if( !valid_alignments(ref,aln) ){
+    stop("both alignments must contain the same sets of sequences in the same order")
+  }
+  
+  
   ###########################################
   # Replacing letters with letter+occurance #
   ###########################################
@@ -88,3 +94,17 @@ prepare_alignment_matrix <- function(alnmat){
   gsub(x = mat2, pattern = "[-].*", replacement = "-") -> mat2
   mat2
 }
+
+
+valid_alignments <- function(ref,aln){
+  checks = sapply(1:ncol(ref),function(i){
+    r=as.character(ref[,i])
+    a=as.character(aln[,i])
+    dg_ref = r[r!="-"]
+    dg_aln = a[a!="-"]
+    all(dg_aln==dg_ref)
+  })
+  all(checks)
+}
+
+
