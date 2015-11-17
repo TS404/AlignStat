@@ -71,6 +71,9 @@ res_list <- align_alignments(ref,aln)
 ---------------------------------------------------------------------------------------------
 alignment_heatmap
 =================
+Description
+-----------
+Comparison of alternative multiple sequence alignments
 
 Description
 -----------
@@ -107,6 +110,8 @@ match_summary_plot
 
 Description
 -----------
+A line plot summary of column similarity beween the two multiple sequence alignments 
+
 ###Usage
 ```R
 match_summary_plot (results, ref, display=TRUE, cys=FALSE)
@@ -136,6 +141,8 @@ category_proportions_plot
 
 Description
 -----------
+A line plot of the different causes of column dissimilarity beween the two multiple sequence alignments 
+
 ###Usage
 ```R
 category_proportions_plot (results,display=TRUE)
