@@ -9,7 +9,7 @@ Alike Aligmnent Aligner
 
 Package title
 -------------
-Comparison of alternative alignments of the same sequences to one another
+Comparison of alternative multiple sequence alignments to one another
 
 Description
 -----------
