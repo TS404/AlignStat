@@ -85,12 +85,8 @@ Means      A matrix whose [i,k]th entry is the final match score between the ith
            for further analysis. Used to generate alignment heatmap
 ```
 
-
-
 ###Details
-The `align_alignments` function first checks that the MSAs are alternative alignemnts of the same sequences. The function labels each character in the alignment with its occurence number in the sequence (e.g. to distinguish between the first and second cysteines of a sequence). It then compares the two MSAs to determine which columns are the closest matches between the ref and aln MSAs. Each pairwise column comparison is stored as `something`
-
-Each column is scores
+The `align_alignments` function first checks that the MSAs are alternative alignemnts of the same sequences. The function labels each character in the alignment with its occurence number in the sequence (e.g. to distinguish between the first and second cysteines of a sequence). It then compares the two MSAs to determine which columns are the closest matches between the ref and aln MSAs. Each pairwise column comparison is stored as the `$means` value of the output. From this matrix, the comparison alignemtn column with the highest final match to each reference alignment column is used to calculate further statistics for the `$results` value of the output.
 
 ###Example
 ```R
