@@ -1,6 +1,10 @@
+#include <sstream>
+
+#define SSTR( x ) dynamic_cast< std::ostringstream & >( ( std::ostringstream() << std::dec << x ) ).str()
 
 #include <Rcpp.h>
 using namespace Rcpp;
+
 
 // [[Rcpp::export]]
 CharacterMatrix rcpp_prepare_alignment_matrix(CharacterMatrix ref){
@@ -21,7 +25,7 @@ CharacterMatrix rcpp_prepare_alignment_matrix(CharacterMatrix ref){
       
       base_counts[b] +=1;
       // printf("bc %i",base_counts[b]);
-      b += std::to_string(base_counts[b]);
+      b += SSTR( base_counts[b] );
       // printf(" %s \n",b.get_cstring());      
       mat2(l,s) = b;
     }
