@@ -29,7 +29,7 @@ Installation
 ------------
 ```R
 install.packages("devtools")
-devtools::install_github("iracooke/AlikeAlignmentAligner")
+devtools::install_github("TS404/AlikeAlignmentAligner")
 ```
 
 
