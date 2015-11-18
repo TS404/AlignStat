@@ -82,8 +82,8 @@ means      A matrix whose [i,k]th entry is the final match score between the ith
            alignment (Match/Nongap). Used to determine which columns are most similar
            for further analysis. Used to generate alignment heatmap
 
-cat        A matrix whose [i,k]th entry is the match category of the ith sequence's
-           kth residue for the reference alignment versus the comparison alignment
+cat        A matrix whose [i,k]th entry is the match category kth residue of the
+           ith sequence for the reference alignment versus the comparison alignment
            (M=match, G=conserved gap, I=insertion, D=deletion, S=substitution)
 
 reflen    The number of columns in the reference alignment
