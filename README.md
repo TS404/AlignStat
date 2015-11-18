@@ -30,6 +30,9 @@ Installation
 ```R
 install.packages("devtools")
 devtools::install_github("TS404/AlikeAlignmentAligner")
+library("AlikeAlignmentAligner")
+library("ggplot2")
+library("seqinr")
 ```
 
 
