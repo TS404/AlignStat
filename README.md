@@ -129,7 +129,7 @@ The `plot_alignment_heatmap` displays the similarity between each pairwise colum
 
 ###Example
 ```R
-plot_alignment_heatmap (PAC,aln,ref)
+plot_alignment_heatmap (PAC,ref,aln)
 ```
 
 
@@ -159,7 +159,7 @@ This function generates a plot that summarises the agreement between the two mul
 
 ###Example
 ```R
-plot_match_summary (PAC,ref,cys=TRUE)
+plot_match_summary (PAC,cys=TRUE)
 ```
 
 
@@ -198,10 +198,13 @@ Full example workflow
 =====================
 
 ```R
+# Load example data
+data(ref)
+data(aln)
 # Alignment calculation
 PAC <- compare_alignments (ref, aln)
 # Results visualisation
-plot_alignment_heatmap    (PAC,aln,ref)
-plot_match_summary        (PAC,cys=TRUE)
-plot_category_proportions (PAC,stack=TRUE)
+plot_alignment_heatmap    (PAC, ref, aln)
+plot_match_summary        (PAC, cys=TRUE)
+plot_category_proportions (PAC, stack=TRUE)
 ```
