@@ -16,8 +16,8 @@ percent <- function(x, digits = 1, format = "f", ...) {
 #' @examples
 #' data(ref)
 #' data(aln)
-#' res_list <- compare_alignments(ref,aln)
-#' plot_match_summary(res_list$results,ref)
+#' PAC <- compare_alignments(ref,aln)
+#' plot_match_summary(PAC)
 plot_match_summary <- function(x,cys=FALSE,display=TRUE){
   
   identity       <- x$results[9,]
@@ -51,8 +51,8 @@ plot_match_summary <- function(x,cys=FALSE,display=TRUE){
 #' @examples
 #' data(ref)
 #' data(aln)
-#' res_list <- compare_alignments(ref,aln)
-#' plot_category_proportions(res_list$results)
+#' PAC <- compare_alignments(ref,aln)
+#' plot_category_proportions(PAC)
 plot_category_proportions <- function(x,stack=FALSE,display=TRUE){
   
   plot_data <- data.frame(Insertion=x$results[6,]/(1-x$results[5,]),
@@ -77,17 +77,15 @@ plot_category_proportions <- function(x,stack=FALSE,display=TRUE){
 #' Alignment heatmap
 #'
 #' @param results As produced by compare_alignments
-#' @param aln Alignment to align to ref
-#' @param ref Reference alignment
 #' @param whether to display plot
 #' 
 #' @export
 #' @examples
 #' data(ref)
 #' data(aln)
-#' res_list <- compare_alignments(ref,aln)
-#' plot_alignment_heatmap(res_list$results,res_list$means,aln,ref)
-plot_alignment_heatmap <- function(x,aln,ref,display=TRUE){
+#' PAC <- compare_alignments(ref,aln)
+#' plot_alignment_heatmap(PAC)
+plot_alignment_heatmap <- function(x,display=TRUE){
   
   hm_data <- t(t(x$means)/x$results[2,])
   md <- reshape2::melt(hm_data)
