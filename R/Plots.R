@@ -40,8 +40,7 @@ match_summary_plot <- function(results,cys=FALSE,display=TRUE){
   }
   p
 }
-  p
-}
+
 
 #' Category proportions plot
 #'
