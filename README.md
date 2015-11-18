@@ -76,21 +76,22 @@ results    A matrix with the following comparison statistics for each ith column
                  but a non-homologous residue in the comparison alignment
    Finalmatch    The proportion of characters that match a a proportion of those
                  that are not conserved gaps (Match/Nongap)
-   Score         The average Finalmatch score for all columns of the alignment 
 
 means      A matrix whose [i,k]th entry is the final match score between the ith
            column of the reference alignment and the kth column of the comparison
            alignment (Match/Nongap). Used to determine which columns are most similar
            for further analysis. Used to generate alignment heatmap
 
-cat        A matrix whose [i,k]th entry is the match category of the ith sequence's
-           kth residue for the reference alignment versus the comparison alignment
+cat        A matrix whose [i,k]th entry is the match category kth residue of the
+           ith sequence for the reference alignment versus the comparison alignment
            (M=match, G=conserved gap, I=insertion, D=deletion, S=substitution)
 
-reflen    number of columns in the reference alignment
-alnlen    number of columns in the comparison alignment
-refcon    consensus sequence of the reference alignment
-alncon    consensus sequence of the comparison alignment
+reflen    The number of columns in the reference alignment
+alnlen    The number of columns in the comparison alignment
+refcon    Consensus sequence of the reference alignment
+alncon    Consensus sequence of the comparison alignment
+
+score     The average Finalmatch score for all columns of the alignment
 ```
 
 ###Details
