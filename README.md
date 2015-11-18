@@ -202,9 +202,9 @@ Full example workflow
 
 ```R
 # Alignment calculation
-compare_alignments        (ref, aln)
+res_list < -compare_alignments (ref, aln)
 # Results visualisation
-plot_alignment_heatmap    (res_list$results,res_list$means,aln,ref)
-plot_match_summary        (res_list$results,cys=TRUE)
-plot_category_proportions (res_list$results,stacked=TRUE)
+plot_alignment_heatmap         (res_list$results,res_list$means,aln,ref)
+plot_match_summary             (res_list$results,cys=TRUE)
+plot_category_proportions      (res_list$results,stacked=TRUE)
 ```
