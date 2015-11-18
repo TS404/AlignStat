@@ -61,8 +61,7 @@ compare_alignments <- function(ref,aln){
                         "Insertion",    # 6
                         "Deletion",     # 7
                         "Substitution", # 8
-                        "FinalMatch",   # 9
-                        "Score")        # 10
+                        "FinalMatch")   # 9
   
   cat2 <- res_list$cat
   
@@ -79,10 +78,8 @@ compare_alignments <- function(ref,aln){
   # Correct Match scores to take gappiness into account
   results[9,] <- results[4,]/(1-results[5,])             # "FinalMatch"
   
-  # Final mean!!!!!
-  results[10,]  <- rep(NA,ncol(results))
-  results[10,1] <- sum(results[4,])/sum(1-results[5,])   # "Score"
-  # results[10,1] -> score
+  # Final mean score
+  score <- sum(results[4,])/sum(1-results[5,])   # "Score"
   
   # Count alignment columns
   reflen <- nrow(ref)
@@ -99,7 +96,8 @@ compare_alignments <- function(ref,aln){
        reflen  = reflen,
        alnlen  = alnlen,
        refcon  = refcon,
-       alncon  = alncon)
+       alncon  = alncon,
+       score   = score)
 }
 
 
