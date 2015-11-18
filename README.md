@@ -60,29 +60,32 @@ An object of class pairwise alignment comparison ('PAC') providing the optimal a
 
 The details of the output components are as follows:
 ```R
-Results        A matrix with the following comparison statistics for each ith column
-               of the reference alignment compared to its best match in the comparison
-               alignemnt:
+results    A matrix with the following comparison statistics for each ith column of the
+           reference alignment compared to its best match in the comparison alignemnt:
 
    Columnmatch   The column of the comparison alignment with the highest final match score
    Nongap        The proportion of characters that are not conserved gaps (all-Gapcon)
    Cys           The proportion of cysteines (relevant for cystieine rich proteins)
    Match         The proportion of characters that are identical between alignments
    Gapcon        The proportion of characters that are conserved gaps
-   Insertion     The proportion of characters that are a gap in the reference, but
-                 are a residue in the comparison alignment
-   Deletion      The proportion of characters that are a residue in the reference,
-                 but a gap in the comparison alignment
+   Insertion     The proportion of characters that are a gap in the reference, but are a
+     residue in the comparison alignment
+   Deletion      The proportion of characters that are a residue in the reference, but a
+                 gap in the comparison alignment
    Substitution  The proportion of characters that are one residue in the reference,
                  but but a non-homologous residue in the comparison alignment
    Finalmatch    The proportion of characters that match a a proportion of those
                  that are not conserved gaps (Match/Nongap)
    Score         The average Finalmatch score for all columns of the alignment 
 
-Means      A matrix whose [i,k]th entry is the final match score between the ith
+means      A matrix whose [i,k]th entry is the final match score between the ith
            column of the reference alignment and the kth column of the comparison
            alignment (Match/Nongap). Used to determine which columns are most similar
            for further analysis. Used to generate alignment heatmap
+
+cat        A matrix whose [i,k]th entry is the category for the of the ith sequence's kth
+           residuein the reference alignment vesus the comkparison alignment (M=match,
+           G=conserved gap, I=insterion, D=deletion, S=substitution) 
 ```
 
 ###Details
