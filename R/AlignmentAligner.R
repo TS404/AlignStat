@@ -23,7 +23,7 @@
 #' res_list <- compare_alignments(ref,aln)
 #'
 compare_alignments <- function(ref,aln){
-
+  
   if (!is.data.frame(ref)){
     data.frame(seqinr::read.fasta(ref,set.attributes=FALSE)) -> ref
   } 
@@ -41,16 +41,16 @@ compare_alignments <- function(ref,aln){
   ###########################################
   ref2 <- prepare_alignment_matrix(ref)
   aln2 <- prepare_alignment_matrix(aln)
-
+  
   # Replacing "-" with NA in the test alignment means
   # that gaps don't count towards column matching score
   aln[aln=="-"]  <-NA
   aln2[aln2=="-"]<-NA
-
+  
   ##################################
   # Alignment identity calculation #
   ##################################
-
+  
   res_list = rcpp_align(ref2,aln2)
   results = res_list$results
   row.names(results)<-c("ColumnMatch",  # 1
@@ -63,9 +63,9 @@ compare_alignments <- function(ref,aln){
                         "Substitution", # 8
                         "FinalMatch",   # 9
                         "Score")        # 10
-
+  
   cat2 <- res_list$cat
-
+  
   # Write categories to results
   results[4,] <- t(rowMeans(cat2=="M")) # "Match"
   results[5,] <- t(rowMeans(cat2=="G")) # "Gap(con)"
@@ -78,17 +78,28 @@ compare_alignments <- function(ref,aln){
   results[3,] <- (t(rowMeans(ref=="c")))                 # "Cys"
   # Correct Match scores to take gappiness into account
   results[9,] <- results[4,]/(1-results[5,])             # "FinalMatch"
-
+  
   # Final mean!!!!!
-  results[10,] <- rep(NA,ncol(results))
+  results[10,]  <- rep(NA,ncol(results))
   results[10,1] <- sum(results[4,])/sum(1-results[5,])   # "Score"
   # results[10,1] -> score
-  list(results=results,means=res_list$means)
+  
+  # Count alignment columns
+  refcols <- nrow(ref)
+  alncols <- nrow(aln)
+  # Create final object
+  list(results = results,
+       means   = res_list$means,
+       cat     = cat,
+       refcols = refcols,
+       alncols = alncols,
+       refcon  = refcon,
+       alncon  = alncon)
 }
 
 
 prepare_alignment_matrix <- function(alnmat){
-
+  
   mat2 <- rcpp_prepare_alignment_matrix(as.matrix(alnmat))
   # Remove extra space and de-number gaps
   gsub(x = mat2, pattern = " ",     replacement = "")  -> mat2
@@ -107,5 +118,3 @@ valid_alignments <- function(ref,aln){
   })
   all(checks)
 }
-
-
