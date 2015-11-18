@@ -32,7 +32,7 @@ plot_match_summary <- function(x,cys=FALSE,display=TRUE){
   }
   p <- p + ggplot2::theme(legend.title = element_blank())
   
-  score <- x$results[10,1]
+  score <- x$score
   p <- p + ggplot2::geom_text(x=90,y=0.6,label=paste("Av =",percent(score)))
   
   if (display){
