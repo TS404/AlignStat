@@ -52,7 +52,7 @@ compare_alignments <- function(ref,aln){
   ##################################
   
   res_list = rcpp_align(ref2,aln2)
-  results = res_list$results
+  results  = res_list$results
   row.names(results)<-c("ColumnMatch",  # 1
                         "NonGap",       # 2
                         "Cys",          # 3
@@ -85,8 +85,8 @@ compare_alignments <- function(ref,aln){
   # results[10,1] -> score
   
   # Count alignment columns
-  refcols <- nrow(ref)
-  alncols <- nrow(aln)
+  reflen <- nrow(ref)
+  alnlen <- nrow(aln)
   
   # Alignment consensus sequences
   refcon <- seqinr::consensus(t(ref))
@@ -96,8 +96,8 @@ compare_alignments <- function(ref,aln){
   list(results = results,
        means   = res_list$means,
        cat     = cat,
-       refcols = refcols,
-       alncols = alncols,
+       reflen  = reflen,
+       alnlen  = alnlen,
        refcon  = refcon,
        alncon  = alncon)
 }
@@ -123,3 +123,5 @@ valid_alignments <- function(ref,aln){
   })
   all(checks)
 }
+
+
