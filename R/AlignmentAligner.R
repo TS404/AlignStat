@@ -20,9 +20,9 @@
 #' @examples
 #' data(ref)
 #' data(aln)
-#' res_list <- align_alignments(ref,aln)
+#' res_list <- compare_alignments(ref,aln)
 #'
-align_alignments <- function(ref,aln){
+compare_alignments <- function(ref,aln){
 
   if (!is.data.frame(ref)){
     data.frame(seqinr::read.fasta(ref,set.attributes=FALSE)) -> ref
@@ -85,6 +85,7 @@ align_alignments <- function(ref,aln){
   # results[10,1] -> score
   list(results=results,means=res_list$means)
 }
+
 
 prepare_alignment_matrix <- function(alnmat){
 
