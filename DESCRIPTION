@@ -1,11 +1,11 @@
 Package: AlikeAlignmentAligner
 Type: Package
-Title: What the package does (short line)
+Title: Comparison of alternative multiple sequence alignments
 Version: 1.0
 Date: 2015-10-09
-Author: Your Name
-Maintainer: Your Name <your@email.com>
-Description: More about what it does (maybe more than one line)
+Author: Thomas Shafee, Ira Cooke
+Maintainer: Your Name <thomas.shafee@gmail.com>
+Description: This package contains functions that compare two alternative multiple sequence alignments (MSAs) to determine whether they align homologous residues in the same columns as one another. It then classifies similarities and differences into conserved gaps, conserved sequence, insertion, deletion or substitution. Summarising these categories for each column yeilds information on which columns are agreed upon my both MSAs, and which differ. Several plotting functions easily visualise the comparison data for analysis.
 License: GPL (>= 2)
 Imports: Rcpp (>= 0.11.6),
     gplots,
