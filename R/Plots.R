@@ -48,15 +48,20 @@ match_summary_plot <- function(results,ref,display=TRUE){
 #' data(aln)
 #' res_list <- align_alignments(ref,aln)
 #' category_proportions_plot(res_list$results)
-category_proportions_plot <- function(results,display=TRUE){
+category_proportions_plot <- function(results,display=TRUE,stack=FALSE){
 
   plot_data <- data.frame(Insertion=results[6,]/(1-results[5,]),
-                         Deletion=results[7,]/(1-results[5,]),
-                         Substitution=results[8,]/(1-results[5,]),
-                         Column=1:ncol(results))
+                          Deletion=results[7,]/(1-results[5,]),
+                          Substitution=results[8,]/(1-results[5,]),
+                          Column=1:ncol(results))
   md <- reshape2::melt(plot_data,id.vars='Column')
   colnames(md) <- c('Column','Change','Proportion')
-  p <- ggplot2::ggplot(md,aes(x=Column,y=Proportion)) + ggplot2::geom_line(aes(color=Change))
+  if (stack) {
+    p <- ggplot2::ggplot(md,aes(x=Column,y=Proportion)) + ggplot2::geom_area(aes(fill=Change),position = 'stack')+ geom_line(aes(data=Change, ymax=1),position = 'stack')
+  } 
+  else {
+    p <- ggplot2::ggplot(md,aes(x=Column,y=Proportion)) + ggplot2::geom_line(aes(color=Change))
+  }
   
   if (display){
     print(p)
