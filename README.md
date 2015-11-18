@@ -19,10 +19,10 @@ This package contains functions that compare two alternative multiple sequence a
 Contains functions
 ------------------
 ```R
-compare_alignments              Pairwise alignment of alignments
+compare_alignments            Pairwise alignment of alignments
 plot_match_summary            Summary plot of alignment similarities
 plot_category_proportions     Detailed plot of alignment differences
-plot_alignment_heatmap             Heatmap of similarities between alignment columns
+plot_alignment_heatmap        Heatmap of similarities between alignment columns
 ```
 
 Installation
