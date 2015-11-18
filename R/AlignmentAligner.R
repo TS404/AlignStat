@@ -87,6 +87,11 @@ compare_alignments <- function(ref,aln){
   # Count alignment columns
   refcols <- nrow(ref)
   alncols <- nrow(aln)
+  
+  # Alignment consensus sequences
+  refcon <- seqinr::consensus(t(ref))
+  alncon <- seqinr::consensus(t(ref))
+  
   # Create final object
   list(results = results,
        means   = res_list$means,
