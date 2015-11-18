@@ -18,22 +18,28 @@ percent <- function(x, digits = 1, format = "f", ...) {
 #' data(aln)
 #' res_list <- align_alignments(ref,aln)
 #' match_summary_plot(res_list$results,ref)
-match_summary_plot <- function(results,ref,display=TRUE){
-
-  identity <- results[9,]
-  proportion_cys <- results[3,]/5
+match_summary_plot <- function(results,cys=FALSE,display=TRUE){
+  
+  identity       <- results[9,]
+  proportion_cys <- (results[3,]/5)-0.2
   col = 1:ncol(results)
   plot_data = data.frame(Identity=identity,PropCys=proportion_cys,Column=col)
-
-  p <- ggplot2::ggplot(plot_data,aes(x=Column)) + ggplot2::geom_line(aes(y=Identity,colour="% Identity")) + ggplot2::geom_line(aes(y=-PropCys,colour="% Cysteines"))
-  p <- p +  ggplot2::theme(legend.title = element_blank())
-
+  
+  p <- ggplot2::ggplot(plot_data,aes(x=Column)) + ggplot2::geom_line(aes(y=Identity,colour="% Identity"))
+  if(cys) {
+    p <- p + ggplot2::geom_line(aes(y=PropCys,colour="% Cysteines"))
+    p <- p + ggplot2::geom_line(aes(y=0))
+  }
+  p <- p + ggplot2::theme(legend.title = element_blank())
+  
   score <- results[10,1]
-
   p <- p + ggplot2::geom_text(x=90,y=0.6,label=paste("Av =",percent(score)))
+ 
   if (display){
     print(p)
   }
+  p
+}
   p
 }
 
