@@ -9,11 +9,11 @@ Alike Aligmnent Aligner
 
 Package title
 -------------
-Comparison of alternative multiple sequence alignments to one another
+Comparison of alternative multiple sequence alignments
 
 Description
 -----------
-This package contains functions that compare two alternative multipe sequence alignemtns (MSAs) to determine whether they align homologous residues in the same columns as one another. It then classifies similarities and differences into conserved gaps, conserved sequence, insertion, deletion or substitution. Summarising these categories for each column yeilds information on which columns are agreed upon my both MSAs, and which differ. Several plotting functions easily visualise the comparison data for analysis.
+This package contains functions that compare two alternative multiple sequence alignments (MSAs) to determine whether they align homologous residues in the same columns as one another. It then classifies similarities and differences into conserved gaps, conserved sequence, insertion, deletion or substitution. Summarising these categories for each column yeilds information on which columns are agreed upon my both MSAs, and which differ. Several plotting functions easily visualise the comparison data for analysis.
 
 
 Contains functions
