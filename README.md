@@ -56,7 +56,7 @@ aln   The MSA to compaer (in fasta format)
 ```
 
 ###Value
-An object of class pairwise alignment comparison ('PAC') providing the optimal alignment of alignments and comparison of the differences between them.
+Generates an object of class pairwise alignment comparison ('PAC'), providing the optimal alignment of alignments and comparison of the differences between them.
 
 The details of the output components are as follows:
 ```R
@@ -69,7 +69,7 @@ results    A matrix with the following comparison statistics for each ith column
    Match         The proportion of characters that are identical between alignments
    Gapcon        The proportion of characters that are conserved gaps
    Insertion     The proportion of characters that are a gap in the reference, but are a
-     residue in the comparison alignment
+                 residue in the comparison alignment
    Deletion      The proportion of characters that are a residue in the reference, but a
                  gap in the comparison alignment
    Substitution  The proportion of characters that are one residue in the reference,
