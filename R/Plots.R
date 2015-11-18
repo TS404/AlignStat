@@ -18,11 +18,11 @@ percent <- function(x, digits = 1, format = "f", ...) {
 #' data(aln)
 #' res_list <- compare_alignments(ref,aln)
 #' plot_match_summary(res_list$results,ref)
-plot_match_summary <- function(results,cys=FALSE,display=TRUE){
+plot_match_summary <- function(x,cys=FALSE,display=TRUE){
   
-  identity       <- results[9,]
-  proportion_cys <- (results[3,]/5)-0.2
-  col = 1:ncol(results)
+  identity       <- x$results[9,]
+  proportion_cys <- (x$results[3,]/5)-0.2
+  col = 1:ncol(x$results)
   plot_data = data.frame(Identity=identity,PropCys=proportion_cys,Column=col)
   
   p <- ggplot2::ggplot(plot_data,aes(x=Column)) + ggplot2::geom_line(aes(y=Identity,colour="% Identity"))
@@ -32,9 +32,9 @@ plot_match_summary <- function(results,cys=FALSE,display=TRUE){
   }
   p <- p + ggplot2::theme(legend.title = element_blank())
   
-  score <- results[10,1]
+  score <- x$results[10,1]
   p <- p + ggplot2::geom_text(x=90,y=0.6,label=paste("Av =",percent(score)))
- 
+  
   if (display){
     print(p)
   }
@@ -53,12 +53,12 @@ plot_match_summary <- function(results,cys=FALSE,display=TRUE){
 #' data(aln)
 #' res_list <- compare_alignments(ref,aln)
 #' plot_category_proportions(res_list$results)
-plot_category_proportions <- function(results,display=TRUE,stack=FALSE){
-
-  plot_data <- data.frame(Insertion=results[6,]/(1-results[5,]),
-                          Deletion=results[7,]/(1-results[5,]),
-                          Substitution=results[8,]/(1-results[5,]),
-                          Column=1:ncol(results))
+plot_category_proportions <- function(x,stack=FALSE,display=TRUE){
+  
+  plot_data <- data.frame(Insertion=x$results[6,]/(1-x$results[5,]),
+                          Deletion=x$results[7,]/(1-x$results[5,]),
+                          Substitution=x$results[8,]/(1-x$results[5,]),
+                          Column=1:ncol(x$results))
   md <- reshape2::melt(plot_data,id.vars='Column')
   colnames(md) <- c('Column','Change','Proportion')
   if (stack) {
@@ -87,9 +87,9 @@ plot_category_proportions <- function(results,display=TRUE,stack=FALSE){
 #' data(aln)
 #' res_list <- compare_alignments(ref,aln)
 #' plot_alignment_heatmap(res_list$results,res_list$means,aln,ref)
-plot_alignment_heatmap <- function(results,means,aln,ref,display=TRUE){
+plot_alignment_heatmap <- function(x,aln,ref,display=TRUE){
   
-  hm_data <- t(t(means)/results[2,])
+  hm_data <- t(t(x$means)/x$results[2,])
   md <- reshape2::melt(hm_data)
   colnames(md) <- c('Reference','Comparison','value')
   p <- ggplot2::ggplot(md) + ggplot2::geom_tile(aes(x=Reference,y=Comparison,fill=value)) + ggplot2::scale_fill_gradient("Agreement",low="white",high="black")
