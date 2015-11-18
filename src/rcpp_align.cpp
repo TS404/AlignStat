@@ -42,7 +42,7 @@ List rcpp_align(CharacterMatrix ref,
   int nrow_aln = aln.nrow();
   int ncol_ref = ref.ncol();
 
-  NumericMatrix results(10,nrow_ref);    
+  NumericMatrix results(9,nrow_ref);    
   NumericMatrix means(nrow_aln,nrow_ref);
     
   int ci = 0;
