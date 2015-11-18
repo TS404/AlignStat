@@ -1,4 +1,4 @@
-Alike Aligmnent Aligner
+Alike Alignment Aligner
 =======================
 
 >Thomas M A Shafee, Ira R Cooke, Marilyn A Anderson
@@ -13,7 +13,7 @@ Comparison of alternative multiple sequence alignments
 
 Description
 -----------
-This package contains functions that compare two alternative multiple sequence alignments (MSAs) to determine whether they align homologous residues in the same columns as one another. It then classifies similarities and differences into conserved gaps, conserved sequence, insertion, deletion or substitution. Summarising these categories for each column yeilds information on which columns are agreed upon my both MSAs, and which differ. Several plotting functions easily visualise the comparison data for analysis.
+This package contains functions that compare two alternative multiple sequence alignments (MSAs) to determine whether they align homologous residues in the same columns as one another. It then classifies similarities and differences into conserved gaps, conserved sequence, insertion, deletion or substitution. Summarising these categories for each column yields information on which columns are agreed upon my both MSAs, and which differ. Several plotting functions easily visualise the comparison data for analysis.
 
 
 Contains functions
@@ -52,7 +52,7 @@ compare_alignments (ref, aln)
 ###Arguments
 ```R
 ref   The reference MSA (in fasta format)
-aln   The MSA to compaer (in fasta format)
+aln   The MSA to compare (in fasta format)
 ```
 
 ###Value
@@ -61,11 +61,11 @@ Generates an object of class "pairwise alignment comparison" (PAC), providing th
 The details of the output components are as follows:
 ```R
 results    A matrix with the following comparison statistics for each ith column of the
-           reference alignment compared to its best match in the comparison alignemnt:
+           reference alignment compared to its best match in the comparison alignment:
 
    Columnmatch   The column of the comparison alignment with the highest final match score
    Nongap        The proportion of characters that are not conserved gaps (all-Gapcon)
-   Cys           The proportion of cysteines (relevant for cystieine rich proteins)
+   Cys           The proportion of cysteines (relevant for cysteine rich proteins)
    Match         The proportion of characters that are identical between alignments
    Gapcon        The proportion of characters that are conserved gaps
    Insertion     The proportion of characters that are a gap in the reference, but are a
@@ -73,7 +73,7 @@ results    A matrix with the following comparison statistics for each ith column
    Deletion      The proportion of characters that are a residue in the reference, but a
                  gap in the comparison alignment
    Substitution  The proportion of characters that are one residue in the reference,
-                 but but a non-homologous residue in the comparison alignment
+                 but a non-homologous residue in the comparison alignment
    Finalmatch    The proportion of characters that match a a proportion of those
                  that are not conserved gaps (Match/Nongap)
    Score         The average Finalmatch score for all columns of the alignment 
@@ -84,12 +84,12 @@ means      A matrix whose [i,k]th entry is the final match score between the ith
            for further analysis. Used to generate alignment heatmap
 
 cat        A matrix whose [i,k]th entry is the match category of the ith sequence's
-           kth residue for the reference alignment vesus the comparison alignment
-           (M=match, G=conserved gap, I=insterion, D=deletion, S=substitution) 
+           kth residue for the reference alignment versus the comparison alignment
+           (M=match, G=conserved gap, I=insertion, D=deletion, S=substitution) 
 ```
 
 ###Details
-The `compare_alignments` function first checks that the MSAs are alternative alignemnts of the same sequences. The function labels each character in the alignment with its occurence number in the sequence (e.g. to distinguish between the first and second cysteines of a sequence). It then compares the two MSAs to determine which columns are the closest matches between the ref and aln MSAs. Each pairwise column comparison is stored as the `$means` value of the output. From this matrix, the comparison alignemtn column with the highest final match to each reference alignment column is used to calculate further statistics for the `$results` value of the output.
+The `compare_alignments` function first checks that the MSAs are alternative alignments of the same sequences. The function labels each character in the alignment with its occurrence number in the sequence (e.g. to distinguish between the first and second cysteines of a sequence). It then compares the two MSAs to determine which columns are the closest matches between the ref and aln MSAs. Each pairwise column comparison is stored as the `$means` value of the output. From this matrix, the comparison alignment column with the highest final match to each reference alignment column is used to calculate further statistics for the `$results` value of the output.
 
 ###Example
 ```R
@@ -139,7 +139,7 @@ plot_match_summary
 
 Description
 -----------
-A line plot summary of column similarity beween the two multiple sequence alignments 
+A line plot summary of column similarity between the two multiple sequence alignments 
 
 ###Usage
 ```R
@@ -155,7 +155,7 @@ display    display this plot (default = TRUE)
 ```
 
 ###Details
-This function generates a plot that sumarises the agreement between the two multiple sequence alignments. It plots the proportion of identical character matches (M) for each column as a proportion of the characteres that are not merely conserved gaps (not G). The overall average proportion of identical characters that are not conserved gaps is overlayed as a percentage. For alignments of cysteine-rich proteins, it can additionally plot the cysteine abundance for each column to indicate columns containing conserved cysteines (`cys=TRUE`).
+This function generates a plot that summarises the agreement between the two multiple sequence alignments. It plots the proportion of identical character matches (M) for each column as a proportion of the characters that are not merely conserved gaps (not G). The overall average proportion of identical characters that are not conserved gaps is overlaid as a percentage. For alignments of cysteine-rich proteins, it can additionally plot the cysteine abundance for each column to indicate columns containing conserved cysteines (`cys=TRUE`).
 
 ###Example
 ```R
@@ -169,7 +169,7 @@ plot_category_proportions
 
 Description
 -----------
-A line plot of the different causes of column dissimilarity beween the two multiple sequence alignments 
+A line plot of the different causes of column dissimilarity between the two multiple sequence alignments 
 
 ###Usage
 ```R
@@ -185,7 +185,7 @@ display    display this plot (default = TRUE)
 ```
 
 ###Details
-This function generates a detailed breakdown of the differences between the multiple sequence alignements. For all characters that are neither identical residues, nor conserved gaps, the relative proportions of insertions (I), deletions (D) and substitutions (S) is plotted.
+This function generates a detailed breakdown of the differences between the multiple sequence alignments. For all characters that are neither identical residues, nor conserved gaps, the relative proportions of insertions (I), deletions (D) and substitutions (S) is plotted.
 
 ###Example
 ```R
