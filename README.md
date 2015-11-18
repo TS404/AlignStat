@@ -83,9 +83,9 @@ means      A matrix whose [i,k]th entry is the final match score between the ith
            alignment (Match/Nongap). Used to determine which columns are most similar
            for further analysis. Used to generate alignment heatmap
 
-cat        A matrix whose [i,k]th entry is the category for the of the ith sequence's kth
-           residuein the reference alignment vesus the comkparison alignment (M=match,
-           G=conserved gap, I=insterion, D=deletion, S=substitution) 
+cat        A matrix whose [i,k]th entry is the match category of the ith sequence's
+           kth residue for the reference alignment vesus the comparison alignment
+           (M=match, G=conserved gap, I=insterion, D=deletion, S=substitution) 
 ```
 
 ###Details
