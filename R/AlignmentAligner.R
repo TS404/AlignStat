@@ -57,7 +57,7 @@ compare_alignments <- function(ref,aln){
                         "NonGap",       # 2
                         "Cys",          # 3
                         "Match",        # 4
-                        "Gap(con)",     # 5
+                        "Gapcon",       # 5
                         "Insertion",    # 6
                         "Deletion",     # 7
                         "Substitution", # 8
