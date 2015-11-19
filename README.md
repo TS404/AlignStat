@@ -69,7 +69,7 @@ results    A matrix with the following comparison statistics for each ith column
            reference alignment compared to its best match in the comparison alignment:
 
    Columnmatch   The column of the comparison alignment with the highest final match score
-   Nongap        The proportion of characters that are not conserved gaps (all-Gapcon)
+   Nongap        The proportion of characters that are not gaps
    Cys           The proportion of cysteines (relevant for cysteine rich proteins)
    Match         The proportion of characters that are identical between alignments
    Gapcon        The proportion of characters that are conserved gaps
@@ -79,8 +79,8 @@ results    A matrix with the following comparison statistics for each ith column
                  gap in the comparison alignment
    Substitution  The proportion of characters that are one residue in the reference,
                  but a non-homologous residue in the comparison alignment
-   Finalmatch    The proportion of characters that match a a proportion of those
-                 that are not conserved gaps (Match/Nongap)
+   Finalmatch    The proportion of characters that match as a proportion of those
+                 that are not conserved gaps (Match/(All-Gapcon)) M/(M+I+D+S)
 
 means      A matrix whose [i,k]th entry is the final match score between the ith
            column of the reference alignment and the kth column of the comparison
