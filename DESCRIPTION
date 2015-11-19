@@ -1,7 +1,7 @@
 Package: AlikeAlignmentAligner
 Type: Package
 Title: Comparison of alternative multiple sequence alignments
-Version: 1.0
+Version: 1.1
 Date: 2015-10-09
 Author: Thomas Shafee, Ira Cooke
 Maintainer: Your Name <thomas.shafee@gmail.com>
