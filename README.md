@@ -61,9 +61,7 @@ aln   The MSA to compare (in fasta format)
 ```
 
 ###Value
-Generates an object of class "pairwise alignment comparison" (PAC), providing the optimal alignment of alignments and comparison of the differences between them.
-
-The details of the output components are as follows:
+Generates an object of class "pairwise alignment comparison" (PAC), providing the optimal alignment of alignments and comparison of the differences between them. The details of the PAC output components are as follows:
 ```R
 results    A matrix with the following comparison statistics for each ith column of the
            reference alignment compared to its best match in the comparison alignment:
@@ -80,16 +78,16 @@ results    A matrix with the following comparison statistics for each ith column
    Substitution  The proportion of characters that are one residue in the reference,
                  but a non-homologous residue in the comparison alignment
    Finalmatch    The proportion of characters that match as a proportion of those
-                 that are not conserved gaps (Match/(All-Gapcon)) M/(M+I+D+S)
+                 that are not conserved gaps (Match/not_Gapcon)
 
 means      A matrix whose [i,k]th entry is the final match score between the ith
            column of the reference alignment and the kth column of the comparison
-           alignment (Match/Nongap). Used to determine which columns are most similar
+           alignment (Match/not_Gapcon). Used to determine which columns are most similar
            for further analysis. Used to generate alignment heatmap
 
 cat        A matrix whose [i,k]th entry is the match category kth residue of the
            ith sequence for the reference alignment versus the comparison alignment
-           (M=match, G=conserved gap, I=insertion, D=deletion, S=substitution)
+           (M=match, G=gapcon, I=insertion, D=deletion, S=substitution)
 
 reflen    The number of columns in the reference alignment
 alnlen    The number of columns in the comparison alignment
@@ -100,7 +98,7 @@ score     The average Finalmatch score for all columns of the alignment
 ```
 
 ###Details
-The `compare_alignments` function first checks that the MSAs are alternative alignments of the same sequences. The function labels each character in the alignment with its occurrence number in the sequence (e.g. to distinguish between the first and second cysteines of a sequence). It then compares the two MSAs to determine which columns are the closest matches between the ref and aln MSAs. Each pairwise column comparison is stored as the `$means` value of the output. From this matrix, the comparison alignment column with the highest final match to each reference alignment column is used to calculate further statistics for the `$results` value of the output.
+The `compare_alignments` function first checks that the MSAs are alternative alignments of the same sequences. The function labels each character in the alignment with its occurrence number in the sequence (e.g. to distinguish between the first and second cysteines of a sequence). It then compares the two MSAs to determine which columns are the closest matches between the ref and aln MSAs. Each pairwise column comparison is stored as the `$means` value of the output. From this matrix, the comparison alignment column with the highest final match to each reference alignment column is used to calculate further statistics for the `$results` value of the output. The overall Finalmatch score for the whole comparison is output as the `$score` value.
 
 ###Example
 ```R
@@ -123,7 +121,7 @@ A heatmap of the column identities between two multiple sequence alignments
 
 ###Usage
 ```R
-plot_alignment_heatmap (results, means, aln, ref, display=TRUE)
+plot_alignment_heatmap (x, display=TRUE)
 ```
 
 ###Arguments
@@ -138,7 +136,7 @@ The `plot_alignment_heatmap` displays the similarity between each pairwise colum
 
 ###Example
 ```R
-plot_alignment_heatmap (PAC,ref,aln)
+plot_alignment_heatmap (PAC)
 ```
 
 
