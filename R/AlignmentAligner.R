@@ -67,7 +67,7 @@ compare_alignments <- function(ref,aln){
   
   # Write categories to results
   results[4,] <- t(rowMeans(cat2=="M")) # "Match"
-  results[5,] <- t(rowMeans(cat2=="G")) # "Gap(con)"
+  results[5,] <- t(rowMeans(cat2=="G")) # "Gapcon"
   results[6,] <- t(rowMeans(cat2=="I")) # "Insertion"
   results[7,] <- t(rowMeans(cat2=="D")) # "Deletion"
   results[8,] <- t(rowMeans(cat2=="S")) # "Substitution"
@@ -79,7 +79,7 @@ compare_alignments <- function(ref,aln){
   results[9,] <- results[4,]/(1-results[5,])             # "FinalMatch"
   
   # Final mean score
-  score <- sum(results[4,])/sum(1-results[5,])   # "Score"
+  score <- sum(results[4,])/sum(1-results[5,])           # "Score"
   
   # Count alignment columns
   reflen <- nrow(ref)
