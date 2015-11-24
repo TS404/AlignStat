@@ -111,9 +111,6 @@ PAC <- compare_alignments(ref,aln)
 ---------------------------------------------------------------------------------------------
 plot_alignment_heatmap
 =================
-Description
------------
-Comparison of alternative multiple sequence alignments
 
 Description
 -----------
