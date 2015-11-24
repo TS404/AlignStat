@@ -1,26 +1,25 @@
 #' Score the agreement between two alignments
 #'
-#' @param ref.fa Reference against which to score
-#' @param aln.fa Alignment to score against reference
-#' @return List containing results and means. Results is a matrix with one column per sequence and the following rows
+#' @param ref   The reference MSA (in fasta format)
+#' @param aln   The MSA to compare (in fasta format)
+#' @return Generates an object of class "pairwise alignment comparison" (PAC), providing the optimal alignment of alignments and comparison of the differences between them. The details of the PAC output components are as follows:
 #' \itemize{
-#'  \item ColumnMatch 
-#'  \item NonGap
-#'  \item Cys
-#'  \item Match
-#'  \item Gap(con)
-#'  \item Insertion
-#'  \item Deletion
-#'  \item Substitution
-#'  \item FinalMatch
-#'  \item Score
+#'  \item Columnmatch   The column of the comparison alignment with the highest final match score
+#'  \item Nongap        The proportion of characters that are not gaps
+#'  \item Cys           The proportion of cysteines (relevant for cysteine rich proteins)
+#'  \item Match         The proportion of characters that are identical between alignments
+#'  \item Gapcon        The proportion of characters that are conserved gaps
+#'  \item Insertion     The proportion of characters that are a gap in the reference, but are a residue in the comparison alignment
+#'  \item Deletion      The proportion of characters that are a residue in the reference, but a gap in the comparison alignment
+#'  \item Substitution  The proportion of characters that are one residue in the reference, but a non-homologous residue in the comparison alignment
+#'  \item Finalmatch    The proportion of characters that match as a proportion of those that are not conserved gaps (Match/not_Gapcon)
 #' } 
 #' 
 #' @export
 #' @examples
 #' data(ref)
 #' data(aln)
-#' res_list <- compare_alignments(ref,aln)
+#' PAC <- compare_alignments(ref,aln)
 #'
 compare_alignments <- function(ref,aln){
   
