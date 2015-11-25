@@ -1,5 +1,8 @@
 #' Compare alternative multiple sequence alignments
 #'
+#' @note This function aligns two multiple sequence alignments (MSA) against one another. The alternative alignments must contain the same sequences in the same order. The function will classify any similarities and differences between the two MSAs. It produces the "pairwise alignment comparison" object required as the first step any other package functions.
+#' @note This The `compare_alignments` function first checks that the MSAs are alternative alignments of the same sequences. The function labels each character in the alignment with its occurrence number in the sequence (e.g. to distinguish between the first and second cysteines of a sequence). It then compares the two MSAs to determine which columns are the closest matches between the ref and aln MSAs. Each pairwise column comparison is stored as the `$means` value of the output. From this matrix, the comparison alignment column with the highest final match to each reference alignment column is used to calculate further statistics for the `$results` value of the output. The overall Finalmatch score for the whole comparison is output as the `$score` value.
+#'
 #' @param ref   The reference MSA (in fasta format)
 #' @param aln   The MSA to compare (in fasta format)
 #'

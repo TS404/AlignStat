@@ -41,13 +41,14 @@ library("Rcpp")
 ----------------------------------------------------------------------------------------------
 compare_alignments 
 ================
-This function aligns two multiple sequence alignments (MSA) against one another. The alternative alignments must contain the same sequences in the same order. The function will classify any similarities and differences between the two MSAs. 
-
-It produces the "pairwise alignment comparison" object required as the first step any other package functions.
+Compare alternative multiple sequence alignments
 
 Description
 -----------
-Compare alternative multiple sequence alignments
+This function aligns two multiple sequence alignments (MSA) against one another. The alternative alignments must contain the same sequences in the same order. The function will classify any similarities and differences between the two MSAs. 
+
+It produces the "pairwise alignment comparison" object required as the first step any of the other package functions.
+
 
 ###Usage
 ```R
@@ -112,8 +113,6 @@ PAC <- compare_alignments(ref,aln)
 plot_alignment_heatmap
 =================
 
-Description
------------
 A heatmap of the column identities between two multiple sequence alignments
 
 ###Usage
@@ -141,8 +140,6 @@ plot_alignment_heatmap (PAC)
 plot_match_summary
 =================
 
-Description
------------
 A line plot summary of column similarity between the two multiple sequence alignments 
 
 ###Usage
@@ -171,8 +168,6 @@ plot_match_summary (PAC,cys=TRUE)
 plot_category_proportions
 =================
 
-Description
------------
 A line plot of the different causes of column dissimilarity between the two multiple sequence alignments 
 
 ###Usage
