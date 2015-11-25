@@ -47,7 +47,7 @@ It produces the "pairwise alignment comparison" object required as the first ste
 
 Description
 -----------
-Comparison of alternative multiple sequence alignments
+Compare alternative multiple sequence alignments
 
 ###Usage
 ```R
