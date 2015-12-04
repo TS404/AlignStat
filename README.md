@@ -52,13 +52,13 @@ It produces the "pairwise alignment comparison" object required as the first ste
 
 ###Usage
 ```R
-compare_alignments (ref, aln)
+compare_alignments (ref, com)
 ```
 
 ###Arguments
 ```R
 ref   The reference MSA (in fasta format)
-aln   The MSA to compare (in fasta format)
+com   The MSA to compare (in fasta format)
 ```
 
 ###Value
@@ -91,21 +91,21 @@ cat        A matrix whose [i,k]th entry is the match category kth residue of the
            (M=match, G=gapcon, I=insertion, D=deletion, S=substitution)
 
 reflen    The number of columns in the reference alignment
-alnlen    The number of columns in the comparison alignment
+comlen    The number of columns in the comparison alignment
 refcon    Consensus sequence of the reference alignment
-alncon    Consensus sequence of the comparison alignment
+comcon    Consensus sequence of the comparison alignment
 
 score     The average Finalmatch score for all columns of the alignment
 ```
 
 ###Details
-The `compare_alignments` function first checks that the MSAs are alternative alignments of the same sequences. The function labels each character in the alignment with its occurrence number in the sequence (e.g. to distinguish between the first and second cysteines of a sequence). It then compares the two MSAs to determine which columns are the closest matches between the ref and aln MSAs. Each pairwise column comparison is stored as the `$means` value of the output. From this matrix, the comparison alignment column with the highest final match to each reference alignment column is used to calculate further statistics for the `$results` value of the output. The overall Finalmatch score for the whole comparison is output as the `$score` value.
+The `compare_alignments` function first checks that the MSAs are alternative alignments of the same sequences. The function labels each character in the alignment with its occurrence number in the sequence (e.g. to distinguish between the first and second cysteines of a sequence). It then compares the two MSAs to determine which columns are the closest matches between the ref and com MSAs. Each pairwise column comparison is stored as the `$means` value of the output. From this matrix, the comparison alignment column with the highest final match to each reference alignment column is used to calculate further statistics for the `$results` value of the output. The overall Finalmatch score for the whole comparison is output as the `$score` value.
 
 ###Example
 ```R
 data(ref)
-data(aln)
-PAC <- compare_alignments(ref,aln)
+data(com)
+PAC <- compare_alignments(ref,com)
 ```
 
 
@@ -199,9 +199,9 @@ Full example workflow
 ```R
 # Load example data
 data(ref)
-data(aln)
+data(com)
 # Alignment calculation
-PAC <- compare_alignments (ref, aln)
+PAC <- compare_alignments (ref, com)
 # Results visualisation
 plot_alignment_heatmap    (PAC)
 plot_match_summary        (PAC, cys=TRUE)

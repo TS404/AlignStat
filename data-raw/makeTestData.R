@@ -9,17 +9,17 @@ percent <- function(x, digits = 1, format = "f", ...) {
 }
 
 ref.fa <- "Alignment A.FA"
-aln.fa <- "Alignment B.FA"
+com.fa <- "Alignment B.FA"
 
 ################
 # FASTA import #
 ################
 
 data.frame(read.fasta(ref.fa,set.attributes=FALSE)) -> ref   # convert to data frame of letters
-data.frame(read.fasta(aln.fa,set.attributes=FALSE)) -> aln   # convert to data frame of letters
+data.frame(read.fasta(com.fa,set.attributes=FALSE)) -> com   # convert to data frame of letters
 
 devtools::use_data(ref,overwrite =TRUE)
-devtools::use_data(aln,overwrite=TRUE)
+devtools::use_data(com,overwrite=TRUE)
 
 
 ###########################################
@@ -45,41 +45,41 @@ gsub(x = ref2, pattern = " ",     replacement = "")  -> ref2
 gsub(x = ref2, pattern = "[-].*", replacement = "-") -> ref2
 
 # New matrix for numbered sequences
-aln.num = matrix(nrow = dim(aln)[1], # number of aln columns
-                 ncol = dim(aln)[2]) # number sequences
+com.num = matrix(nrow = dim(com)[1], # number of com columns
+                 ncol = dim(com)[2]) # number sequences
 
 ##################
 
-# New matrix for numbered aln sequences
-aln.num = matrix(nrow = dim(aln)[1], # number of aln columns
-                 ncol = dim(aln)[2]) # number sequences
-aln2    = matrix(nrow = dim(aln)[1], # number of aln columns
-                 ncol = dim(aln)[2]) # number sequences
+# New matrix for numbered com sequences
+com.num = matrix(nrow = dim(com)[1], # number of com columns
+                 ncol = dim(com)[2]) # number sequences
+com2    = matrix(nrow = dim(com)[1], # number of com columns
+                 ncol = dim(com)[2]) # number sequences
 
-# Number aln residues by their occurance
-for (s in 1:dim(aln)[2]){
-  for (l in 1:dim(aln)[1]){
-    aln.num[l,s] = sum(aln[1:l,s]==aln[l,s])
-    paste(aln[,s],aln.num[,s])->aln2[,s]
+# Number com residues by their occurance
+for (s in 1:dim(com)[2]){
+  for (l in 1:dim(com)[1]){
+    com.num[l,s] = sum(com[1:l,s]==com[l,s])
+    paste(com[,s],com.num[,s])->com2[,s]
   }  
 }
 
 # Remove extra space and de-number gaps
-gsub(x = aln2, pattern = " ",     replacement = "")  -> aln2
-gsub(x = aln2, pattern = "[-].*", replacement = "-") -> aln2
+gsub(x = com2, pattern = " ",     replacement = "")  -> com2
+gsub(x = com2, pattern = "[-].*", replacement = "-") -> com2
 
 # Replacing "-" with NA in the test alignment means
 # that gaps don't count towards column matching score
-aln[aln=="-"]  <-NA
-aln2[aln2=="-"]<-NA
+com[com=="-"]  <-NA
+com2[com2=="-"]<-NA
 
 ##################################
 # Alignment identity calculation #
 ##################################
 
-ident = matrix(nrow = dim(aln2)[1],   # number of aln2 columns to test
+ident = matrix(nrow = dim(com2)[1],   # number of com2 columns to test
                ncol = dim(ref2)[2])   # number of sequences
-means = matrix(nrow = dim(aln2)[1],   # number of test alignment columns
+means = matrix(nrow = dim(com2)[1],   # number of test alignment columns
                ncol = dim(ref2)[1])   # number of ref2 columns
 
 # Making matrix for results data
@@ -99,21 +99,21 @@ row.names(results)<-c("ColumnMatch",  # 1
 library(devtools)
 
 devtools::use_data(ref2,overwrite =TRUE)
-devtools::use_data(aln2,overwrite=TRUE)
+devtools::use_data(com2,overwrite=TRUE)
 
 # Calculating identity score
 ci = 0
 for(k in 1:dim(ref2)[1]){                         # for each (k) column of the ref2 alignment
-  for(i in 1:dim(aln2)[1]){                       # for each (i) column of the aln2 alignment                               
+  for(i in 1:dim(com2)[1]){                       # for each (i) column of the com2 alignment                               
     for(j in 1:dim(ref2)[2]){                     # for each (j) sequence
-      ident[i,j] = identical(ref2[k,j],aln2[i,j])
+      ident[i,j] = identical(ref2[k,j],com2[i,j])
       if ( ident[i,j] ){
         ci = ci + 1
         }# perform identity test
-      means[i,k] = mean(ident[i,])                # all-against-all column identity (ref2 vs aln2)
+      means[i,k] = mean(ident[i,])                # all-against-all column identity (ref2 vs com2)
     }
   }
-  results[1,k] = which.max(means[,k])             # "ColumnMatch" which aln column had best match to each ref column
+  results[1,k] = which.max(means[,k])             # "ColumnMatch" which com column had best match to each ref column
 }
 cat("CI ",ci)
 devtools::use_data(means,overwrite=TRUE)
@@ -125,7 +125,7 @@ cat = matrix(nrow = dim(ref)[1], # number of ref columns
 # Combining matrices
 for (x in 1:dim(ref)[1]){
   for (y in 1:dim(ref)[2]){
-    paste(ref2[x,y],aln2[results[1,x],y])->cat[x,y]
+    paste(ref2[x,y],com2[results[1,x],y])->cat[x,y]
   }
 }
 

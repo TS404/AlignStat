@@ -18,8 +18,8 @@ Plot match proportion + Cys
 }
 \examples{
 data(ref)
-data(aln)
-res_list <- align_alignments(ref,aln)
+data(com)
+res_list <- align_alignments(ref,com)
 match_summary_plot(res_list$results,ref)
 }
 

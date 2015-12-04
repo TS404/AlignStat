@@ -36,25 +36,25 @@ CharacterMatrix rcpp_prepare_alignment_matrix(CharacterMatrix ref){
 
 // [[Rcpp::export]]
 List rcpp_align(CharacterMatrix ref,
-                         CharacterMatrix aln) {
+                         CharacterMatrix com) {
 
   int nrow_ref = ref.nrow();
-  int nrow_aln = aln.nrow();
+  int nrow_com = com.nrow();
   int ncol_ref = ref.ncol();
 
   NumericMatrix results(9,nrow_ref);    
-  NumericMatrix means(nrow_aln,nrow_ref);
+  NumericMatrix means(nrow_com,nrow_ref);
     
   int ci = 0;
   for(int k=0;k < nrow_ref;k++){
 
     int maxi = -1;
     double maxval = -1;
-    for(int i=0;i<nrow_aln;i++){
+    for(int i=0;i<nrow_com;i++){
       int ident_count = 0;
       for(int j=0;j<ncol_ref;j++){
         String r = ref(k,j);
-        String a = aln(i,j);        
+        String a = com(i,j);        
 
         int sc = strcmp(r.get_cstring(),a.get_cstring());
         if (sc==0){
@@ -78,18 +78,18 @@ List rcpp_align(CharacterMatrix ref,
   for (int i=0;i<nrow_ref;i++){
     for(int j=0;j<ncol_ref;j++){
       String ref_value = ref(i,j);
-      String aln_value = aln(results(0,i)-1,j);
+      String com_value = com(results(0,i)-1,j);
 
-      if ( ref_value == aln_value){
+      if ( ref_value == com_value){
         cat(i,j) = "M";
       } else if ( ref_value=="-"){
-        if ( aln_value==NA_STRING){
+        if ( com_value==NA_STRING){
           cat(i,j) = "G";
         } else {
           cat(i,j) = "I";
         }
       } else {
-        if (aln_value==NA_STRING){
+        if (com_value==NA_STRING){
           cat(i,j) = "D";
         } else {
           cat(i,j) = "S";

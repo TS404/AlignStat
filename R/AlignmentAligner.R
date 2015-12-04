@@ -1,10 +1,10 @@
 #' Compare alternative multiple sequence alignments
 #'
 #' @note This function aligns two multiple sequence alignments (MSA) against one another. The alternative alignments must contain the same sequences in the same order. The function will classify any similarities and differences between the two MSAs. It produces the "pairwise alignment comparison" object required as the first step any other package functions.
-#' @note This The `compare_alignments` function first checks that the MSAs are alternative alignments of the same sequences. The function labels each character in the alignment with its occurrence number in the sequence (e.g. to distinguish between the first and second cysteines of a sequence). It then compares the two MSAs to determine which columns are the closest matches between the ref and aln MSAs. Each pairwise column comparison is stored as the `$means` value of the output. From this matrix, the comparison alignment column with the highest final match to each reference alignment column is used to calculate further statistics for the `$results` value of the output. The overall Finalmatch score for the whole comparison is output as the `$score` value.
+#' @note This The `compare_alignments` function first checks that the MSAs are alternative alignments of the same sequences. The function labels each character in the alignment with its occurrence number in the sequence (e.g. to distinguish between the first and second cysteines of a sequence). It then compares the two MSAs to determine which columns are the closest matches between the ref and com MSAs. Each pairwise column comparison is stored as the `$means` value of the output. From this matrix, the comparison alignment column with the highest final match to each reference alignment column is used to calculate further statistics for the `$results` value of the output. The overall Finalmatch score for the whole comparison is output as the `$score` value.
 #'
 #' @param ref   The reference MSA (in fasta format)
-#' @param aln   The MSA to compare (in fasta format)
+#' @param com   The MSA to compare (in fasta format)
 #'
 #' @return Generates an object of class "pairwise alignment comparison" (PAC), providing the optimal alignment of alignments and comparison of the differences between them. The details of the PAC output components are as follows:
 #' \itemize{
@@ -22,19 +22,19 @@
 #' @export
 #' @examples
 #' data(ref)
-#' data(aln)
-#' PAC <- compare_alignments(ref,aln)
+#' data(com)
+#' PAC <- compare_alignments(ref,com)
 #'
-compare_alignments <- function(ref,aln){
+compare_alignments <- function(ref,com){
   
   if (!is.data.frame(ref)){
     data.frame(seqinr::read.fasta(ref,set.attributes=FALSE)) -> ref
   } 
-  if (!is.data.frame(aln)){
-    data.frame(seqinr::read.fasta(aln,set.attributes=FALSE)) -> aln
+  if (!is.data.frame(com)){
+    data.frame(seqinr::read.fasta(com,set.attributes=FALSE)) -> com
   }
   
-  if( !valid_alignments(ref,aln) ){
+  if( !valid_alignments(ref,com) ){
     stop("both alignments must contain the same sets of sequences in the same order")
   }
   
@@ -43,18 +43,18 @@ compare_alignments <- function(ref,aln){
   # Replacing letters with letter+occurance #
   ###########################################
   ref2 <- prepare_alignment_matrix(ref)
-  aln2 <- prepare_alignment_matrix(aln)
+  com2 <- prepare_alignment_matrix(com)
   
   # Replacing "-" with NA in the test alignment means
   # that gaps don't count towards column matching score
-  aln[aln=="-"]  <-NA
-  aln2[aln2=="-"]<-NA
+  com[com=="-"]  <-NA
+  com2[com2=="-"]<-NA
   
   ##################################
   # Alignment identity calculation #
   ##################################
   
-  res_list = rcpp_align(ref2,aln2)
+  res_list = rcpp_align(ref2,com2)
   results  = res_list$results
   row.names(results)<-c("ColumnMatch",  # 1
                         "NonGap",       # 2
@@ -86,27 +86,27 @@ compare_alignments <- function(ref,aln){
   
   # Count alignment columns
   reflen <- nrow(ref)
-  alnlen <- nrow(aln)
+  comlen <- nrow(com)
   
   # Alignment consensus sequences
   refcon <- seqinr::consensus(t(ref))
-  alncon <- seqinr::consensus(t(ref))
+  comcon <- seqinr::consensus(t(ref))
   
   # Create final object
   list(results = results,
        means   = res_list$means,
        cat     = cat,
        reflen  = reflen,
-       alnlen  = alnlen,
+       comlen  = comlen,
        refcon  = refcon,
-       alncon  = alncon,
+       comcon  = comcon,
        score   = score)
 }
 
 
-prepare_alignment_matrix <- function(alnmat){
+prepare_alignment_matrix <- function(commat){
   
-  mat2 <- rcpp_prepare_alignment_matrix(as.matrix(alnmat))
+  mat2 <- rcpp_prepare_alignment_matrix(as.matrix(commat))
   # Remove extra space and de-number gaps
   gsub(x = mat2, pattern = " ",     replacement = "")  -> mat2
   gsub(x = mat2, pattern = "[-].*", replacement = "-") -> mat2
@@ -114,13 +114,13 @@ prepare_alignment_matrix <- function(alnmat){
 }
 
 
-valid_alignments <- function(ref,aln){
+valid_alignments <- function(ref,com){
   checks = sapply(1:ncol(ref),function(i){
     r=as.character(ref[,i])
-    a=as.character(aln[,i])
+    a=as.character(com[,i])
     dg_ref = r[r!="-"]
-    dg_aln = a[a!="-"]
-    all(dg_aln==dg_ref)
+    dg_com = a[a!="-"]
+    all(dg_com==dg_ref)
   })
   all(checks)
 }

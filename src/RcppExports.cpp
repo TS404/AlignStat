@@ -17,14 +17,14 @@ BEGIN_RCPP
 END_RCPP
 }
 // rcpp_align
-List rcpp_align(CharacterMatrix ref, CharacterMatrix aln);
-RcppExport SEXP AlikeAlignmentAligner_rcpp_align(SEXP refSEXP, SEXP alnSEXP) {
+List rcpp_align(CharacterMatrix ref, CharacterMatrix com);
+RcppExport SEXP AlikeAlignmentAligner_rcpp_align(SEXP refSEXP, SEXP comSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
     Rcpp::traits::input_parameter< CharacterMatrix >::type ref(refSEXP);
-    Rcpp::traits::input_parameter< CharacterMatrix >::type aln(alnSEXP);
-    __result = Rcpp::wrap(rcpp_align(ref, aln));
+    Rcpp::traits::input_parameter< CharacterMatrix >::type com(comSEXP);
+    __result = Rcpp::wrap(rcpp_align(ref, com));
     return __result;
 END_RCPP
 }
