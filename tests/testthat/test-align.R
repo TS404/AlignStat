@@ -2,12 +2,12 @@ context("Calculating identity score")
 
 test_that("rpp_align() produces correct results", {
   data(ref2)
-  data(aln2)
+  data(com2)
   data(results)
   data(means)
   data(cat2)
 
-  scores <- rcpp_align(ref2,aln2)
+  scores <- rcpp_align(ref2,com2)
 
   expect_equal(class(scores),"list")
   sresults = scores$results
@@ -21,11 +21,11 @@ test_that("rpp_align() produces correct results", {
 
 test_that("align_alignments() produces correct results", {
   data(ref)
-  data(aln)
+  data(com)
   data(results)
   data(means)
   
-  scores <- align_alignments(ref,aln)
+  scores <- align_alignments(ref,com)
   
   expect_equal(class(scores),"list")
   sresults = scores$results
@@ -48,8 +48,8 @@ context("Performance")
 
 test_that("align_alignments() is fast enough",{
   data(ref)
-  data(aln)
-  timing <- system.time(align_alignments(ref,aln))
+  data(com)
+  timing <- system.time(align_alignments(ref,com))
   
   cat("\nAlign alignments took: ",timing)
   expect_less_than(timing[1],1)
