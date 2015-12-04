@@ -1,4 +1,4 @@
 library(testthat)
-library(AlikeAlignmentAligner)
+library(AlignStat)
 
-test_check("AlikeAlignmentAligner")
+test_check("AlignStat")
