@@ -4,12 +4,12 @@
 \alias{alignment_heatmap}
 \title{Alignment heatmap}
 \usage{
-alignment_heatmap(results, means, aln, ref, display = TRUE)
+alignment_heatmap(results, means, com, ref, display = TRUE)
 }
 \arguments{
 \item{results}{As produced by align_alignments}
 
-\item{aln}{Alignment to align to ref}
+\item{com}{Alignment to align to ref}
 
 \item{ref}{Reference alignment}
 
@@ -20,8 +20,8 @@ Alignment heatmap
 }
 \examples{
 data(ref)
-data(aln)
-res_list <- align_alignments(ref,aln)
-alignment_heatmap(res_list$results,res_list$means,aln,ref)
+data(com)
+res_list <- align_alignments(ref,com)
+alignment_heatmap(res_list$results,res_list$means,com,ref)
 }
 
