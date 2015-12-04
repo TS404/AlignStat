@@ -1,4 +1,4 @@
-Package: AlikeAlignmentAligner
+Package: AlignStat
 Type: Package
 Title: Comparison of alternative multiple sequence alignments
 Version: 1.1
