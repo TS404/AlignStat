@@ -1,4 +1,4 @@
-Alike Alignment Aligner
+Align Stat
 =======================
 
 >Thomas M A Shafee, Ira R Cooke, Marilyn A Anderson
@@ -30,8 +30,8 @@ Installation
 ```R
 install.packages("devtools")
 library("devtools")
-devtools::install_github("TS404/AlikeAlignmentAligner")
-library("AlikeAlignmentAligner")
+devtools::install_github("TS404/AlignStat")
+library("AlignStat")
 library("ggplot2")
 library("seqinr")
 library("Rcpp")
