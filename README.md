@@ -32,9 +32,6 @@ install.packages("devtools")
 library("devtools")
 devtools::install_github("TS404/AlignStat")
 library("AlignStat")
-library("ggplot2")
-library("seqinr")
-library("Rcpp")
 ```
 
 
