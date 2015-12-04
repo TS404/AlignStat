@@ -4,12 +4,12 @@
 \alias{align_alignments}
 \title{Score the agreement between two alignments}
 \usage{
-align_alignments(ref, aln)
+align_alignments(ref, com)
 }
 \arguments{
 \item{ref.fa}{Reference against which to score}
 
-\item{aln.fa}{Alignment to score against reference}
+\item{com.fa}{Alignment to score against reference}
 }
 \value{
 List containing results and means. Results is a matrix with one column per sequence and the following rows
@@ -31,7 +31,7 @@ Score the agreement between two alignments
 }
 \examples{
 data(ref)
-data(aln)
-res_list <- align_alignments(ref,aln)
+data(com)
+res_list <- align_alignments(ref,com)
 }
 
