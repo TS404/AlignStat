@@ -1,4 +1,4 @@
-Align Stat
+AlignStat: A tool for the statistical comparison of alternative multiple sequence alignments
 =======================
 
 >Thomas M A Shafee, Ira R Cooke, Marilyn A Anderson
