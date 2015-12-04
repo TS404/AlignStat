@@ -1,25 +1,25 @@
-\name{AlikeAlignmentAligner-package}
-\alias{AlikeAlignmentAligner-package}
-\alias{AlikeAlignmentAligner}
+\name{AlignStat-package}
+\alias{AlignStat-package}
+\alias{AlignStat}
 \docType{package}
 \title{
-\packageTitle{AlikeAlignmentAligner}
+\packageTitle{AlignStat}
 }
 \description{
-\packageDescription{AlikeAlignmentAligner}
+\packageDescription{AlignStat}
 }
 \details{
 
 The DESCRIPTION file:
-\packageDESCRIPTION{AlikeAlignmentAligner}
-\packageIndices{AlikeAlignmentAligner}
+\packageDESCRIPTION{AlignStat}
+\packageIndices{AlignStat}
 ~~ An overview of how to use the package, including the most important ~~
 ~~ functions ~~
 }
 \author{
-\packageAuthor{AlikeAlignmentAligner}
+\packageAuthor{AlignStat}
 
-Maintainer: \packageMaintainer{AlikeAlignmentAligner}
+Maintainer: \packageMaintainer{AlignStat}
 }
 \references{
 ~~ Literature or other references for background information ~~
