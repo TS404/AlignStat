@@ -5,7 +5,7 @@ rcpp_prepare_alignment_matrix <- function(ref) {
     .Call('AlignStat_rcpp_prepare_alignment_matrix', PACKAGE = 'AlignStat', ref)
 }
 
-rcpp_align <- function(ref, aln) {
-    .Call('AlignStat_rcpp_align', PACKAGE = 'AlignStat', ref, aln)
+rcpp_align <- function(ref, com) {
+    .Call('AlignStat_rcpp_align', PACKAGE = 'AlignStat', ref, com)
 }
 
