@@ -21,9 +21,9 @@
 #' 
 #' @export
 #' @examples
-#' data(ref)
-#' data(com)
-#' PAC <- compare_alignments(ref,com)
+#' data(reference_alignment)
+#' data(comparison_alignment)
+#' PAC <- compare_alignments(reference_alignment,comparison_alignment)
 #'
 compare_alignments <- function(ref,com){
   
@@ -124,5 +124,4 @@ valid_alignments <- function(ref,com){
   })
   all(checks)
 }
-
 
