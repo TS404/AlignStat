@@ -7,7 +7,7 @@ using namespace Rcpp;
 
 // rcpp_prepare_alignment_matrix
 CharacterMatrix rcpp_prepare_alignment_matrix(CharacterMatrix ref);
-RcppExport SEXP AlikeAlignmentAligner_rcpp_prepare_alignment_matrix(SEXP refSEXP) {
+RcppExport SEXP AlignStat_rcpp_prepare_alignment_matrix(SEXP refSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
@@ -18,7 +18,7 @@ END_RCPP
 }
 // rcpp_align
 List rcpp_align(CharacterMatrix ref, CharacterMatrix com);
-RcppExport SEXP AlikeAlignmentAligner_rcpp_align(SEXP refSEXP, SEXP comSEXP) {
+RcppExport SEXP AlignStat_rcpp_align(SEXP refSEXP, SEXP comSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
