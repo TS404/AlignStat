@@ -15,8 +15,6 @@ Description: This package contains functions that compare two alternative
 License: GPL (>= 2)
 Imports:
     Rcpp (>= 0.11.6),
-    gplots,
-    ade4,
     seqinr,
     ggplot2,
     reshape2

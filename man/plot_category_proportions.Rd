@@ -20,9 +20,9 @@ Plot the different causes of column dissimilarity between two multiple sequence 
 This function generates a detailed breakdown of the differences between the multiple sequence alignments. For all characters that are neither identical residues, nor conserved gaps, the relative proportions of insertions (I), deletions (D) and substitutions (S) is plotted.
 }
 \examples{
-data(ref)
-data(com)
-PAC <- compare_alignments(ref,com)
+data(reference_alignment)
+data(comparison_alignment)
+PAC <- compare_alignments(reference_alignment,comparison_alignment)
 plot_category_proportions(PAC, stack=TRUE)
 
 }

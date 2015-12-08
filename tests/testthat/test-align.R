@@ -1,13 +1,13 @@
 context("Calculating identity score")
 
 test_that("rpp_align() produces correct results", {
-  data(ref2)
-  data(com2)
-  data(results)
-  data(means)
-  data(cat2)
+  prepared_ref <- readRDS("prepared_ref.rda")
+  prepared_com <- readRDS("prepared_com.rda")
+  results <- readRDS("results.rda")
+  means <- readRDS("means.rda")
+  categories <- readRDS("categories.rda")
 
-  scores <- rcpp_align(ref2,com2)
+  scores <- rcpp_align(prepared_ref,prepared_com)
 
   expect_equal(class(scores),"list")
   sresults = scores$results
@@ -15,43 +15,37 @@ test_that("rpp_align() produces correct results", {
   smeans = scores$means
   expect_equal(smeans,means)
   
-  expect_equal(scores$cat,cat2)
+  expect_equal(scores$cat,categories)
 })
 
 
-test_that("align_alignments() produces correct results", {
-  data(ref)
-  data(com)
-  data(results)
-  data(means)
-  
-  scores <- align_alignments(ref,com)
+test_that("compare_alignments() produces a list", {
+  data(reference_alignment)
+  data(comparison_alignment)
+
+  scores <- compare_alignments(reference_alignment,comparison_alignment)
   
   expect_equal(class(scores),"list")
-  sresults = scores$results
-  expect_equal(sresults,results)
-  smeans = scores$means
-  expect_equal(smeans,means)
 })
 
 
 test_that("prepare_alignment_matrix() produces correct outputs",{
-  data(ref)
-  data(ref2)
-  r2 <- prepare_alignment_matrix(ref)
+  data(reference_alignment)
+  prepared_ref <- readRDS("prepared_ref.rda")
+  r2 <- prepare_alignment_matrix(reference_alignment)
   
-  expect_equal(ref2,r2)
+  expect_equal(prepared_ref,r2)
   
 })
 
 context("Performance")
 
-test_that("align_alignments() is fast enough",{
-  data(ref)
-  data(com)
-  timing <- system.time(align_alignments(ref,com))
+test_that("compare_alignments() is fast enough",{
+  data(reference_alignment)
+  data(comparison_alignment)
+  timing <- system.time(compare_alignments(reference_alignment,comparison_alignment))
   
-  cat("\nAlign alignments took: ",timing)
+  cat("\nCompare alignments took: ",timing)
   expect_less_than(timing[1],1)
 })
 

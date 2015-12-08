@@ -1,3 +1,6 @@
+# Note: Run this script from package root not from inside raw_data
+
+
 ###############
 # Preparation #
 ###############
@@ -8,8 +11,8 @@ percent <- function(x, digits = 1, format = "f", ...) {
   paste0(formatC(100 * x, format = format, digits = digits, ...), "%")
 }
 
-ref.fa <- "Alignment A.FA"
-com.fa <- "Alignment B.FA"
+ref.fa <- "data-raw/Alignment A.FA"
+com.fa <- "data-raw/Alignment B.FA"
 
 ################
 # FASTA import #
@@ -18,8 +21,10 @@ com.fa <- "Alignment B.FA"
 data.frame(read.fasta(ref.fa,set.attributes=FALSE)) -> ref   # convert to data frame of letters
 data.frame(read.fasta(com.fa,set.attributes=FALSE)) -> com   # convert to data frame of letters
 
-devtools::use_data(ref,overwrite =TRUE)
-devtools::use_data(com,overwrite=TRUE)
+reference_alignment <- ref
+comparison_alignment <- com
+devtools::use_data(reference_alignment,overwrite =TRUE)
+devtools::use_data(comparison_alignment,overwrite=TRUE)
 
 
 ###########################################
@@ -98,8 +103,13 @@ row.names(results)<-c("ColumnMatch",  # 1
 
 library(devtools)
 
-devtools::use_data(ref2,overwrite =TRUE)
-devtools::use_data(com2,overwrite=TRUE)
+prepared_ref <- ref2
+prepared_com <- com2
+
+saveRDS(prepared_ref,file = "tests/testthat/prepared_ref.rda")
+saveRDS(prepared_com,file = "tests/testthat/prepared_com.rda")
+# devtools::use_data(prepared_ref,overwrite =TRUE)
+# devtools::use_data(prepared_com,overwrite=TRUE)
 
 # Calculating identity score
 ci = 0
@@ -116,8 +126,8 @@ for(k in 1:dim(ref2)[1]){                         # for each (k) column of the r
   results[1,k] = which.max(means[,k])             # "ColumnMatch" which com column had best match to each ref column
 }
 cat("CI ",ci)
-devtools::use_data(means,overwrite=TRUE)
-
+# devtools::use_data(means,overwrite=TRUE)
+saveRDS(means,file = "tests/testthat/means.rda")
 
 cat = matrix(nrow = dim(ref)[1], # number of ref columns
              ncol = dim(ref)[2]) # number sequences
@@ -137,8 +147,11 @@ gsub(x = cat2, pattern = "[-] ([a-z][0-9]+)",       replacement = "I") -> cat2  
 gsub(x = cat2, pattern = "([a-z][0-9]+) NA",        replacement = "D") -> cat2  # Deletion
 gsub(x = cat2, pattern = "[a-z][0-9]+ [a-z][0-9]+", replacement = "S") -> cat2  # Substitution
 
-devtools::use_data(cat,overwrite=TRUE);
-devtools::use_data(cat2,overwrite=TRUE);
+
+categories <- cat2
+# devtools::use_data(cat,overwrite=TRUE);
+# devtools::use_data(categories,overwrite=TRUE);
+saveRDS(categories,file = "tests/testthat/categories.rda")
 
 # Write categories to results
 results[4,] <- t(rowMeans(cat2=="M")) # "Match"
@@ -157,4 +170,5 @@ results[9,] <- results[4,]/(1-results[5,])             # "FinalMatch"
 results[10,1] <- sum(results[4,])/sum(1-results[5,])   # "Score"
 results[10,1] -> score
 
-devtools::use_data(results,overwrite=TRUE)
+# devtools::use_data(results,overwrite=TRUE)
+saveRDS(results,file = "tests/testthat/results.rda")

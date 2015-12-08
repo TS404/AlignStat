@@ -20,9 +20,9 @@ Plot a summary of column similarity between two multiple sequence alignments
 This function generates a plot that summarises the agreement between the two multiple sequence alignments. It plots the proportion of identical character matches (M) for each column as a proportion of the characters that are not merely conserved gaps (not G). The overall average proportion of identical characters that are not conserved gaps is overlaid as a percentage. For alignments of cysteine-rich proteins, it can additionally plot the cysteine abundance for each column to indicate columns containing conserved cysteines (`cys=TRUE`).
 }
 \examples{
-data(ref)
-data(com)
-PAC <- compare_alignments(ref,com)
+data(reference_alignment)
+data(comparison_alignment)
+PAC <- compare_alignments(reference_alignment,comparison_alignment)
 plot_match_summary(PAC, cys=TRUE)
 
 }
