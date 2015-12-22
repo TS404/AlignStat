@@ -62,8 +62,8 @@ plot_match_summary <- function(x,cys=FALSE,display=TRUE){
     p <- p + ggplot2::geom_line(ggplot2::aes(y=PropCys,colour="Cysteines"))
     p <- p + ggplot2::geom_line(ggplot2::aes(y=0))
   }
+  p <- p + ggplot2::theme_classic()
   p <- p + ggplot2::theme(legend.title = ggplot2::element_blank())
-  
   p <- p + ggplot2::ylab("Proportion")
 
   score <- x$score
@@ -101,12 +101,13 @@ plot_category_proportions <- function(x,stack=FALSE,display=TRUE){
   colnames(md) <- c('Position','Change','Proportion')
   if (stack) {
     p <- ggplot2::ggplot(md,ggplot2::aes(x=Position,y=Proportion)) + 
-      ggplot2::geom_area(ggplot2::aes(fill=Change),position = 'stack')+ 
+      ggplot2::geom_area(ggplot2::aes(fill=Change),position = 'stack') + 
       ggplot2::geom_line(ggplot2::aes(data=Change, ymax=1),position = 'stack')
   } 
   else {
     p <- ggplot2::ggplot(md,ggplot2::aes(x=Position,y=Proportion)) + 
-      ggplot2::geom_line(ggplot2::aes(color=Change))
+         ggplot2::geom_line(ggplot2::aes(color=Change))
+    p <- p + ggplot2::theme_classic()
   }
   
   if (display){
