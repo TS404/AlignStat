@@ -99,9 +99,9 @@ The `compare_alignments` function first checks that the MSAs are alternative ali
 
 ###Example
 ```R
-data(ref)
-data(com)
-PAC <- compare_alignments(ref,com)
+data("reference_alignment")
+data("comparison_alignment")
+PAC <- compare_alignments(reference_alignment,comparison_alignment)
 ```
 
 
@@ -194,10 +194,10 @@ Full example workflow
 
 ```R
 # Load example data
-data(ref)
-data(com)
+data("reference_alignment")
+data("comparison_alignment")
 # Alignment calculation
-PAC <- compare_alignments (ref, com)
+PAC <- compare_alignments (reference_alignment,comparison_alignment)
 # Results visualisation
 plot_alignment_heatmap    (PAC)
 plot_match_summary        (PAC, cys=TRUE)
