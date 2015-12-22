@@ -103,6 +103,7 @@ plot_category_proportions <- function(x,stack=FALSE,display=TRUE){
     p <- ggplot2::ggplot(md,ggplot2::aes(x=Position,y=Proportion)) + 
       ggplot2::geom_area(ggplot2::aes(fill=Change),position = 'stack') + 
       ggplot2::geom_line(ggplot2::aes(data=Change, ymax=1),position = 'stack')
+      p <- p + ggplot2::theme_classic()
   } 
   else {
     p <- ggplot2::ggplot(md,ggplot2::aes(x=Position,y=Proportion)) + 
