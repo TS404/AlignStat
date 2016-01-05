@@ -54,6 +54,7 @@ plot_match_summary <- function(x,cys=FALSE,display=TRUE){
   
   identity       <- x$results[9,]
   proportion_cys <- x$results[3,]
+  score          <- x$score
   col = 1:ncol(x$results)
   plot_data = data.frame(Identity=identity,PropCys=proportion_cys,Position=col)
   
@@ -65,8 +66,6 @@ plot_match_summary <- function(x,cys=FALSE,display=TRUE){
   p <- p + ggplot2::theme_classic()
   p <- p + ggplot2::theme(legend.title = ggplot2::element_blank())
   p <- p + ggplot2::ylab("Proportion")
-
-  score <- x$score
   p <- p + ggplot2::geom_text(x=90,y=0.6,label=paste("Av =",percent(score)))
   
   if (display){
