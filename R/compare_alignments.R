@@ -70,16 +70,16 @@ compare_alignments <- function(ref,com){
   
   # Write categories to results
   results[4,] <- t(rowMeans(cat2=="M")) # "RawMatch"
-  results[5,] <- t(rowMeans(cat2=="G")) # "Gapcon"
-  results[6,] <- t(rowMeans(cat2=="I")) # "Merge"
-  results[7,] <- t(rowMeans(cat2=="D")) # "Split"
-  results[8,] <- t(rowMeans(cat2=="S")) # "Shift"
+  results[5,] <- t(rowMeans(cat2=="g")) # "Gapcon"
+  results[6,] <- t(rowMeans(cat2=="m")) # "Merge"
+  results[7,] <- t(rowMeans(cat2=="s")) # "Split"
+  results[8,] <- t(rowMeans(cat2=="x")) # "Shift"
   # Ref column gappiness
   results[2,] <- (1-t(rowMeans(ref=="-")))               # "NonGap" 
   # Ref cysteine occurance
   results[3,] <- (t(rowMeans(ref=="c")))                 # "Cys"
   # Correct Match scores to take gappiness into account
-  results[9,] <- results[4,]/(1-results[5,])             # "lMatch"
+  results[9,] <- results[4,]/(1-results[5,])             # "Match"
   
   # Final mean score
   score <- sum(results[4,])/sum(1-results[5,])           # "Score"
