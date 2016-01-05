@@ -9,14 +9,14 @@
 #' @return Generates an object of class "pairwise alignment comparison" (PAC), providing the optimal alignment of alignments and comparison of the differences between them. The details of the PAC output components are as follows:
 #' \itemize{
 #'  \item {Columnmatch}   {The column of the comparison alignment with the highest final match score}
+#'  \item {RawMatch}      {The proportion of characters that are identical between alignments}
 #'  \item {Nongap}        {The proportion of characters that are not gaps}
 #'  \item {Cys}           {The proportion of cysteines (relevant for cysteine rich proteins)}
-#'  \item {Match}         {The proportion of characters that are identical between alignments}
+#'  \item {Match}         {The proportion of characters that match as a proportion of those that are not conserved gaps (Match/not_Gapcon)}
+#'  \item {Merge}         {The proportion of characters that are a gap in the reference, but are a residue in the comparison alignment}
+#'  \item {Split}         {The proportion of characters that are a residue in the reference, but a gap in the comparison alignment}
+#'  \item {Shift}         {The proportion of characters that are one residue in the reference, but a non-homologous residue in the comparison alignment}
 #'  \item {Gapcon}        {The proportion of characters that are conserved gaps}
-#'  \item {Insertion}     {The proportion of characters that are a gap in the reference, but are a residue in the comparison alignment}
-#'  \item {Deletion}      {The proportion of characters that are a residue in the reference, but a gap in the comparison alignment}
-#'  \item {Substitution}  {The proportion of characters that are one residue in the reference, but a non-homologous residue in the comparison alignment}
-#'  \item {Finalmatch}    {The proportion of characters that match as a proportion of those that are not conserved gaps (Match/not_Gapcon)}
 #' } 
 #' 
 #' @export
@@ -59,27 +59,27 @@ compare_alignments <- function(ref,com){
   row.names(results)<-c("ColumnMatch",  # 1
                         "NonGap",       # 2
                         "Cys",          # 3
-                        "Match",        # 4
+                        "RawMatch",     # 4
                         "Gapcon",       # 5
-                        "Insertion",    # 6
-                        "Deletion",     # 7
-                        "Substitution", # 8
-                        "FinalMatch")   # 9
+                        "Merge",        # 6
+                        "Split",        # 7
+                        "Shift",        # 8
+                        "Match")        # 9
   
   cat2 <- res_list$cat
   
   # Write categories to results
-  results[4,] <- t(rowMeans(cat2=="M")) # "Match"
-  results[5,] <- t(rowMeans(cat2=="G")) # "Gapcon"
-  results[6,] <- t(rowMeans(cat2=="I")) # "Insertion"
-  results[7,] <- t(rowMeans(cat2=="D")) # "Deletion"
-  results[8,] <- t(rowMeans(cat2=="S")) # "Substitution"
+  results[4,] <- t(rowMeans(cat2=="M")) # "RawMatch"
+  results[5,] <- t(rowMeans(cat2=="g")) # "Gapcon"
+  results[6,] <- t(rowMeans(cat2=="m")) # "Merge"
+  results[7,] <- t(rowMeans(cat2=="s")) # "Split"
+  results[8,] <- t(rowMeans(cat2=="x")) # "Shift"
   # Ref column gappiness
   results[2,] <- (1-t(rowMeans(ref=="-")))               # "NonGap" 
   # Ref cysteine occurance
   results[3,] <- (t(rowMeans(ref=="c")))                 # "Cys"
   # Correct Match scores to take gappiness into account
-  results[9,] <- results[4,]/(1-results[5,])             # "FinalMatch"
+  results[9,] <- results[4,]/(1-results[5,])             # "Match"
   
   # Final mean score
   score <- sum(results[4,])/sum(1-results[5,])           # "Score"

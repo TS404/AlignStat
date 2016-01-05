@@ -84,15 +84,15 @@ List rcpp_align(CharacterMatrix ref,
         cat(i,j) = "M";
       } else if ( ref_value=="-"){
         if ( com_value==NA_STRING){
-          cat(i,j) = "G";
+          cat(i,j) = "g";
         } else {
-          cat(i,j) = "I";
+          cat(i,j) = "m";
         }
       } else {
         if (com_value==NA_STRING){
-          cat(i,j) = "D";
+          cat(i,j) = "s";
         } else {
-          cat(i,j) = "S";
+          cat(i,j) = "x";
         }
       }
     }
