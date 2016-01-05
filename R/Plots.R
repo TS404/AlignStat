@@ -89,13 +89,13 @@ plot_match_summary <- function(x,cys=FALSE,display=TRUE){
 #' PAC <- compare_alignments(reference_alignment,comparison_alignment)
 #' plot_category_proportions(PAC, stack=TRUE)
 #'
-#' @note This function generates a detailed breakdown of the differences between the multiple sequence alignments. For all characters that are neither identical residues, nor conserved gaps, the relative proportions of insertions (I), deletions (D) and substitutions (S) is plotted.
+#' @note This function generates a detailed breakdown of the differences between the multiple sequence alignments. For all characters that are neither identical residues, nor conserved gaps, the relative proportions of merges (m), splits (s) and shift (x) is plotted.
 #'
 plot_category_proportions <- function(x,stack=FALSE,display=TRUE){
   
-  plot_data <- data.frame(Insertion=x$results[6,]/(1-x$results[5,]),
-                          Deletion=x$results[7,]/(1-x$results[5,]),
-                          Substitution=x$results[8,]/(1-x$results[5,]),
+  plot_data <- data.frame(Merge=x$results[6,]/(1-x$results[5,]),
+                          Split=x$results[7,]/(1-x$results[5,]),
+                          Shift=x$results[8,]/(1-x$results[5,]),
                           Position=1:ncol(x$results))
   md <- reshape2::melt(plot_data,id.vars='Position')
   colnames(md) <- c('Position','Change','Proportion')
