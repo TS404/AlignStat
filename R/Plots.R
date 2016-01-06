@@ -23,11 +23,16 @@ percent <- function(x, digits = 1, format = "f", ...) {
 #'
 plot_alignment_heatmap <- function(x,display=TRUE){
   
-  hm_data <- t(t(x$means)/x$results[2,])
-  md <- reshape2::melt(hm_data)
+  hm_data      <- t(t(x$means)/x$results[2,])
+  md           <- reshape2::melt(hm_data)
   colnames(md) <- c('Reference','Comparison','value')
-  p <- ggplot2::ggplot(md) + ggplot2::geom_tile(ggplot2::aes(x=Reference,y=Comparison,fill=value)) + ggplot2::scale_fill_gradient("Agreement",low="white",high="black")
-  p <- p  + ggplot2::theme(plot.background=ggplot2::element_rect(fill="white"),panel.background=ggplot2::element_rect(fill="white"))
+
+  p <- ggplot2::ggplot(md)                                                   +
+       ggplot2::geom_tile(ggplot2::aes(x=Reference,y=Comparison,fill=value)) + 
+       ggplot2::scale_fill_gradient("Agreement",low="white",high="black")    +
+       ggplot2::theme(plot.background  = ggplot2::element_rect(fill="white"),
+                      panel.background = ggplot2::element_rect(fill="white"))
+
   if (display){
     print(p)
   }
@@ -55,18 +60,21 @@ plot_match_summary <- function(x,cys=FALSE,display=TRUE){
   identity       <- x$results[9,]
   proportion_cys <- x$results[3,]
   score          <- x$score
-  col = 1:ncol(x$results)
-  plot_data = data.frame(Identity=identity,PropCys=proportion_cys,Position=col)
+  col            <- 1:ncol(x$results)
+  plot_data      <- data.frame(Identity=identity,PropCys=proportion_cys,Position=col)
   
-  p <- ggplot2::ggplot(plot_data,ggplot2::aes(x=Position)) + ggplot2::geom_line(ggplot2::aes(y=Identity,colour="Identity"))
+  p <- ggplot2::ggplot(plot_data,ggplot2::aes(x=Position))               +
+       ggplot2::geom_line(ggplot2::aes(y=Identity,colour="Identity"))    +
+       ggplot2::theme(legend.title = ggplot2::element_blank())           +
+       ggplot2::ylab("Proportion")                                       +
+       ggplot2::geom_text(x=90,y=0.6,label=paste("Av =",percent(score))) +
+       ggplot2::scale_x_continuous(expand = c(0, 0))                     +
+       ggplot2::scale_y_continuous(expand = c(0, 0))                     +
+       ggplot2::theme_classic()  
   if(cys) {
-    p <- p + ggplot2::geom_line(ggplot2::aes(y=PropCys,colour="Cysteines"))
-    p <- p + ggplot2::geom_line(ggplot2::aes(y=0))
+    p <- p + ggplot2::geom_line(ggplot2::aes(y=PropCys,colour="Cysteines")) +
+             ggplot2::geom_line(ggplot2::aes(y=0))
   }
-  p <- p + ggplot2::theme_classic()
-  p <- p + ggplot2::theme(legend.title = ggplot2::element_blank())
-  p <- p + ggplot2::ylab("Proportion")
-  p <- p + ggplot2::geom_text(x=90,y=0.6,label=paste("Av =",percent(score)))
   
   if (display){
     print(p)
@@ -92,22 +100,27 @@ plot_match_summary <- function(x,cys=FALSE,display=TRUE){
 #'
 plot_category_proportions <- function(x,stack=FALSE,display=TRUE){
   
-  plot_data <- data.frame(Merge=x$results[6,]/(1-x$results[5,]),
-                          Split=x$results[7,]/(1-x$results[5,]),
-                          Shift=x$results[8,]/(1-x$results[5,]),
-                          Position=1:ncol(x$results))
-  md <- reshape2::melt(plot_data,id.vars='Position')
+  plot_data    <- data.frame(Merge=x$results[6,]/(1-x$results[5,]),
+                             Split=x$results[7,]/(1-x$results[5,]),
+                             Shift=x$results[8,]/(1-x$results[5,]),
+                             Position=1:ncol(x$results))
+  md           <- reshape2::melt(plot_data,id.vars='Position')
   colnames(md) <- c('Position','Change','Proportion')
+  
   if (stack) {
-    p <- ggplot2::ggplot(md,ggplot2::aes(x=Position,y=Proportion)) + 
-      ggplot2::geom_area(ggplot2::aes(fill=Change),position = 'stack') + 
-      ggplot2::geom_line(ggplot2::aes(data=Change, ymax=1),position = 'stack')
-      p <- p + ggplot2::theme_classic()
+    p <- ggplot2::ggplot(md,ggplot2::aes(x=Position,y=Proportion))                + 
+         ggplot2::geom_area(ggplot2::aes(fill=Change),position = 'stack')         + 
+         ggplot2::geom_line(ggplot2::aes(data=Change, ymax=1),position = 'stack') +
+         ggplot2::scale_x_continuous(expand = c(0, 0))                            +
+         ggplot2::scale_y_continuous(expand = c(0, 0))                            +
+         ggplot2::theme_classic()
   } 
   else {
     p <- ggplot2::ggplot(md,ggplot2::aes(x=Position,y=Proportion)) + 
-         ggplot2::geom_line(ggplot2::aes(color=Change))
-    p <- p + ggplot2::theme_classic()
+         ggplot2::geom_line(ggplot2::aes(color=Change))            +
+         ggplot2::scale_x_continuous(expand = c(0, 0))             +
+         ggplot2::scale_y_continuous(expand = c(0, 0))             +
+         ggplot2::theme_classic()
   }
   
   if (display){
