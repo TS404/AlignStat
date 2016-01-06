@@ -115,7 +115,7 @@ compare_alignments <- function(ref,com){
        results_R            = results_R,
        similiarity_S        = means,
        dissimilarity_D      = dissimilarity_D,
-       dissimilarity_simple = cat,
+       dissimilarity_simple = t(cat),
        columnmatch          = columnmatch,
        cys                  = cys,
        reflen               = reflen,
