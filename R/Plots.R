@@ -58,42 +58,34 @@ plot_alignment_heatmap <- function(x,display=TRUE){
 plot_match_summary <- function(x,cys=FALSE,display=TRUE){
   
   identity       <- x$results[9,]
-  proportion_cys <- x$results[3,]
+  proportion_cys <- 0.2*(x$results[3,])-0.2
   score          <- x$score
   col            <- 1:ncol(x$results)
   plot_data      <- data.frame(Identity=identity,PropCys=proportion_cys,Position=col)
   
-  p <- ggplot2::ggplot(plot_data,ggplot2::aes(x=Position))               +
-       ggplot2::geom_line(ggplot2::aes(y=Identity,colour="Identity"))    +
-       ggplot2::theme(legend.title = ggplot2::element_blank())           +
-       ggplot2::ylab("Proportion")                                       +
-       ggplot2::scale_x_continuous(expand = c(0, 0))                     +
-       ggplot2::scale_y_continuous(expand = c(0, 0))                     +
-       ggplot2::theme_classic()                                          +
+  p <- ggplot2::ggplot(plot_data,ggplot2::aes(x=Position))                +
+       ggplot2::geom_line(ggplot2::aes(y=Identity,colour="Identity"))     +
+       ggplot2::theme(legend.title = ggplot2::element_blank())            +
+       ggplot2::ylab("Proportion")                                        +
+       ggplot2::scale_x_continuous(expand = c(0, 0))                      +
+       ggplot2::scale_y_continuous(expand = c(0, 0),breaks=seq(0,1,1/10)) +
+       ggplot2::theme_classic()                                           +
        ggplot2::geom_text(label = paste("Av =",percent(score)),
                           hjust = 0,
                           x     = 2,
                           y     = max(identity)*0.95)
-  p
+  
   if(cys) {
-    p2 <- ggplot2::ggplot(plot_data,ggplot2::aes(x=Position))            +
-          ggplot2::geom_line(ggplot2::aes(y=PropCys,colour="Cysteines")) +
-          ggplot2::geom_line(ggplot2::aes(y=0))                          +
-          ggplot2::scale_x_continuous(expand = c(0, 0))                  +
-          ggplot2::scale_y_continuous(expand = c(0, 0))                  +
-          ggplot2::theme_classic()
-    p2
-    if (display){
-      gridExtra::grid.arrange(p, p2, nrow=2, heights=c(4,1))
-    }
+    p  <- p + ggplot2::geom_line(ggplot2::aes(y=PropCys,colour="Cysteines")) +
+          ggplot2::geom_line(ggplot2::aes(y=0))                              +
+          ggplot2::geom_line(ggplot2::aes(y=0))
   }
-  else {
-    if (display){
-      print(p)
-    }
+  
+  if (display){
+    print(p)
   }
+  p
 }
-
 
 #' Plot the different causes of column dissimilarity between two multiple sequence alignments 
 #'
