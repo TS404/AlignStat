@@ -14,15 +14,14 @@ compare_alignments(ref, com)
 \value{
 Generates an object of class "pairwise alignment comparison" (PAC), providing the optimal alignment of alignments and comparison of the differences between them. The details of the PAC output components are as follows:
 \itemize{
- \item {Columnmatch}   {The column of the comparison alignment with the highest final match score}
- \item {Nongap}        {The proportion of characters that are not gaps}
- \item {Cys}           {The proportion of cysteines (relevant for cysteine rich proteins)}
- \item {Match}         {The proportion of characters that are identical between alignments}
+ \item {Match}         {The proportion of characters that match as a proportion of those that are not conserved gaps (Match/not_Gapcon)}
+ \item {Merge}         {The proportion of characters that are a gap in the reference, but are a residue in the comparison alignment}
+ \item {Split}         {The proportion of characters that are a residue in the reference, but a gap in the comparison alignment}
+ \item {Shift}         {The proportion of characters that are one residue in the reference, but a non-homologous residue in the comparison alignment}
  \item {Gapcon}        {The proportion of characters that are conserved gaps}
- \item {Insertion}     {The proportion of characters that are a gap in the reference, but are a residue in the comparison alignment}
- \item {Deletion}      {The proportion of characters that are a residue in the reference, but a gap in the comparison alignment}
- \item {Substitution}  {The proportion of characters that are one residue in the reference, but a non-homologous residue in the comparison alignment}
- \item {Finalmatch}    {The proportion of characters that match as a proportion of those that are not conserved gaps (Match/not_Gapcon)}
+ \item {Columnmatch}   {The column of the comparison alignment with the highest final match score}
+ \item {Cys}           {The proportion of cysteines (relevant for cysteine rich proteins)}
+ \item {RawMatch}      {The proportion of characters that are identical between alignments}
 }
 }
 \description{
