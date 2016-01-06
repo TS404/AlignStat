@@ -70,7 +70,7 @@ plot_match_summary <- function(x,cys=FALSE,display=TRUE){
        ggplot2::scale_x_continuous(expand = c(0, 0))                      +
        ggplot2::scale_y_continuous(expand = c(0, 0),breaks=seq(0,1,1/10)) +
        ggplot2::theme_classic()                                           +
-       ggplot2::geom_text(label = paste("Av =",percent(score)),
+       ggplot2::geom_text(label = paste("Score =",percent(score)),
                           hjust = 0,
                           x     = 2,
                           y     = max(identity)*0.95)
