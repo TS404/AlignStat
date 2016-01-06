@@ -17,7 +17,6 @@ Imports:
     Rcpp (>= 0.11.6),
     seqinr,
     ggplot2,
-    gridExtra,
     reshape2
 LinkingTo: Rcpp
 Suggests:
