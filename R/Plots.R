@@ -67,19 +67,31 @@ plot_match_summary <- function(x,cys=FALSE,display=TRUE){
        ggplot2::geom_line(ggplot2::aes(y=Identity,colour="Identity"))    +
        ggplot2::theme(legend.title = ggplot2::element_blank())           +
        ggplot2::ylab("Proportion")                                       +
-       ggplot2::geom_text(x=90,y=0.6,label=paste("Av =",percent(score))) +
        ggplot2::scale_x_continuous(expand = c(0, 0))                     +
        ggplot2::scale_y_continuous(expand = c(0, 0))                     +
-       ggplot2::theme_classic()  
-  if(cys) {
-    p <- p + ggplot2::geom_line(ggplot2::aes(y=PropCys,colour="Cysteines")) +
-             ggplot2::geom_line(ggplot2::aes(y=0))
-  }
-  
-  if (display){
-    print(p)
-  }
+       ggplot2::theme_classic()                                          +
+       ggplot2::geom_text(label = paste("Av =",percent(score)),
+                          hjust = 0,
+                          x     = 2,
+                          y     = max(identity)*0.95)
   p
+  if(cys) {
+    p2 <- ggplot2::ggplot(plot_data,ggplot2::aes(x=Position))            +
+          ggplot2::geom_line(ggplot2::aes(y=PropCys,colour="Cysteines")) +
+          ggplot2::geom_line(ggplot2::aes(y=0))                          +
+          ggplot2::scale_x_continuous(expand = c(0, 0))                  +
+          ggplot2::scale_y_continuous(expand = c(0, 0))                  +
+          ggplot2::theme_classic()
+    p2
+    if (display){
+      gridExtra::grid.arrange(p, p2, nrow=2, heights=c(4,1))
+    }
+  }
+  else {
+    if (display){
+      print(p)
+    }
+  }
 }
 
 
@@ -114,7 +126,7 @@ plot_category_proportions <- function(x,stack=FALSE,display=TRUE){
          ggplot2::scale_x_continuous(expand = c(0, 0))                            +
          ggplot2::scale_y_continuous(expand = c(0, 0))                            +
          ggplot2::theme_classic()
-  } 
+  }
   else {
     p <- ggplot2::ggplot(md,ggplot2::aes(x=Position,y=Proportion)) + 
          ggplot2::geom_line(ggplot2::aes(color=Change))            +
