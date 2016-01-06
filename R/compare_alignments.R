@@ -93,10 +93,10 @@ compare_alignments <- function(ref,com){
   results_R[5,] <- t(rowMeans(cat=="g")) # "Gapcon"
 
   # For each column of ref, which column of com is most similar
-  columnmatch <- res_list$results[1,] 
+  columnmatch <- as.vector(res_list$results[1,]) 
  
   # Ref cysteine occurance
-  cys <- (t(rowMeans(ref=="c")))        
+  cys <- as.vector((t(rowMeans(ref=="c"))))
  
   # Count alignment columns
   reflen <- nrow(ref)                              
