@@ -74,8 +74,8 @@ compare_alignments <- function(ref,com){
                         "Match")        # 9
 
   # Create dissimilarity (matrix D) from simplified dissimilarity (res_list$cat)
-  dissimilarity_D <- array(, dim=c(nrow(ref), # rows
-                                   ncol(ref), # columns
+  dissimilarity_D <- array(, dim=c(ncol(ref), # rows
+                                   nrow(ref), # columns
                                    5))        # stacks
   dissimilarity_D[,,1] <- 1*(cat=="M") # "Match"
   dissimilarity_D[,,2] <- 1*(cat=="m") # "Merge"
@@ -85,7 +85,7 @@ compare_alignments <- function(ref,com){
 
   # Write category averages to results (R matrix)
   results_R <- array(, dim=c(5,          # rows
-                             ncol(ref))) # columns
+                             nrow(ref))) # columns
   results_R[1,] <- t(rowMeans(cat=="M")) # "Match"
   results_R[2,] <- t(rowMeans(cat=="m")) # "Merge"
   results_R[3,] <- t(rowMeans(cat=="s")) # "Split"
