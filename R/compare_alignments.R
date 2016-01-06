@@ -84,6 +84,8 @@ compare_alignments <- function(ref,com){
   dissimilarity_D[,,5] <- 1*(cat=="g") # "Gapcon"
 
   # Write category averages to results (R matrix)
+  results_R <- array(, dim=c(5,          # rows
+                             ncol(ref))) # columns
   results_R[1,] <- t(rowMeans(cat=="M")) # "Match"
   results_R[2,] <- t(rowMeans(cat=="m")) # "Merge"
   results_R[3,] <- t(rowMeans(cat=="s")) # "Split"
