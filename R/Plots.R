@@ -23,7 +23,7 @@ percent <- function(x, digits = 1, format = "f", ...) {
 #'
 plot_alignment_heatmap <- function(x,display=TRUE){
   
-  hm_data      <- t(t(x$means)/x$results[2,])
+  hm_data      <- t(t(x$similarity_S)/x$results_R[5,])
   md           <- reshape2::melt(hm_data)
   colnames(md) <- c('Reference','Comparison','value')
 
@@ -57,8 +57,8 @@ plot_alignment_heatmap <- function(x,display=TRUE){
 #'
 plot_match_summary <- function(x,cys=FALSE,display=TRUE){
   
-  identity       <- x$results[9,]
-  proportion_cys <- 0.2*(x$results[3,])-0.2
+  identity       <- x$results_R[1,]/(1-x$results_R[5,])
+  proportion_cys <- 0.2*(x$cys)-0.2
   score          <- x$score
   col            <- 1:ncol(x$results)
   plot_data      <- data.frame(Identity=identity,PropCys=proportion_cys,Position=col)
@@ -104,9 +104,9 @@ plot_match_summary <- function(x,cys=FALSE,display=TRUE){
 #'
 plot_category_proportions <- function(x,stack=FALSE,display=TRUE){
   
-  plot_data    <- data.frame(Merge=x$results[6,]/(1-x$results[5,]),
-                             Split=x$results[7,]/(1-x$results[5,]),
-                             Shift=x$results[8,]/(1-x$results[5,]),
+  plot_data    <- data.frame(Merge=x$results_R[2,]/(1-x$results_R[5,]),
+                             Split=x$results_R[3,]/(1-x$results_R[5,]),
+                             Shift=x$results_R[4,]/(1-x$results_R[5,]),
                              Position=1:ncol(x$results))
   md           <- reshape2::melt(plot_data,id.vars='Position')
   colnames(md) <- c('Position','Change','Proportion')

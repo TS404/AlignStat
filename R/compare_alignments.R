@@ -8,15 +8,19 @@
 #'
 #' @return Generates an object of class "pairwise alignment comparison" (PAC), providing the optimal alignment of alignments and comparison of the differences between them. The details of the PAC output components are as follows:
 #' \itemize{
-#'  \item {Columnmatch}   {The column of the comparison alignment with the highest final match score}
-#'  \item {RawMatch}      {The proportion of characters that are identical between alignments}
-#'  \item {Nongap}        {The proportion of characters that are not gaps}
-#'  \item {Cys}           {The proportion of cysteines (relevant for cysteine rich proteins)}
-#'  \item {Match}         {The proportion of characters that match as a proportion of those that are not conserved gaps (Match/not_Gapcon)}
-#'  \item {Merge}         {The proportion of characters that are a gap in the reference, but are a residue in the comparison alignment}
-#'  \item {Split}         {The proportion of characters that are a residue in the reference, but a gap in the comparison alignment}
-#'  \item {Shift}         {The proportion of characters that are one residue in the reference, but a non-homologous residue in the comparison alignment}
-#'  \item {Gapcon}        {The proportion of characters that are conserved gaps}
+#'  \item {reference_P}          {The numbered character matrix of the reference alignment}
+#'  \item {comparison_Q}         {The numbered character matrix of the comparison alignment}
+#'  \item {results_R}            {The results summary matrix (containing column averages of match, merge, split, shift, gapcon)}
+#'  \item {similarity_S}         {The similarity matrix between the reference and comparison alignment columns}
+#'  \item {dissimilarity_D}      {The dissimilarity matrix between the reference and comparison (containing match, merge, split, shift, gapcon)}
+#'  \item {dissimilarity_simple} {The dissimilarity matrix with categories stacked into a single 2D matrix}
+#'  \item {columnmatch}          {The column of the comparison alignment with the highest final match score}
+#'  \item {cys}                  {The proportion of cysteines (relevant for cysteine rich proteins)}
+#'  \item {reflen}               {The length of the reference alignment}
+#'  \item {comlen}               {The length of the comparison alignment}
+#'  \item {refcon}               {The consensus sequence of the reference alignment}
+#'  \item {comcon}               {The consensus sequence of the comparison alignment}
+#'  \item {score}                {The overall similarity score}
 #' } 
 #' 
 #' @export
@@ -29,11 +33,10 @@ compare_alignments <- function(ref,com){
   
   if (!is.data.frame(ref)){
     data.frame(seqinr::read.fasta(ref,set.attributes=FALSE)) -> ref
-  } 
+  }
   if (!is.data.frame(com)){
     data.frame(seqinr::read.fasta(com,set.attributes=FALSE)) -> com
   }
-  
   if( !valid_alignments(ref,com) ){
     stop("both alignments must contain the same sets of sequences in the same order")
   }
@@ -54,8 +57,12 @@ compare_alignments <- function(ref,com){
   # Alignment identity calculation #
   ##################################
   
+  # res_list contains $results, $cat, $means 
   res_list = rcpp_align(ref2,com2)
   results  = res_list$results
+  cat      = res_list$cat
+  means    = res_list$means
+  
   row.names(results)<-c("ColumnMatch",  # 1
                         "NonGap",       # 2
                         "Cys",          # 3
@@ -65,48 +72,60 @@ compare_alignments <- function(ref,com){
                         "Split",        # 7
                         "Shift",        # 8
                         "Match")        # 9
-  
-  cat2 <- res_list$cat
-  
-  # Write categories to results
-  results[4,] <- t(rowMeans(cat2=="M")) # "RawMatch"
-  results[5,] <- t(rowMeans(cat2=="g")) # "Gapcon"
-  results[6,] <- t(rowMeans(cat2=="m")) # "Merge"
-  results[7,] <- t(rowMeans(cat2=="s")) # "Split"
-  results[8,] <- t(rowMeans(cat2=="x")) # "Shift"
-  # Ref column gappiness
-  results[2,] <- (1-t(rowMeans(ref=="-")))               # "NonGap" 
+
+  # Create dissimilarity (matrix D) from simplified dissimilarity (res_list$cat)
+  dissimilarity_D <- array(, dim=c(nrow(ref), # rows
+                                   ncol(ref), # columns
+                                   5))        # stacks
+  dissimilarity_D[,,1] <- 1*(cat=="M") # "Match"
+  dissimilarity_D[,,2] <- 1*(cat=="m") # "Merge"
+  dissimilarity_D[,,3] <- 1*(cat=="s") # "Split"
+  dissimilarity_D[,,4] <- 1*(cat=="x") # "Shift"
+  dissimilarity_D[,,5] <- 1*(cat=="g") # "Gapcon"
+
+  # Write category averages to results (R matrix)
+  results_R[1,] <- t(rowMeans(cat=="M")) # "Match"
+  results_R[2,] <- t(rowMeans(cat=="m")) # "Merge"
+  results_R[3,] <- t(rowMeans(cat=="s")) # "Split"
+  results_R[4,] <- t(rowMeans(cat=="x")) # "Shift"
+  results_R[5,] <- t(rowMeans(cat=="g")) # "Gapcon"
+
+  # For each column of ref, which column of com is most similar
+  columnmatch <- res_list$results[1,] 
+ 
   # Ref cysteine occurance
-  results[3,] <- (t(rowMeans(ref=="c")))                 # "Cys"
-  # Correct Match scores to take gappiness into account
-  results[9,] <- results[4,]/(1-results[5,])             # "Match"
-  
-  # Final mean score
-  score <- sum(results[4,])/sum(1-results[5,])           # "Score"
-  
+  cys <- (t(rowMeans(ref=="c")))        
+ 
   # Count alignment columns
-  reflen <- nrow(ref)
+  reflen <- nrow(ref)                              
   comlen <- nrow(com)
   
   # Alignment consensus sequences
   refcon <- seqinr::consensus(t(ref))
-  comcon <- seqinr::consensus(t(ref))
+  comcon <- seqinr::consensus(t(com))
+
+  # Final mean score
+  score <- mean(cat=="M")/(1-mean(cat=="g"))
   
   # Create final object
-  list(results = results,
-       means   = res_list$means,
-       cat     = cat,
-       reflen  = reflen,
-       comlen  = comlen,
-       refcon  = refcon,
-       comcon  = comcon,
-       score   = score)
+  list(reference_P          = t(ref2),
+       comparison_Q         = t(com2),
+       results_R            = results_R,
+       similiarity_S        = means,
+       dissimilarity_D      = dissimilarity_D,
+       dissimilarity_simple = cat,
+       columnmatch          = columnmatch,
+       cys                  = cys,
+       reflen               = reflen,
+       comlen               = comlen,
+       refcon               = refcon,
+       comcon               = comcon,
+       score                = score)
 }
 
 
 prepare_alignment_matrix <- function(commat){
-  
-  mat2 <- rcpp_prepare_alignment_matrix(as.matrix(commat))
+    mat2 <- rcpp_prepare_alignment_matrix(as.matrix(commat))
   # Remove extra space and de-number gaps
   gsub(x = mat2, pattern = " ",     replacement = "")  -> mat2
   gsub(x = mat2, pattern = "[-].*", replacement = "-") -> mat2
@@ -124,4 +143,3 @@ valid_alignments <- function(ref,com){
   })
   all(checks)
 }
-
