@@ -64,7 +64,6 @@ results    A matrix with the following comparison statistics for each ith column
            reference alignment compared to its best match in the comparison alignment:
 
    Columnmatch   The column of the comparison alignment with the highest final match score
-   Nongap        The proportion of characters that are not gaps
    Cys           The proportion of cysteines (relevant for cysteine rich proteins)
    Match         The proportion of characters that are identical between alignments
    Gapcon        The proportion of characters that are conserved gaps
