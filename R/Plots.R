@@ -23,7 +23,7 @@ percent <- function(x, digits = 1, format = "f", ...) {
 #'
 plot_alignment_heatmap <- function(x,display=TRUE){
   
-  hm_data      <- t(t(x$similarity_S)/x$results_R[5,])
+  hm_data      <- t(t(x$similarity_S)/(1-x$results_R[5,]))
   md           <- reshape2::melt(hm_data)
   colnames(md) <- c('Reference','Comparison','value')
 
