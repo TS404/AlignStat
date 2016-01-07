@@ -163,10 +163,10 @@ plot_similarity_summary <- function(x,cys=FALSE,display=TRUE){
 #'
 plot_dissimilarity_summary <- function(x,stack=TRUE,display=TRUE){
   
-  plot_data    <- data.frame(Merge=x$results_R[2,]/(1-x$results_R[2,]),
-                               Shift=x$results_R[4,]/(1-x$results_R[2,]),
-                               Split=x$results_R[3,]/(1-x$results_R[2,]),
-                               Position=1:ncol(x$results))
+  plot_data    <- data.frame(Merge=x$results_R[3,]/(1-x$results_R[2,]),
+                             Shift=x$results_R[5,]/(1-x$results_R[2,]),
+                             Split=x$results_R[4,]/(1-x$results_R[2,]),
+                             Position=1:ncol(x$results))
     md           <- reshape2::melt(plot_data,id.vars='Position')
     colnames(md) <- c('Position','Dissimilarity','Proportion')
     
