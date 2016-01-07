@@ -3,7 +3,7 @@
 #' @param ref   The reference MSA (in fasta format)
 #' @param com   The MSA to compare (in fasta format)
 #'
-#' @return Generates an object of class "pairwise alignment comparison" (PAC), providing the optimal alignment of alignments and comparison of the differences between them. The details of the PAC output components are as follows:
+#' @return Generates an object of class "pairwise alignment comparison" (PAC), providing the optimal pairwise column alignment of two alternative MSAs of the same sequences, and summary statistics of the differences between them. The details of the PAC output components are as follows:
 #' \itemize{
 #'  \item {reference_P}          {The numbered character matrix of the reference alignment}
 #'  \item {comparison_Q}         {The numbered character matrix of the comparison alignment}
