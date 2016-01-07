@@ -30,7 +30,7 @@ percent <- function(x, digits = 1, format = "f", ...) {
 #'
 plot_similarity_heatmap <- function(x,display=TRUE){
   
-  hm_data      <- t(t(x$similarity_S)/(1-x$results_R[5,]))
+  hm_data      <- t(t(x$similarity_S)/(1-x$results_R[2,]))
   md           <- reshape2::melt(hm_data)
   colnames(md) <- c('Reference','Comparison','value')
 
@@ -114,7 +114,7 @@ plot_dissimilarity_matrix <- function(x,display=TRUE){
 #'
 plot_similarity_summary <- function(x,cys=FALSE,display=TRUE){
   
-  identity       <- x$results_R[1,]/(1-x$results_R[5,])
+  identity       <- x$results_R[1,]/(1-x$results_R[2,])
   proportion_cys <- 0.2*(x$cys)-0.2
   score          <- x$score
   col            <- 1:ncol(x$results)
@@ -163,9 +163,9 @@ plot_similarity_summary <- function(x,cys=FALSE,display=TRUE){
 #'
 plot_dissimilarity_summary <- function(x,stack=TRUE,display=TRUE){
   
-  plot_data    <- data.frame(Merge=x$results_R[2,]/(1-x$results_R[5,]),
-                               Shift=x$results_R[4,]/(1-x$results_R[5,]),
-                               Split=x$results_R[3,]/(1-x$results_R[5,]),
+  plot_data    <- data.frame(Merge=x$results_R[2,]/(1-x$results_R[2,]),
+                               Shift=x$results_R[4,]/(1-x$results_R[2,]),
+                               Split=x$results_R[3,]/(1-x$results_R[2,]),
                                Position=1:ncol(x$results))
     md           <- reshape2::melt(plot_data,id.vars='Position')
     colnames(md) <- c('Position','Dissimilarity','Proportion')
