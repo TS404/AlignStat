@@ -36,7 +36,7 @@ compare_alignments <- function(ref,com){
   if (!is.data.frame(com)){
     data.frame(seqinr::read.fasta(com,set.attributes=FALSE)) -> com
   }
-  if( !valid_alignments(ref,com) ){
+  if( !valid_alignments(ref,com)){
     stop("both alignments must contain the same sets of sequences in the same order")
   }
   
@@ -76,20 +76,14 @@ compare_alignments <- function(ref,com){
   dissimilarity_D <- array(, dim=c(ncol(ref), # rows
                                    nrow(ref), # columns
                                    5))        # stacks
-  dissimilarity_D[,,1] <- 1*(cat=="M") # "Match"
-  dissimilarity_D[,,2] <- 1*(cat=="g") # "Gapcon"
-  dissimilarity_D[,,3] <- 1*(cat=="m") # "Merge"
-  dissimilarity_D[,,4] <- 1*(cat=="s") # "Split"
-  dissimilarity_D[,,5] <- 1*(cat=="x") # "Shift"
+  dissimilarity_D[,,1] <- 1*t(cat=="M") # "Match"
+  dissimilarity_D[,,2] <- 1*t(cat=="g") # "Gapcon"
+  dissimilarity_D[,,3] <- 1*t(cat=="m") # "Merge"
+  dissimilarity_D[,,4] <- 1*t(cat=="s") # "Split"
+  dissimilarity_D[,,5] <- 1*t(cat=="x") # "Shift"
 
   # Write category averages to results (R matrix)
-  results_R <- array(, dim=c(5,          # rows
-                             nrow(ref))) # columns
-  results_R[1,] <- t(rowMeans(cat=="M")) # "Match"
-  results_R[2,] <- t(rowMeans(cat=="g")) # "Gapcon"
-  results_R[3,] <- t(rowMeans(cat=="m")) # "Merge"
-  results_R[4,] <- t(rowMeans(cat=="s")) # "Split"
-  results_R[5,] <- t(rowMeans(cat=="x")) # "Shift"
+  results_R <- t(colMeans(dissimilarity_D))
 
   # For each column of ref, which column of com is most similar
   columnmatch <- as.vector(res_list$results[1,]) 
