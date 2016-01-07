@@ -7,9 +7,9 @@
 #' \itemize{
 #'  \item {reference_P}          {The numbered character matrix of the reference alignment}
 #'  \item {comparison_Q}         {The numbered character matrix of the comparison alignment}
-#'  \item {results_R}            {The results summary matrix (containing column averages of match, merge, split, shift, gapcon)}
+#'  \item {results_R}            {The results summary matrix (containing column averages of match, gapcon, merge, split, shift)}
 #'  \item {similarity_S}         {The similarity matrix between the reference and comparison alignment columns}
-#'  \item {dissimilarity_D}      {The dissimilarity matrix between the reference and comparison (containing match, merge, split, shift, gapcon)}
+#'  \item {dissimilarity_D}      {The dissimilarity matrix between the reference and comparison (containing match, gapcon, merge, split, shift)}
 #'  \item {dissimilarity_simple} {The dissimilarity matrix with categories stacked into a single 2D matrix}
 #'  \item {columnmatch}          {The column of the comparison alignment with the highest final match score}
 #'  \item {cys}                  {The proportion of cysteines (relevant for cysteine rich proteins)}
@@ -77,19 +77,19 @@ compare_alignments <- function(ref,com){
                                    nrow(ref), # columns
                                    5))        # stacks
   dissimilarity_D[,,1] <- 1*(cat=="M") # "Match"
-  dissimilarity_D[,,2] <- 1*(cat=="m") # "Merge"
-  dissimilarity_D[,,3] <- 1*(cat=="s") # "Split"
-  dissimilarity_D[,,4] <- 1*(cat=="x") # "Shift"
-  dissimilarity_D[,,5] <- 1*(cat=="g") # "Gapcon"
+  dissimilarity_D[,,2] <- 1*(cat=="g") # "Gapcon"
+  dissimilarity_D[,,3] <- 1*(cat=="m") # "Merge"
+  dissimilarity_D[,,4] <- 1*(cat=="s") # "Split"
+  dissimilarity_D[,,5] <- 1*(cat=="x") # "Shift"
 
   # Write category averages to results (R matrix)
   results_R <- array(, dim=c(5,          # rows
                              nrow(ref))) # columns
   results_R[1,] <- t(rowMeans(cat=="M")) # "Match"
-  results_R[2,] <- t(rowMeans(cat=="m")) # "Merge"
-  results_R[3,] <- t(rowMeans(cat=="s")) # "Split"
-  results_R[4,] <- t(rowMeans(cat=="x")) # "Shift"
-  results_R[5,] <- t(rowMeans(cat=="g")) # "Gapcon"
+  results_R[2,] <- t(rowMeans(cat=="g")) # "Gapcon"
+  results_R[3,] <- t(rowMeans(cat=="m")) # "Merge"
+  results_R[4,] <- t(rowMeans(cat=="s")) # "Split"
+  results_R[5,] <- t(rowMeans(cat=="x")) # "Shift"
 
   # For each column of ref, which column of com is most similar
   columnmatch <- as.vector(res_list$results[1,]) 
