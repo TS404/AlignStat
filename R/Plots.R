@@ -30,7 +30,7 @@ percent <- function(x, digits = 1, format = "f", ...) {
 #'
 plot_similarity_heatmap <- function(x,display=TRUE){
   
-  hm_data      <- t(x$similarity_S)/(1-x$results_R[2,])
+  hm_data      <- t(x$similarity_S)/(1-x$results_R[2,]-x$results_R[3,]) # Proportion of similarity excluding gapcon and merge
   md           <- reshape2::melt(hm_data)
   colnames(md) <- c('Reference','Comparison','value')
 
