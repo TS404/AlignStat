@@ -64,7 +64,7 @@ reference_P           A numbered character matrix of the reference alignment
 comparison_Q          A numbered character matrix of the comparison alignment
 results_R             A matrix whos [i,j]th entry is the ith match category average of the
                       jth column of the reference alignment versus the comparison alignment
-                      (i1=match, i2=merge, i3=split, i4=shift, i5=conserved gap) Used to
+                      (i1=match, i2=conserved gap, i3=merge, i4=split, i5=shift) Used to
                       generate the similarity summary and dissimilarity summary plots.
 similarity_S          A similarity matrix whose [i,j]th entry is the similarity score between
                       the ith column of the reference alignment and the jth column of the
@@ -72,11 +72,11 @@ similarity_S          A similarity matrix whose [i,j]th entry is the similarity 
                       for further analysis. Used to generate the similarity heatmap plot.
 dissimilarity_D       A dissimilarity matrix whose [i,j,k]th entry is the kth match category
                       of the jth residue of the ith sequence for the reference alignment
-                      versus the comparison alignment (k1=match, k2=merge, k3=split, k4=shift,
-                      k5=conserved gap).
+                      versus the comparison alignment (k1=match, k2=conserved gap, k3=merge,
+                      k4=split, k5=shift).
 dissimilarity_simple  A matrix whose [i,j]th entry is the dissimilarity category of the jth
                       residue of the ith sequence for the reference alignment versus the
-                      comparison alignment (M=match, m=merge, s=split, x=shift, g=conserved gap).
+                      comparison alignment (M=match, g=conserved gap, m=merge, s=split, x=shift).
                       Generated from the dissimilarity matrix with categories stacked into a
                       single 2D matrix. Used to the dissimilarity matrix plot.
 columnmatch           The column of the comparison alignment with the highest final match score
