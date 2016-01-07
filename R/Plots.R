@@ -30,7 +30,7 @@ percent <- function(x, digits = 1, format = "f", ...) {
 #'
 plot_similarity_heatmap <- function(x,display=TRUE){
   
-  hm_data      <- t(t(x$similarity_S)/(1-x$results_R[2,]))
+  hm_data      <- t(x$similarity_S)/(1-x$results_R[2,])
   md           <- reshape2::melt(hm_data)
   colnames(md) <- c('Reference','Comparison','value')
 
@@ -39,7 +39,7 @@ plot_similarity_heatmap <- function(x,display=TRUE){
        ggplot2::scale_fill_gradient("Similarity",low="white",high="black")    +
        ggplot2::labs(x = "Reference MSA column", y = "Comparison MSA column") +
        ggplot2::scale_x_continuous(expand = c(0, 0))                          +
-       ggplot2::scale_y_continuous(expand = c(0, 0))                          +
+       ggplot2::scale_y_reverse   (expand = c(0, 0))                          +
        ggplot2::theme(plot.background  = ggplot2::element_rect(fill="white"),
                       panel.background = ggplot2::element_rect(fill="white"))
 
