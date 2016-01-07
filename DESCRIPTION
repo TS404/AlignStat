@@ -5,13 +5,13 @@ Version: 1.1
 Date: 2015-10-09
 Author: Thomas Shafee, Ira Cooke
 Maintainer: Your Name <thomas.shafee@gmail.com>
-Description: This package contains functions that compare two alternative
-    multiple sequence alignments (MSAs) to determine whether they align homologous
-    residues in the same columns as one another. It then classifies similarities
-    and differences into conserved gaps, conserved sequence, insertion, deletion or
-    substitution. Summarising these categories for each column yeilds information on
-    which columns are agreed upon my both MSAs, and which differ. Several plotting
-    functions easily visualise the comparison data for analysis.
+Description: This package contains functions that compare two alternative multiple 
+    sequence alignments (MSAs) to determine whether they align homologous residues in 
+    the same columns as one another. It then classifies similarities and differences 
+    into conserved gaps, conserved sequence, merges, splits or shifts of one MSA relative 
+    to the other. Summarising these categories for each MSA column yields information 
+    on which sequence regions are agreed upon my both MSAs, and which differ. Several 
+    plotting functions enable easily visualisation of the comparison data for analysis.
 License: GPL (>= 2)
 Imports:
     Rcpp (>= 0.11.6),
