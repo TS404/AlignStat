@@ -58,37 +58,34 @@ com   The MSA to compare (in fasta format)
 ```
 
 ###Value
-Generates an object of class "pairwise alignment comparison" (PAC), providing the optimal alignment of alignments and comparison of the differences between them. The details of the PAC output components are as follows:
+Generates an object of class "pairwise alignment comparison" (PAC), providing the optimal pairwise column alignment of two alternative MSAs of the same sequences, and summary statistics of the differences between them. The details of the PAC output components are as follows:
 ```R
-results    An object containing the following comparison statistics for the reference alignment the
-           comparison alignment:
-
-   reference_P          A numbered character matrix of the reference alignment
-   comparison_Q         A numbered character matrix of the comparison alignment
-   results_R            A matrix whos [i,j]th entry is the ith match category average of the
-                        jth column of the reference alignment versus the comparison alignment
-                        (i1=match, i2=merge, i3=split, i4=shift, i5=conserved gap) Used to
-                        generate the similarity summary and dissimilarity summary plots.
-   similarity_S         A similarity matrix whose [i,j]th entry is the similarity score between
-                        the ith column of the reference alignment and the jth column of the
-                        comparison alignment. Used to determine which columns are most similar
-                        for further analysis. Used to generate the similarity heatmap plot.
-   dissimilarity_D      A dissimilarity matrix whose [i,j,k]th entry is the kth match category
-                        of the jth residue of the ith sequence for the reference alignment
-                        versus the comparison alignment (k1=match, k2=merge, k3=split, k4=shift,
-                        k5=conserved gap).
-   dissimilarity_simple A matrix whose [i,j]th entry is the dissimilarity category of the jth
-                        residue of the ith sequence for the reference alignment versus the
-                        comparison alignment (M=match, m=merge, s=split, x=shift, g=conserved gap).
-                        Generated from the dissimilarity matrix with categories stacked into a
-                        single 2D matrix. Used to the dissimilarity matrix plot.
-   columnmatch          The column of the comparison alignment with the highest final match score
-   cys                  The proportion of cysteines (relevant for cysteine rich proteins)
-   reflen               The number of columns in the reference alignment
-   comlen               The number of columns in the comparison alignment
-   refcon               The consensus sequence of the reference alignment
-   comcon               The consensus sequence of the comparison alignment
-   score                The overall similarity score between the reference and comparison alignments
+reference_P           A numbered character matrix of the reference alignment
+comparison_Q          A numbered character matrix of the comparison alignment
+results_R             A matrix whos [i,j]th entry is the ith match category average of the
+                      jth column of the reference alignment versus the comparison alignment
+                      (i1=match, i2=merge, i3=split, i4=shift, i5=conserved gap) Used to
+                      generate the similarity summary and dissimilarity summary plots.
+similarity_S          A similarity matrix whose [i,j]th entry is the similarity score between
+                      the ith column of the reference alignment and the jth column of the
+                      comparison alignment. Used to determine which columns are most similar
+                      for further analysis. Used to generate the similarity heatmap plot.
+dissimilarity_D       A dissimilarity matrix whose [i,j,k]th entry is the kth match category
+                      of the jth residue of the ith sequence for the reference alignment
+                      versus the comparison alignment (k1=match, k2=merge, k3=split, k4=shift,
+                      k5=conserved gap).
+dissimilarity_simple  A matrix whose [i,j]th entry is the dissimilarity category of the jth
+                      residue of the ith sequence for the reference alignment versus the
+                      comparison alignment (M=match, m=merge, s=split, x=shift, g=conserved gap).
+                      Generated from the dissimilarity matrix with categories stacked into a
+                      single 2D matrix. Used to the dissimilarity matrix plot.
+columnmatch           The column of the comparison alignment with the highest final match score
+cys                   The proportion of cysteines (relevant for cysteine rich proteins)
+reflen                The number of columns in the reference alignment
+comlen                The number of columns in the comparison alignment
+refcon                The consensus sequence of the reference alignment
+comcon                The consensus sequence of the comparison alignment
+score                 The overall similarity score between the reference and comparison alignments
 ```
 
 ###Details
