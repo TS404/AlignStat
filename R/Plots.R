@@ -134,8 +134,8 @@ plot_similarity_summary <- function(x,cys=FALSE,display=TRUE){
   
   if(cys) {
     p  <- p + ggplot2::geom_line(ggplot2::aes(y=PropCys,colour="Cysteines")) +
-          ggplot2::geom_line(ggplot2::aes(y=0))                              +
-          ggplot2::geom_line(ggplot2::aes(y=0))
+              ggplot2::geom_line(ggplot2::aes(y=0))                          +
+              ggplot2::geom_line(ggplot2::aes(y=0))
   }
   
   if (display){
@@ -171,21 +171,21 @@ plot_dissimilarity_summary <- function(x,stack=TRUE,display=TRUE){
     colnames(md) <- c('Position','Dissimilarity','Proportion')
     
     if (stack) {
-        p <- ggplot2::ggplot(md,ggplot2::aes(x=Position,y=Proportion))                      + 
-            ggplot2::geom_area(ggplot2::aes(fill=Dissimilarity),position = 'stack')         + 
-            ggplot2::geom_line(ggplot2::aes(data=Dissimilarity, ymax=1),position = 'stack') +
-            ggplot2::scale_x_continuous(expand = c(0, 0))                                   +
-            ggplot2::scale_y_continuous(expand = c(0, 0))                                   +
-            ggplot2::labs(x = "Reference MSA column")                                       +
-            ggplot2::scale_fill_manual(values=c("darkred", "firebrick2", "pink"))           +
-            ggplot2::theme_classic()
+        p <- ggplot2::ggplot(md,ggplot2::aes(x=Position,y=Proportion))                       + 
+             ggplot2::geom_area(ggplot2::aes(fill=Dissimilarity),position = 'stack')         + 
+             ggplot2::geom_line(ggplot2::aes(data=Dissimilarity, ymax=1),position = 'stack') +
+             ggplot2::scale_x_continuous(expand = c(0, 0))                                   +
+             ggplot2::scale_y_continuous(expand = c(0, 0))                                   +
+             ggplot2::labs(x = "Reference MSA column")                                       +
+             ggplot2::scale_fill_manual(values=c("darkred", "firebrick2", "pink"))           +
+             ggplot2::theme_classic()
     }
     else {
         p <- ggplot2::ggplot(md,ggplot2::aes(x=Position,y=Proportion)) + 
-            ggplot2::geom_line(ggplot2::aes(color=Dissimilarity))      +
-            ggplot2::scale_x_continuous(expand = c(0, 0))              +
-            ggplot2::scale_y_continuous(expand = c(0, 0))              +
-            ggplot2::theme_classic()
+             ggplot2::geom_line(ggplot2::aes(color=Dissimilarity))     +
+             ggplot2::scale_x_continuous(expand = c(0, 0))             +
+             ggplot2::scale_y_continuous(expand = c(0, 0))             +
+             ggplot2::theme_classic()
     }
     
     if (display){
