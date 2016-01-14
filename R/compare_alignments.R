@@ -44,8 +44,9 @@ compare_alignments <- function(ref,com){
   ###########################################
   # Replacing letters with letter+occurance #
   ###########################################
-  ref2 <- prepare_alignment_matrix(ref)
-  com2 <- prepare_alignment_matrix(com)
+  ref2  <- prepare_alignment_matrix(ref)
+  com2  <- prepare_alignment_matrix(com)
+  names <- row.names(as.matrix(seqinr::read.fasta(ref)))
   
   # Replacing "-" with NA in the test alignment means
   # that gaps don't count towards column matching score
@@ -71,6 +72,12 @@ compare_alignments <- function(ref,com){
                         "Split",        # 7
                         "Shift",        # 8
                         "Match")        # 9
+
+  # Format P and Q matrices for output
+  ref3 <- t(ref2)
+  com3 <- t(com2)
+  rownames(ref3) <- names
+  rownames(com3) <- names
 
   # Create dissimilarity (matrix D) from simplified dissimilarity (res_list$cat)
   dissimilarity_D <- array(, dim=c(ncol(ref), # rows
@@ -103,8 +110,8 @@ compare_alignments <- function(ref,com){
   score <- mean(cat=="M")/(1-mean(cat=="g"))
   
   # Create final object
-  list(reference_P          = t(ref2),
-       comparison_Q         = t(com2),
+  list(reference_P          = ref3,
+       comparison_Q         = com3,
        results_R            = results_R,
        similarity_S         = means,
        dissimilarity_D      = dissimilarity_D,
@@ -120,7 +127,7 @@ compare_alignments <- function(ref,com){
 
 
 prepare_alignment_matrix <- function(commat){
-    mat2 <- rcpp_prepare_alignment_matrix(as.matrix(commat))
+  mat2 <- rcpp_prepare_alignment_matrix(as.matrix(commat))
   # Remove extra space and de-number gaps
   gsub(x = mat2, pattern = " ",     replacement = "")  -> mat2
   gsub(x = mat2, pattern = "[-].*", replacement = "-") -> mat2
