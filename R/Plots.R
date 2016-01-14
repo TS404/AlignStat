@@ -78,12 +78,15 @@ plot_dissimilarity_matrix <- function(x,display=TRUE){
   hm_data      <- gsub(hm_data, pattern = "s", replacement = "Split")
   hm_data      <- gsub(hm_data, pattern = "x", replacement = "Shift")
   md           <- reshape2::melt(hm_data)
+  names        <- rownames(x$reference_P)
   colnames(md) <- c('Position','Sequence','Dissimilarity')
 
   p <- ggplot2::ggplot(md)                                                        +
        ggplot2::geom_tile(ggplot2::aes(x=Position,y=Sequence,fill=Dissimilarity)) + 
        ggplot2::scale_x_continuous(expand = c(0, 0))                              +
-       ggplot2::scale_y_reverse(expand = c(0, 0))                                 +
+       ggplot2::scale_y_reverse(expand = c(0, 0),
+                                labels=names,
+                                breaks=1:length(names))                                 +
        ggplot2::labs(x = "Reference MSA column")                                  +
        ggplot2::scale_fill_manual(values=c("white",
                                            "black",
