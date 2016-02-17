@@ -62,6 +62,7 @@ compare_alignments <- function(ref,com){
   results  = res_list$results
   cat      = res_list$cat
   means    = res_list$means
+  catnames = c("Match","Gapcon","Merge","Split","Shift")
   
   row.names(results)<-c("ColumnMatch",  # 1
                         "NonGap",       # 2
@@ -80,9 +81,13 @@ compare_alignments <- function(ref,com){
   rownames(com3) <- names
 
   # Create dissimilarity (matrix D) from simplified dissimilarity (res_list$cat)
-  dissimilarity_D <- array(, dim=c(ncol(ref), # rows
-                                   nrow(ref), # columns
-                                   5))        # stacks
+  dissimilarity_D <- array(dim      = c(ncol(ref), # rows
+                                        nrow(ref), # columns
+                                        5),        # stacks
+                           dimnames = list(names,
+                                           NULL,
+                                           catnames)
+                                           
   dissimilarity_D[,,1] <- 1*t(cat=="M") # "Match"
   dissimilarity_D[,,2] <- 1*t(cat=="g") # "Gapcon"
   dissimilarity_D[,,3] <- 1*t(cat=="m") # "Merge"
@@ -90,7 +95,8 @@ compare_alignments <- function(ref,com){
   dissimilarity_D[,,5] <- 1*t(cat=="x") # "Shift"
 
   # Write category averages to results (R matrix)
-  results_R <- t(colMeans(dissimilarity_D))
+  results_R           <- t(colMeans(dissimilarity_D))
+  rownames(results_R) <- catnames
 
   # For each column of ref, which column of com is most similar
   columnmatch <- as.vector(res_list$results[1,]) 
