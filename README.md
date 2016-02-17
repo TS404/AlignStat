@@ -13,7 +13,7 @@ Comparison of alternative multiple sequence alignments
 
 Description
 -----------
-This package contains functions that compare two alternative multiple sequence alignments (MSAs) to determine whether they align homologous residues in the same columns as one another. It then classifies similarities and differences into conserved gaps, conserved sequence, insertion, deletion or substitution. Summarising these categories for each column yields information on which columns are agreed upon my both MSAs, and which differ. Several plotting functions easily visualise the comparison data for analysis.
+This package contains functions that compare two alternative multiple sequence alignments (MSAs) to determine how well they align homologous residues in the same columns as one another. It classifies similarities and differences into conserved sequence, conserved gaps, splits, merges and shifts. Summarising these categories for each column yields information on which columns are agreed upon by both MSAs, and which differ. Output graphs visualise the comparison data for analysis.
 
 
 Contains functions
