@@ -46,8 +46,12 @@ compare_alignments <- function(ref,com){
   ###########################################
   ref2  <- prepare_alignment_matrix(ref)
   com2  <- prepare_alignment_matrix(com)
-  names <- row.names(as.matrix(seqinr::read.fasta(ref)))
   
+  if (!is.data.frame(ref)){
+    names <- row.names(as.matrix(seqinr::read.fasta(ref)))
+  } else {
+    names <- colnames(ref)
+  }
   # Replacing "-" with NA in the test alignment means
   # that gaps don't count towards column matching score
   com[com=="-"]  <-NA
