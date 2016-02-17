@@ -5,8 +5,7 @@ test_that("rpp_align() produces correct results", {
   prepared_com <- readRDS("prepared_com.rda")
   results <- readRDS("results.rda")
   means <- readRDS("means.rda")
-  categories <- readRDS("categories.rda")
-
+  
   scores <- rcpp_align(prepared_ref,prepared_com)
 
   expect_equal(class(scores),"list")
@@ -14,8 +13,7 @@ test_that("rpp_align() produces correct results", {
   expect_equal(sresults[1,],results[1,])
   smeans = scores$means
   expect_equal(smeans,means)
-  
-  expect_equal(scores$cat,categories)
+
 })
 
 
