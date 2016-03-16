@@ -7,9 +7,10 @@ AlignStat: A tool for the statistical comparison of alternative multiple sequenc
 >College of Science, Health and Engineering, La Trobe University, Melbourne, Australia  
 >Life Sciences Computation Centre, Victorian Life Sciences Computation Initiative, Melbourne, Australia
 
-Package title
+Resources
 -------------
-Comparison of alternative multiple sequence alignments
+Online webtool: [AlignStat.science.latrobe.edu.au](http://AlignStat.science.latrobe.edu.au)
+On CRAN: [CRAN.r-project.org/web/packages/AlignStat](https://cran.r-project.org/web/packages/AlignStat)
 
 Description
 -----------
