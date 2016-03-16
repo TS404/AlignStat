@@ -1,7 +1,7 @@
 AlignStat: A tool for the statistical comparison of alternative multiple sequence alignments
 =======================
 
->Thomas M A Shafee, Ira R Cooke, Marilyn A Anderson
+>Thomas M A Shafee, Ira R Cooke
 
 >Department of Biochemistry, La Trobe Institute for Molecular Science, La Trobe University, Melbourne, Australia  
 >College of Science, Health and Engineering, La Trobe University, Melbourne, Australia  
