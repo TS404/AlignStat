@@ -90,7 +90,7 @@ compare_alignments <- function(ref,com){
                                         5),        # stacks
                            dimnames = list(names,
                                            NULL,
-                                           catnames)
+                                           catnames))
                                            
   dissimilarity_D[,,1] <- 1*t(cat=="M") # "Match"
   dissimilarity_D[,,2] <- 1*t(cat=="g") # "Gapcon"
