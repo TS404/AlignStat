@@ -36,15 +36,5 @@ test_that("prepare_alignment_matrix() produces correct outputs",{
   
 })
 
-context("Performance")
-
-test_that("compare_alignments() is fast enough",{
-  data(reference_alignment)
-  data(comparison_alignment)
-  timing <- system.time(compare_alignments(reference_alignment,comparison_alignment))
-  
-  cat("\nCompare alignments took: ",timing)
-  expect_less_than(timing[1],1)
-})
 
 
