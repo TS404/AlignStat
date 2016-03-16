@@ -12,25 +12,28 @@ compare_alignments(ref, com)
 \item{com}{The MSA to compare (in fasta format)}
 }
 \value{
-Generates an object of class "pairwise alignment comparison" (PAC), providing the optimal alignment of alignments and comparison of the differences between them. The details of the PAC output components are as follows:
+Generates an object of class "pairwise alignment comparison" (PAC), providing the optimal pairwise column alignment of two alternative MSAs of the same sequences, and summary statistics of the differences between them. The details of the PAC output components are as follows:
 \itemize{
- \item {Match}         {The proportion of characters that match as a proportion of those that are not conserved gaps (Match/not_Gapcon)}
- \item {Merge}         {The proportion of characters that are a gap in the reference, but are a residue in the comparison alignment}
- \item {Split}         {The proportion of characters that are a residue in the reference, but a gap in the comparison alignment}
- \item {Shift}         {The proportion of characters that are one residue in the reference, but a non-homologous residue in the comparison alignment}
- \item {Gapcon}        {The proportion of characters that are conserved gaps}
- \item {Columnmatch}   {The column of the comparison alignment with the highest final match score}
- \item {Cys}           {The proportion of cysteines (relevant for cysteine rich proteins)}
- \item {RawMatch}      {The proportion of characters that are identical between alignments}
+ \item {reference_P}          {The numbered character matrix of the reference alignment}
+ \item {comparison_Q}         {The numbered character matrix of the comparison alignment}
+ \item {results_R}            {The results summary matrix (containing column averages of match, gapcon, merge, split, shift)}
+ \item {similarity_S}         {The similarity matrix between the reference and comparison alignment columns}
+ \item {dissimilarity_D}      {The dissimilarity matrix between the reference and comparison (containing match, gapcon, merge, split, shift)}
+ \item {dissimilarity_simple} {The dissimilarity matrix with categories stacked into a single 2D matrix}
+ \item {columnmatch}          {The column of the comparison alignment with the highest final match score}
+ \item {cys}                  {The proportion of cysteines (relevant for cysteine rich proteins)}
+ \item {reflen}               {The length of the reference alignment}
+ \item {comlen}               {The length of the comparison alignment}
+ \item {refcon}               {The consensus sequence of the reference alignment}
+ \item {comcon}               {The consensus sequence of the comparison alignment}
+ \item {score}                {The overall similarity score}
 }
 }
 \description{
 Compare alternative multiple sequence alignments
 }
 \note{
-This function aligns two multiple sequence alignments (MSA) against one another. The alternative alignments must contain the same sequences in the same order. The function will classify any similarities and differences between the two MSAs. It produces the "pairwise alignment comparison" object required as the first step any other package functions.
-
-This The `compare_alignments` function first checks that the MSAs are alternative alignments of the same sequences. The function labels each character in the alignment with its occurrence number in the sequence (e.g. to distinguish between the first and second cysteines of a sequence). It then compares the two MSAs to determine which columns are the closest matches between the ref and com MSAs. Each pairwise column comparison is stored as the `$means` value of the output. From this matrix, the comparison alignment column with the highest final match to each reference alignment column is used to calculate further statistics for the `$results` value of the output. The overall Finalmatch score for the whole comparison is output as the `$score` value.
+The `compare_alignments` compares two alternative multiple sequence alignments (MSAs) of the same sequences. The alternative alignments must contain the same sequences in the same order. The function classifies similarities and differences between the two MSAs. It produces the "pairwise alignment comparison" object required as the first step any other package functions. The function converts the MSAs into matrices of sequence characters labelled by their occurrence number in the sequence (e.g. to distinguish between the first and second cysteines of a sequence). It then compares the two MSAs to determine which columns have the highest similarty between the reference and comparison MSAs to generate a similarity matrix (excluding conserved gaps). From this matrix, the comparison alignment column with the similarity to each reference alignment column is used to calculate further statistics for dissimilarity matrix, summarised for each reference MSA column in the results matrix. Lastly, it calculates the overall similarity score between the two MSAs.
 }
 \examples{
 data(reference_alignment)

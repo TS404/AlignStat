@@ -82,7 +82,7 @@ plot_dissimilarity_matrix <- function(x,display=TRUE){
   colnames(md) <- c('Position','Sequence','Dissimilarity')
 
   p <- ggplot2::ggplot(md)                                                        +
-       ggplot2::geom_tile(ggplot2::aes(x=Position,y=Sequence,fill=Dissimilarity)) + 
+       ggplot2::geom_tile(ggplot2::aes_string(x="Position",y="Sequence",fill="Dissimilarity")) + 
        ggplot2::scale_x_continuous(expand = c(0, 0))                              +
        ggplot2::scale_y_reverse(expand = c(0, 0),
                                 labels=names,
@@ -190,8 +190,8 @@ plot_dissimilarity_summary <- function(x,scale=TRUE,stack=TRUE,display=TRUE){
     
   if (stack) {
       p <- ggplot2::ggplot(md,ggplot2::aes(x=Position,y=Proportion))                       + 
-           ggplot2::geom_area(ggplot2::aes(fill=Dissimilarity),position = 'stack')         + 
-           ggplot2::geom_line(ggplot2::aes(data=Dissimilarity, ymax=1),position = 'stack') +
+           ggplot2::geom_area(ggplot2::aes_string(fill="Dissimilarity"),position = 'stack')         + 
+           ggplot2::geom_line(ggplot2::aes_string(data="Dissimilarity", ymax=1),position = 'stack') +
            ggplot2::scale_x_continuous(expand = c(0, 0))                                   +
            ggplot2::scale_y_continuous(expand = c(0, 0))                                   +
            ggplot2::labs(x = "Reference MSA column")                                       +
@@ -200,7 +200,7 @@ plot_dissimilarity_summary <- function(x,scale=TRUE,stack=TRUE,display=TRUE){
   }
   else {
       p <- ggplot2::ggplot(md,ggplot2::aes(x=Position,y=Proportion)) + 
-           ggplot2::geom_line(ggplot2::aes(color=Dissimilarity))     +
+           ggplot2::geom_line(ggplot2::aes_string(color="Dissimilarity"))     +
            ggplot2::scale_x_continuous(expand = c(0, 0))             +
            ggplot2::scale_y_continuous(expand = c(0, 0))             +
            ggplot2::theme_classic()
