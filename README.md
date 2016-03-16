@@ -27,6 +27,11 @@ plot_alignment_heatmap        Heatmap of similarities between alignment columns
 
 Installation
 ------------
+From CRAN
+```R
+install.packages("AlignStat")
+```
+From GitHub
 ```R
 install.packages("devtools")
 devtools::install_github("TS404/AlignStat")
