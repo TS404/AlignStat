@@ -10,7 +10,7 @@ AlignStat: A tool for the statistical comparison of alternative multiple sequenc
 Resources
 -------------
 Online webtool: [AlignStat.science.latrobe.edu.au](http://AlignStat.science.latrobe.edu.au)  
-On CRAN: [CRAN.r-project.org/web/packages/AlignStat](https://cran.r-project.org/web/packages/AlignStat)
+On CRAN: [CRAN.r-project.org/web/packages/AlignStat](https://cran.r-project.org/package=AlignStat)
 
 Description
 -----------
@@ -40,7 +40,7 @@ library("AlignStat")
 ```
 
 
-----------------------------------------------------------------------------------------------
+
 compare_alignments 
 ================
 Compare alternative multiple sequence alignments
@@ -108,7 +108,7 @@ PAC <- compare_alignments(reference_alignment,comparison_alignment)
 ```
 
 
----------------------------------------------------------------------------------------------
+
 plot_similarity_heatmap
 =================
 
@@ -136,7 +136,7 @@ plot_similarity_heatmap (PAC)
 ```
 
 
----------------------------------------------------------------------------------------------
+
 plot_dissimilarity_matrix
 =================
 A heatmap plot of the dissimilarity matrix of two multiple sequence alignments
@@ -165,7 +165,7 @@ plot_dissimilarity_matrix(PAC)
 ```
 
 
----------------------------------------------------------------------------------------------
+
 plot_similarity_summary
 =================
 
@@ -194,7 +194,7 @@ plot_similarity_summary (PAC, cys=TRUE)
 ```
 
 
----------------------------------------------------------------------------------------------
+
 plot_dissimilarity_summary
 =================
 
@@ -222,7 +222,8 @@ The `plot_dissimilarity_summary` function generates a detailed breakdown of the 
 plot_dissimilarity_summary (PAC)
 ```
 
-------------------------------------------------------------------------------------------------
+
+
 Full example workflow
 =====================
 
