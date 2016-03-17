@@ -81,18 +81,18 @@ plot_dissimilarity_matrix <- function(x,display=TRUE){
   names        <- rownames(x$reference_P)
   colnames(md) <- c('Position','Sequence','Dissimilarity')
 
-  p <- ggplot2::ggplot(md)                                                        +
+  p <- ggplot2::ggplot(md)                                                                     +
        ggplot2::geom_tile(ggplot2::aes_string(x="Position",y="Sequence",fill="Dissimilarity")) + 
-       ggplot2::scale_x_continuous(expand = c(0, 0))                              +
+       ggplot2::scale_x_continuous(expand = c(0, 0))                                           +
        ggplot2::scale_y_reverse(expand = c(0, 0),
                                 labels=names,
-                                breaks=1:length(names))                                 +
-       ggplot2::labs(x = "Reference MSA column")                                  +
+                                breaks=1:length(names))                                        +
+       ggplot2::labs(x = "Reference MSA column")                                               +
        ggplot2::scale_fill_manual(values=c("white",
                                            "black",
                                            "darkred",
                                            "firebrick2",
-                                           "pink"))                               +
+                                           "pink"))                                            +
        ggplot2::theme(plot.background  = ggplot2::element_rect(fill="white"),
                       panel.background = ggplot2::element_rect(fill="white"))
   
@@ -131,17 +131,15 @@ plot_similarity_summary <- function(x,scale=TRUE,cys=FALSE,display=TRUE){
   col            <- 1:ncol(x$results)
   plot_data      <- data.frame(Identity=identity,PropCys=proportion_cys,Position=col)
   
-  p <- ggplot2::ggplot(plot_data,ggplot2::aes(x=Position))                +
-       ggplot2::geom_line(ggplot2::aes(y=identity,colour="Similarity"))   +
-       ggplot2::theme(legend.title = ggplot2::element_blank())            +
-       ggplot2::labs(x = "Reference MSA column", y = "Proportion")        +
-       ggplot2::scale_x_continuous(expand = c(0, 0))                      +
-       ggplot2::scale_y_continuous(expand = c(0, 0),breaks=seq(0,1,1/10)) +
-       ggplot2::theme_classic()                                           +
-       ggplot2::geom_text(label = paste("Score =",percent(score)),
-                          hjust = 0,
-                          x     = 2,
-                          y     = max(identity)*0.95)
+  p <- ggplot2::ggplot(plot_data,ggplot2::aes(x=Position))                 +
+       ggplot2::geom_line(ggplot2::aes(y=identity,colour="Similarity"))    +
+       ggplot2::labs(x = "Reference MSA column", y = "Proportion")         +
+       ggplot2::scale_x_continuous(expand = c(0, 0))                       +
+       ggplot2::scale_y_continuous(expand = c(0, 0),breaks=seq(0,1,1/10))  +
+       ggplot2::theme_classic()                                            +
+       ggplot2::theme(legend.title = ggplot2::element_text(face = "bold")) +
+       ggplot2::scale_colour_discrete(breaks=c("Similarity","Cysteines"),
+                                      name=paste("Score =",percent(score)))
   
   if(cys) {
     p  <- p + ggplot2::geom_line(ggplot2::aes(y=PropCys,colour="Cysteines")) +
@@ -189,20 +187,20 @@ plot_dissimilarity_summary <- function(x,scale=TRUE,stack=TRUE,display=TRUE){
   colnames(md) <- c('Position','Dissimilarity','Proportion')
     
   if (stack) {
-      p <- ggplot2::ggplot(md,ggplot2::aes(x=Position,y=Proportion))                       + 
-           ggplot2::geom_area(ggplot2::aes_string(fill="Dissimilarity"),position = 'stack')         + 
-           ggplot2::geom_line(ggplot2::aes_string(data="Dissimilarity", ymax=1),position = 'stack') +
-           ggplot2::scale_x_continuous(expand = c(0, 0))                                   +
-           ggplot2::scale_y_continuous(expand = c(0, 0))                                   +
-           ggplot2::labs(x = "Reference MSA column")                                       +
-           ggplot2::scale_fill_manual(values=c("darkred", "firebrick2", "pink"))           +
+      p <- ggplot2::ggplot(md,ggplot2::aes(x=Position,y=Proportion))                               + 
+           ggplot2::geom_area(ggplot2::aes_string(fill="Dissimilarity"),position='stack')          + 
+           ggplot2::geom_line(ggplot2::aes_string(data="Dissimilarity", ymax=1), position='stack') +
+           ggplot2::scale_x_continuous(expand = c(0, 0))                                           +
+           ggplot2::scale_y_continuous(expand = c(0, 0))                                           +
+           ggplot2::labs(x = "Reference MSA column")                                               +
+           ggplot2::scale_fill_manual(values=c("darkred", "firebrick2", "pink"))                   +
            ggplot2::theme_classic()
   }
   else {
-      p <- ggplot2::ggplot(md,ggplot2::aes(x=Position,y=Proportion)) + 
-           ggplot2::geom_line(ggplot2::aes_string(color="Dissimilarity"))     +
-           ggplot2::scale_x_continuous(expand = c(0, 0))             +
-           ggplot2::scale_y_continuous(expand = c(0, 0))             +
+      p <- ggplot2::ggplot(md,ggplot2::aes(x=Position,y=Proportion))      + 
+           ggplot2::geom_line(ggplot2::aes_string(color="Dissimilarity")) +
+           ggplot2::scale_x_continuous(expand = c(0, 0))                  +
+           ggplot2::scale_y_continuous(expand = c(0, 0))                  +
            ggplot2::theme_classic()
   }
   

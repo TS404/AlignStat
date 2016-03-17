@@ -1,19 +1,20 @@
 AlignStat: A tool for the statistical comparison of alternative multiple sequence alignments
 =======================
 
->Thomas M A Shafee, Ira R Cooke, Marilyn A Anderson
+>Thomas M A Shafee, Ira R Cooke
 
 >Department of Biochemistry, La Trobe Institute for Molecular Science, La Trobe University, Melbourne, Australia  
 >College of Science, Health and Engineering, La Trobe University, Melbourne, Australia  
 >Life Sciences Computation Centre, Victorian Life Sciences Computation Initiative, Melbourne, Australia
 
-Package title
+Resources
 -------------
-Comparison of alternative multiple sequence alignments
+Online webtool: [AlignStat.science.latrobe.edu.au](http://AlignStat.science.latrobe.edu.au)  
+On CRAN: [CRAN.r-project.org/web/packages/AlignStat](https://cran.r-project.org/web/packages/AlignStat)
 
 Description
 -----------
-This package contains functions that compare two alternative multiple sequence alignments (MSAs) to determine whether they align homologous residues in the same columns as one another. It then classifies similarities and differences into conserved gaps, conserved sequence, insertion, deletion or substitution. Summarising these categories for each column yields information on which columns are agreed upon my both MSAs, and which differ. Several plotting functions easily visualise the comparison data for analysis.
+This package contains functions that compare two alternative multiple sequence alignments (MSAs) to determine how well they align homologous residues in the same columns as one another. It classifies similarities and differences into conserved sequence, conserved gaps, splits, merges and shifts. Summarising these categories for each column yields information on which columns are agreed upon by both MSAs, and which differ. Output graphs visualise the comparison data for analysis.
 
 
 Contains functions
@@ -27,6 +28,11 @@ plot_alignment_heatmap        Heatmap of similarities between alignment columns
 
 Installation
 ------------
+From CRAN
+```R
+install.packages("AlignStat")
+```
+From GitHub
 ```R
 install.packages("devtools")
 devtools::install_github("TS404/AlignStat")
