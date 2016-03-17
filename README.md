@@ -10,7 +10,7 @@ AlignStat: A tool for the statistical comparison of alternative multiple sequenc
 Resources
 -------------
 Online webtool: [AlignStat.science.latrobe.edu.au](http://AlignStat.science.latrobe.edu.au)  
-On CRAN: [CRAN.r-project.org/web/packages/AlignStat](https://cran.r-project.org/web/packages/AlignStat)
+On CRAN: [CRAN.r-project.org/web/packages/AlignStat](https://cran.r-project.org/package=AlignStat)
 
 Description
 -----------
