@@ -131,18 +131,15 @@ plot_similarity_summary <- function(x,scale=TRUE,cys=FALSE,display=TRUE){
   col            <- 1:ncol(x$results)
   plot_data      <- data.frame(Identity=identity,PropCys=proportion_cys,Position=col)
   
-  p <- ggplot2::ggplot(plot_data,ggplot2::aes(x=Position))                +
-       ggplot2::geom_line(ggplot2::aes(y=identity,colour="Similarity"))   +
-       ggplot2::labs(x = "Reference MSA column", y = "Proportion")        +
-       ggplot2::scale_x_continuous(expand = c(0, 0))                      +
-       ggplot2::scale_y_continuous(expand = c(0, 0),breaks=seq(0,1,1/10)) +
-       ggplot2::scale_colour_discrete(breaks=c("Similarity","Cysteines")) +
-       ggplot2::theme_classic()                                           +
-       ggplot2::theme(legend.title = ggplot2::element_blank())            +
-       ggplot2::geom_text(label = paste("Score =",percent(score)),
-                          hjust = 0,
-                          x     = 2,
-                          y     = max(identity)*0.95)
+  p <- ggplot2::ggplot(plot_data,ggplot2::aes(x=Position))                 +
+       ggplot2::geom_line(ggplot2::aes(y=identity,colour="Similarity"))    +
+       ggplot2::labs(x = "Reference MSA column", y = "Proportion")         +
+       ggplot2::scale_x_continuous(expand = c(0, 0))                       +
+       ggplot2::scale_y_continuous(expand = c(0, 0),breaks=seq(0,1,1/10))  +
+       ggplot2::theme_classic()                                            +
+       ggplot2::theme(legend.title = ggplot2::element_text(face = "bold")) +
+       ggplot2::scale_colour_discrete(breaks=c("Similarity","Cysteines"),
+                                      name=paste("Score =",percent(score)))
   
   if(cys) {
     p  <- p + ggplot2::geom_line(ggplot2::aes(y=PropCys,colour="Cysteines")) +
