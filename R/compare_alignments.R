@@ -31,10 +31,10 @@
 compare_alignments <- function(ref,com){
   
   if (!is.data.frame(ref)){
-    data.frame(seqinr::read.fasta(ref,set.attributes=FALSE)) -> ref
+    import_alignment(ref) -> ref
   }
   if (!is.data.frame(com)){
-    data.frame(seqinr::read.fasta(com,set.attributes=FALSE)) -> com
+    import_alignment(com) -> com
   }
   if( !valid_alignments(ref,com)){
     stop("both alignments must contain the same sets of sequences in the same order")
@@ -136,8 +136,59 @@ compare_alignments <- function(ref,com){
 }
 
 
-prepare_alignment_matrix <- function(commat){
-  mat2 <- rcpp_prepare_alignment_matrix(as.matrix(commat))
+import_alignment <- function(alignment,format=NULL){
+  
+  # default fmt
+  fmt <- "fasta"
+  
+  # if clustal
+  if( tools::file_ext(ref)=="clustal"
+     |tools::file_ext(ref)=="CLUSTAL"
+     |tools::file_ext(ref)=="aln"
+     |tools::file_ext(ref)=="ALN"
+     |tools::file_ext(ref)=="clust"
+     |tools::file_ext(ref)=="clus"){
+    fmt <- "clustal"
+  }
+  
+  # if msf
+  if( tools::file_ext(ref)=="msf"
+     |tools::file_ext(ref)=="MSF"){
+    fmt <- "msa"
+  }
+  
+  # if mase
+  if( tools::file_ext(ref)=="mase"
+     |tools::file_ext(ref)=="MASE"){
+    fmt <- "mase"
+  }
+  
+  # if phylip
+  if( tools::file_ext(ref)=="phylip"
+     |tools::file_ext(ref)=="PHYLIP"
+     |tools::file_ext(ref)=="phy"
+     |tools::file_ext(ref)=="PHY"){
+    fmt <- "phylip"
+  }
+  
+  # format override
+  if(!is.null(format)){
+    fmt <- format
+  }
+  
+  # import
+  temp <- seqinr::read.alignment(test,format=fmt)
+  # fix names
+  temp$nam <- do.call("rbind", lapply(strsplit(temp$nam," "),"[[", 1))
+  # reformat
+  output <- data.frame(t(as.matrix(temp)))
+
+  output
+}
+
+
+prepare_alignment_matrix <- function(alignment){
+  mat2 <- rcpp_prepare_alignment_matrix(as.matrix(alignment))
   # Remove extra space and de-number gaps
   gsub(x = mat2, pattern = " ",     replacement = "")  -> mat2
   gsub(x = mat2, pattern = "[-].*", replacement = "-") -> mat2
