@@ -154,7 +154,7 @@ import_alignment <- function(alignment,format=NULL){
   # if msf
   if( tools::file_ext(ref)=="msf"
      |tools::file_ext(ref)=="MSF"){
-    fmt <- "msa"
+    fmt <- "msf"
   }
   
   # if mase
