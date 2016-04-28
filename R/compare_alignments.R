@@ -36,16 +36,24 @@ compare_alignments <- function(ref,com){
   if (!is.data.frame(com)){
     import_alignment(com) -> com
   }
+  # Check that all sequences are same present in both alignments even if different order
   if( !valid_alignments(ref,com)){
-    stop("both alignments must contain the same sets of sequences in the same order")
+    stop("both alignments must contain the same sets of sequences, even if they are in a different order")
   }
-  
+  # Degap both alignments
+  ref.degap <- degap_alignment(ref)
+  com.degap <- degap_alignment(com)
+  # Order full com alignment alphabetically
+  com.alpha <- com[,order(com.degap)]
+  # Reorder com.alpha by the order of ref.degap
+  com <- com.alpha[,as.factor(ref.degap)]
+
   
   ###########################################
   # Replacing letters with letter+occurance #
   ###########################################
-  ref2  <- prepare_alignment_matrix(ref)
-  com2  <- prepare_alignment_matrix(com)
+  ref2 <- prepare_alignment_matrix(ref)
+  com2 <- prepare_alignment_matrix(com)
   
   if (!is.data.frame(ref)){
     names <- row.names(as.matrix(seqinr::read.fasta(ref)))
@@ -196,13 +204,14 @@ prepare_alignment_matrix <- function(alignment){
 }
 
 
+degap_alignment <- function(final){
+  # Remove gaps to convert alignment to list of strings
+  gsub("-","",do.call("paste",c(data.frame(t(final)),sep="")))
+}
+
+
 valid_alignments <- function(ref,com){
-  checks = sapply(1:ncol(ref),function(i){
-    r=as.character(ref[,i])
-    a=as.character(com[,i])
-    dg_ref = r[r!="-"]
-    dg_com = a[a!="-"]
-    all(dg_com==dg_ref)
-  })
-  all(checks)
+  ref.degap <- degap_alignment(ref)
+  com.degap <- degap_alignment(com)
+  all(sort(ref.degap)==sort(com.degap))
 }
