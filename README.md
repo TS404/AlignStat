@@ -47,7 +47,7 @@ Compare alternative multiple sequence alignments
 
 Description
 -----------
-This function aligns two multiple sequence alignments (MSA) against one another. The alternative alignments must contain the same sequences in the same order. The function will classify any similarities and differences between the two MSAs. 
+This function aligns two multiple sequence alignments (MSA) against one another. The alternative alignments must contain the same sequences in any order. Fasta, culstal, msf, phylip or mase formats are accepted. The function will classify any similarities and differences between the two MSAs. 
 
 It produces the "pairwise alignment comparison" object required as the first step any of the other package functions.
 
@@ -59,8 +59,8 @@ compare_alignments (ref, com)
 
 ###Arguments
 ```R
-ref   The reference MSA (in fasta format)
-com   The MSA to compare (in fasta format)
+ref   The reference MSA (in fasta, culstal, msf, phylip or mase format)
+com   The MSA to compare (in fasta, culstal, msf, phylip or mase format)
 ```
 
 ###Value
@@ -96,7 +96,7 @@ score                 The overall similarity score between the reference and com
 
 ###Details
 
-The `compare_alignments` compares two alternative multiple sequence alignments (MSAs) of the same sequences. The alternative alignments must contain the same sequences in the same order. The function classifies similarities and differences between the two MSAs. It produces the "pairwise alignment comparison" object required as the first step any other package functions.
+The `compare_alignments` compares two alternative multiple sequence alignments (MSAs) of the same sequences. The alternative alignments must contain the same sequences in any order. The function classifies similarities and differences between the two MSAs. It produces the "pairwise alignment comparison" object required as the first step any other package functions.
 
 The function converts the MSAs into matrices of sequence characters labelled by their occurrence number in the sequence (e.g. to distinguish between the first and second cysteines of a sequence). It then compares the two MSAs to determine which columns have the highest similarty between the reference and comparison MSAs to generate a similarity matrix (excluding conserved gaps). From this matrix, the comparison alignment column with the similarity to each reference alignment column is used to calculate further statistics for dissimilarity matrix, summarised for each reference MSA column in the results matrix. Lastly, it calculates the overall similarity score between the two MSAs.
 
