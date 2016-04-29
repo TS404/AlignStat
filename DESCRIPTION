@@ -18,7 +18,8 @@ Imports:
     Rcpp (>= 0.11.6),
     seqinr,
     ggplot2,
-    reshape2
+    reshape2,
+    tools
 LinkingTo: Rcpp
 Suggests:
     testthat
