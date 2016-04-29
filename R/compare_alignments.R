@@ -151,31 +151,31 @@ import_alignment <- function(alignment,format=NULL){
   
   # if clustal
   if( tools::file_ext(ref)=="clustal"
-     |tools::file_ext(ref)=="CLUSTAL"
-     |tools::file_ext(ref)=="aln"
-     |tools::file_ext(ref)=="ALN"
-     |tools::file_ext(ref)=="clust"
-     |tools::file_ext(ref)=="clus"){
+      |tools::file_ext(ref)=="CLUSTAL"
+      |tools::file_ext(ref)=="aln"
+      |tools::file_ext(ref)=="ALN"
+      |tools::file_ext(ref)=="clust"
+      |tools::file_ext(ref)=="clus"){
     fmt <- "clustal"
   }
   
   # if msf
   if( tools::file_ext(ref)=="msf"
-     |tools::file_ext(ref)=="MSF"){
+      |tools::file_ext(ref)=="MSF"){
     fmt <- "msf"
   }
   
   # if mase
   if( tools::file_ext(ref)=="mase"
-     |tools::file_ext(ref)=="MASE"){
+      |tools::file_ext(ref)=="MASE"){
     fmt <- "mase"
   }
   
   # if phylip
   if( tools::file_ext(ref)=="phylip"
-     |tools::file_ext(ref)=="PHYLIP"
-     |tools::file_ext(ref)=="phy"
-     |tools::file_ext(ref)=="PHY"){
+      |tools::file_ext(ref)=="PHYLIP"
+      |tools::file_ext(ref)=="phy"
+      |tools::file_ext(ref)=="PHY"){
     fmt <- "phylip"
   }
   
@@ -185,12 +185,13 @@ import_alignment <- function(alignment,format=NULL){
   }
   
   # import
-  temp <- seqinr::read.alignment(test,format=fmt)
+  temp <- seqinr::read.alignment(alignment,format=fmt)
   # fix names
   temp$nam <- do.call("rbind", lapply(strsplit(temp$nam," "),"[[", 1))
-  # reformat
-  output <- data.frame(t(as.matrix(temp)))
-
+  # reformat to data frame
+  output <- data.frame(strsplit(unlist(temp$seq),split = ""))
+  colnames(output) <- temp$nam
+  
   output
 }
 
