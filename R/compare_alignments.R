@@ -150,32 +150,32 @@ import_alignment <- function(alignment,format=NULL){
   fmt <- "fasta"
   
   # if clustal
-  if( tools::file_ext(ref)=="clustal"
-      |tools::file_ext(ref)=="CLUSTAL"
-      |tools::file_ext(ref)=="aln"
-      |tools::file_ext(ref)=="ALN"
-      |tools::file_ext(ref)=="clust"
-      |tools::file_ext(ref)=="clus"){
+  if( tools::file_ext(alignment)=="clustal"
+     |tools::file_ext(alignment)=="CLUSTAL"
+     |tools::file_ext(alignment)=="aln"
+     |tools::file_ext(alignment)=="ALN"
+     |tools::file_ext(alignment)=="clust"
+     |tools::file_ext(alignment)=="clus"){
     fmt <- "clustal"
   }
   
   # if msf
-  if( tools::file_ext(ref)=="msf"
-      |tools::file_ext(ref)=="MSF"){
+  if( tools::file_ext(alignment)=="msf"
+     |tools::file_ext(alignment)=="MSF"){
     fmt <- "msf"
   }
   
   # if mase
-  if( tools::file_ext(ref)=="mase"
-      |tools::file_ext(ref)=="MASE"){
+  if( tools::file_ext(alignment)=="mase"
+     |tools::file_ext(alignment)=="MASE"){
     fmt <- "mase"
   }
   
   # if phylip
-  if( tools::file_ext(ref)=="phylip"
-      |tools::file_ext(ref)=="PHYLIP"
-      |tools::file_ext(ref)=="phy"
-      |tools::file_ext(ref)=="PHY"){
+  if( tools::file_ext(alignment)=="phylip"
+     |tools::file_ext(alignment)=="PHYLIP"
+     |tools::file_ext(alignment)=="phy"
+     |tools::file_ext(alignment)=="PHY"){
     fmt <- "phylip"
   }
   
