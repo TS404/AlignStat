@@ -91,7 +91,9 @@ compare_alignments <- function(ref,com){
   com3 <- t(com2)
   rownames(ref3) <- names
   rownames(com3) <- names
-
+  # Restore "-"s to comparison alignment
+  com3[is.na(com3)]<-"-"
+  
   # Create dissimilarity (matrix D) from simplified dissimilarity (res_list$cat)
   dissimilarity_D <- array(dim      = c(ncol(ref), # rows
                                         nrow(ref), # columns
@@ -129,7 +131,7 @@ compare_alignments <- function(ref,com){
   
   # Create final object
   list(reference_P          = ref3,
-       comparison_Q         = com3,
+       comparison_Q         = com4,
        results_R            = results_R,
        similarity_S         = means,
        dissimilarity_D      = dissimilarity_D,
