@@ -135,13 +135,13 @@ compare_alignments <- function(ref,com,SP=FALSE){
   # Sum of pairs #
   ################
   sum_of_pairs <- NULL
-
-  if (SP==TRUE){
   
-    P <- SPprep(PAC$reference_P)
+  if (SP==TRUE){
+    
+    P <- SPprep(ref3)
     ref.pairs     <- apply(t(P),1,list_pairs)
     ref.pairs.all <- unlist(ref.pairs)
-    Q <- SPprep(PAC$comparison_Q)
+    Q <- SPprep(com4)
     com.pairs     <- apply(t(Q),1,list_pairs)
     com.pairs.all <- unlist(com.pairs)
     
@@ -155,14 +155,15 @@ compare_alignments <- function(ref,com,SP=FALSE){
     
     sum.of.pairs.score         <- SP(ref.pairs.all,com.pairs.all)
     reverse.sum.of.pairs.score <- PS(ref.pairs.all,com.pairs.all)
-    column.score <- sum(columnwise.SPS==1)/PAC$comlen
-  
+    column.score <- sum(columnwise.SPS==1)/comlen
+    
     sum_of_pairs <- list(sum.of.pairs.score         = sum.of.pairs.score,
                          reverse.sum.of.pairs.score = reverse.sum.of.pairs.score,
                          columnwise.SPS             = columnwise.SPS,
                          column.score               = column.score,
                          columnwise.CS              = columnwise.CS)
   }
+
 
   # Create final object
   list(reference_P          = ref3,
