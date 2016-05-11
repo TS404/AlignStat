@@ -19,7 +19,7 @@
 #'  \item {refcon}               {The consensus sequence of the reference alignment}
 #'  \item {comcon}               {The consensus sequence of the comparison alignment}
 #'  \item {similarity_score}     {The overall similarity score}
-#'  \item {sum_of_pairs_score}   {The sum of pairs score and related data (optional)}
+#'  \item {sum_of_pairs}         {The sum of pairs score and related data (optional)}
 #' } 
 #' 
 #' @export
