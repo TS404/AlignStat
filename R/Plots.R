@@ -127,7 +127,7 @@ plot_similarity_summary <- function(x,scale=TRUE,cys=FALSE,display=TRUE){
   identity       <- x$results_R[1,]/(1-x$results_R[2,]) # Similarity, excluding conserved gaps
   }
   proportion_cys <- 0.2*(x$cys)-0.2
-  score          <- x$score
+  score          <- x$similarity_score
   col            <- 1:ncol(x$results)
   plot_data      <- data.frame(Identity=identity,PropCys=proportion_cys,Position=col)
   
