@@ -178,7 +178,7 @@ compare_alignments <- function(ref,com,SP=FALSE){
        refcon               = refcon,
        comcon               = comcon,
        similarity_score     = similarity_score,
-       sum_of_pairs_score   = sum_of_pairs)
+       sum_of_pairs         = sum_of_pairs)
 }
 
 
