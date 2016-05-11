@@ -158,9 +158,9 @@ compare_alignments <- function(ref,com,SP=FALSE){
     column.score <- sum(columnwise.SPS==1)/PAC$comlen
   
     sum_of_pairs <- list(sum.of.pairs.score         = sum.of.pairs.score,
-                         reverse.sum.of.pairs.score = reverse.sum.of.pairs.score
+                         reverse.sum.of.pairs.score = reverse.sum.of.pairs.score,
                          columnwise.SPS             = columnwise.SPS,
-                         column.score               = column.score
+                         column.score               = column.score,
                          columnwise.CS              = columnwise.CS)
   }
 
