@@ -249,7 +249,7 @@ plot_SP_summary <- function(x,CS=TRUE,display=TRUE){
                                               "\nPS score =", percent(PS),
                                               "\nCS score =", percent(CS)))
   
-  if(cys) {
+  if(CS) {
     p  <- p + ggplot2::geom_line(ggplot2::aes(y=columnwise.CS,colour="Column score")) +
       ggplot2::geom_line(ggplot2::aes(y=0))                                           +
       ggplot2::geom_line(ggplot2::aes(y=0))
