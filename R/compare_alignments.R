@@ -141,7 +141,7 @@ compare_alignments <- function(ref,com,SP=FALSE){
     P <- SPprep(ref3)
     ref.pairs     <- apply(t(P),1,list_pairs)
     ref.pairs.all <- unlist(ref.pairs)
-    Q <- SPprep(com4)
+    Q <- SPprep(com3)
     com.pairs     <- apply(t(Q),1,list_pairs)
     com.pairs.all <- unlist(com.pairs)
     
@@ -167,7 +167,7 @@ compare_alignments <- function(ref,com,SP=FALSE){
 
   # Create final object
   list(reference_P          = ref3,
-       comparison_Q         = com4,
+       comparison_Q         = com3,
        results_R            = results_R,
        similarity_S         = means,
        dissimilarity_D      = dissimilarity_D,
