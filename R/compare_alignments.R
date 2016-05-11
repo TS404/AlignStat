@@ -2,6 +2,7 @@
 #'
 #' @param ref   The reference MSA (in fasta, clustal, msf, phylip or mase format)
 #' @param com   The MSA to compare (in fasta, clustal, msf, phylip or mase format)
+#' @param SP    Optionally also compute sum of pairs scores (default=FALSE)
 #'
 #' @return Generates an object of class "pairwise alignment comparison" (PAC), providing the optimal pairwise column alignment of two alternative MSAs of the same sequences, and summary statistics of the differences between them. The details of the PAC output components are as follows:
 #' \itemize{
@@ -17,7 +18,8 @@
 #'  \item {comlen}               {The length of the comparison alignment}
 #'  \item {refcon}               {The consensus sequence of the reference alignment}
 #'  \item {comcon}               {The consensus sequence of the comparison alignment}
-#'  \item {score}                {The overall similarity score}
+#'  \item {similarity_score}     {The overall similarity score}
+#'  \item {sum_of_pairs_score}   {The sum of pairs score and related data (optional)}
 #' } 
 #' 
 #' @export
@@ -28,7 +30,7 @@
 #'
 #' @note The `compare_alignments` compares two alternative multiple sequence alignments (MSAs) of the same sequences. The alternative alignments must contain the same sequences. The function classifies similarities and differences between the two MSAs. It produces the "pairwise alignment comparison" object required as the first step any other package functions. The function converts the MSAs into matrices of sequence characters labelled by their occurrence number in the sequence (e.g. to distinguish between the first and second cysteines of a sequence). It then compares the two MSAs to determine which columns have the highest similarty between the reference and comparison MSAs to generate a similarity matrix (excluding conserved gaps). From this matrix, the comparison alignment column with the similarity to each reference alignment column is used to calculate further statistics for dissimilarity matrix, summarised for each reference MSA column in the results matrix. Lastly, it calculates the overall similarity score between the two MSAs.
 #'
-compare_alignments <- function(ref,com){
+compare_alignments <- function(ref,com,SP=FALSE){
   
   if (!is.data.frame(ref)){
     import_alignment(ref) -> ref
@@ -126,9 +128,42 @@ compare_alignments <- function(ref,com){
   refcon <- seqinr::consensus(t(ref))
   comcon <- seqinr::consensus(t(com))
 
-  # Final mean score
-  score <- mean(cat=="M")/(1-mean(cat=="g"))
+  # Final mean identity score
+  similarity_score <- mean(cat=="M")/(1-mean(cat=="g"))
   
+  ################
+  # Sum of pairs #
+  ################
+  sum_of_pairs <- NULL
+
+  if (SP==TRUE){
+  
+    P <- SPprep(PAC$reference_P)
+    ref.pairs     <- apply(t(P),1,list_pairs)
+    ref.pairs.all <- unlist(ref.pairs)
+    Q <- SPprep(PAC$comparison_Q)
+    com.pairs     <- apply(t(Q),1,list_pairs)
+    com.pairs.all <- unlist(com.pairs)
+    
+    SPSs <- NULL
+    for(x in 1:length(com.pairs)){
+      SPSs <- append(SPSs,SP(com.pairs[[x]],ref.pairs.all))
+    }
+    SPSs[is.nan(SPSs)] <- 0
+    columnwise.SPS <- SPSs
+    columnwise.CS  <- SPSs==1
+    
+    sum.of.pairs.score         <- SP(ref.pairs.all,com.pairs.all)
+    reverse.sum.of.pairs.score <- PS(ref.pairs.all,com.pairs.all)
+    column.score <- sum(columnwise.SPS==1)/PAC$comlen
+  
+    sum_of_pairs <- list(sum.of.pairs.score         = sum.of.pairs.score,
+                         reverse.sum.of.pairs.score = reverse.sum.of.pairs.score
+                         columnwise.SPS             = columnwise.SPS,
+                         column.score               = column.score
+                         columnwise.CS              = columnwise.CS)
+  }
+
   # Create final object
   list(reference_P          = ref3,
        comparison_Q         = com4,
@@ -142,7 +177,8 @@ compare_alignments <- function(ref,com){
        comlen               = comlen,
        refcon               = refcon,
        comcon               = comcon,
-       score                = score)
+       similarity_score     = similarity_score,
+       sum_of_pairs_score   = sum_of_pairs)
 }
 
 
@@ -217,4 +253,31 @@ valid_alignments <- function(ref,com){
   ref.degap <- degap_alignment(ref)
   com.degap <- degap_alignment(com)
   all(sort(ref.degap)==sort(com.degap))
+}
+
+
+# Fully unique identities fro all residues in MSA
+SPprep <- function(x){
+  matrix(paste(row.names(x),x,sep = "."),nrow = nrow(x))
+}
+
+
+# Full list of all pairs in an alignment column
+list_pairs <- function(x){
+  data <- x[-grep(pattern = "\\.[-]" , x)]
+  tryCatch(do.call(paste,
+                   as.data.frame(t(combn(data,2)),stringsAsFactors=FALSE)),
+           error=function(e) NULL)
+}
+
+
+# Sum of pairs
+SP <- function(reference,comparison){
+  length(intersect(comparison,reference))/length(reference)
+}
+
+
+# Reverse sum of pairs
+PS <- function(reference,comparison){
+  length(intersect(comparison,reference))/length(comparison)
 }
