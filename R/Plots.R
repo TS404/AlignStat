@@ -231,9 +231,9 @@ plot_SP_summary <- function(x,CS=TRUE,display=TRUE){
   
   columnwise.SPS <- x$sum_of_pairs$columnwise.SPS
   columnwise.CS  <- 0.2*(x$sum_of_pairs$columnwise.CS)-0.2
-  SP             <- x$sum_of_pairs$sum.of.pairs.score
-  PS             <- x$sum_of_pairs$reverse.sum.of.pairs.score
-  CS             <- x$sum_of_pairs$column.score 
+  sum.SP         <- x$sum_of_pairs$sum.of.pairs.score
+  sum.PS         <- x$sum_of_pairs$reverse.sum.of.pairs.score
+  sum.CS         <- x$sum_of_pairs$column.score 
   col            <- 1:length(x$sum_of_pairs$columnwise.SPS)
   plot_data      <- data.frame(columnwise.SPS=columnwise.SPS,columnwise.CS=columnwise.CS,Position=col)
   
@@ -245,9 +245,9 @@ plot_SP_summary <- function(x,CS=TRUE,display=TRUE){
     ggplot2::theme_classic()                                            +
     ggplot2::theme(legend.title = ggplot2::element_text(face = "bold")) +
     ggplot2::scale_colour_discrete(breaks=c("Sum of pairs score","Column score"),
-                                   name=paste("SP score =", percent(SP),
-                                              "\nPS score =", percent(PS),
-                                              "\nCS score =", percent(CS)))
+                                   name=paste("SP score =", percent(sum.SP),
+                                              "\nPS score =", percent(sum.PS),
+                                              "\nCS score =", percent(sum.CS)))
   
   if(CS) {
     p  <- p + ggplot2::geom_line(ggplot2::aes(y=columnwise.CS,colour="Column score")) +
