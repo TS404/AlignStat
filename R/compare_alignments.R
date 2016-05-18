@@ -228,7 +228,7 @@ import_alignment <- function(alignment,format=NULL){
   # fix names
   temp$nam <- do.call("rbind", lapply(strsplit(temp$nam," "),"[[", 1))
   # reformat to data frame
-  output <- data.frame(strsplit(unlist(temp$seq),split = ""))
+  output <- data.frame(strsplit(gsub("[\r\n]","",unlist(temp$seq)),split = ""))
   colnames(output) <- temp$nam
   
   output
