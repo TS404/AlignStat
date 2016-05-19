@@ -26,6 +26,14 @@ test_that("compare_alignments() produces a list", {
   expect_equal(class(scores),"list")
 })
 
+test_that("compare_alignments() works with file input", {
+  file_a <- "AlignmentA.fasta"
+  file_b <- "AlignmentB.fasta"
+  scores <- compare_alignments(file_a,file_b)
+
+  expect_equal(class(scores),"list")
+})
+
 
 # test_that("prepare_alignment_matrix() produces correct outputs",{
 #   data(reference_alignment)

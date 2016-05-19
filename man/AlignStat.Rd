@@ -25,5 +25,6 @@ Use \code{\link{plot_similarity_heatmap}} to view a heatmap comparing the simila
 Use \code{\link{plot_dissimilarity_matrix}} to view a matrix of dissimilarity types
 Use \code{\link{plot_similarity_summary}} to view a summary of column average similarity 
 Use \code{\link{plot_dissimilarity_summary}} to view a summary of column dissimilarity types
+Use \code{\link{plot_SP_summary}} to view a summary of columnwise sum of pairs scores
 }
 
