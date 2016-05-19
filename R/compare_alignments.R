@@ -161,7 +161,11 @@ compare_alignments <- function(ref,com,SP=FALSE){
                          reverse.sum.of.pairs.score = reverse.sum.of.pairs.score,
                          columnwise.SPS             = columnwise.SPS,
                          column.score               = column.score,
-                         columnwise.CS              = columnwise.CS)
+                         columnwise.CS              = columnwise.CS,
+                         ref.pairs                  = ref.pairs,
+                         com.pairs                  = com.pairs,
+                         ref.pairs.all              = ref.pairs.all,
+                         com.pairs.all              = com.pairs.all)
   }
 
 
