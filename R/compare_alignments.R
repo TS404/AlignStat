@@ -263,13 +263,13 @@ valid_alignments <- function(ref,com){
 
 # Fully unique identities fro all residues in MSA
 SPprep <- function(x){
-  matrix(paste(row.names(x),x,sep = "."),nrow = nrow(x))
+  matrix(paste(row.names(x),x,sep = "|"),nrow = nrow(x))
 }
 
 
 # Full list of all pairs in an alignment column
 list_pairs <- function(x){
-  data <- x[-grep(pattern = "\\.[-]" , x)]
+  data <- x[grep(pattern = "\\|[^-]" , x)]
   tryCatch(do.call(paste,
                    as.data.frame(t(combn(data,2)),stringsAsFactors=FALSE)),
            error=function(e) NULL)
