@@ -11,15 +11,15 @@ percent <- function(x, digits = 1, format = "f", ...) {
   paste0(formatC(100 * x, format = format, digits = digits, ...), "%")
 }
 
-ref.fa <- "data-raw/Alignment A.FA"
-com.fa <- "data-raw/Alignment B.FA"
+ref.fa  <- "data-raw/Alignment A.fa"
+com.aln <- "data-raw/Alignment B.clustal"
 
 ################
 # FASTA import #
 ################
 
 data.frame(read.fasta(ref.fa,set.attributes=FALSE)) -> ref   # convert to data frame of letters
-data.frame(read.fasta(com.fa,set.attributes=FALSE)) -> com   # convert to data frame of letters
+data.frame(read.fasta(com.aln,set.attributes=FALSE)) -> com   # convert to data frame of letters
 
 reference_alignment <- ref
 comparison_alignment <- com
