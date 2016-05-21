@@ -26,6 +26,23 @@ test_that("compare_alignments() produces a list", {
   expect_equal(class(scores),"list")
 })
 
+test_that("compare_alignments() handles non identical labels if sequences are identical", {
+  data(reference_alignment)
+  data(comparison_alignment)
+  names(reference_alignment)[1]  <- "Wrong"
+  
+  expect_silent(compare_alignments(reference_alignment,comparison_alignment))
+})
+
+test_that("compare_alignments() errors if sequences are not identical", {
+  data(reference_alignment)
+  data(comparison_alignment)
+  
+  reference_alignment[[1]][1]="s"
+
+  expect_error(compare_alignments(reference_alignment,comparison_alignment))
+})
+
 test_that("compare_alignments() works with file input", {
   file_a <- "AlignmentA.fasta"
   file_b <- "AlignmentB.fasta"
@@ -34,15 +51,21 @@ test_that("compare_alignments() works with file input", {
   expect_equal(class(scores),"list")
 })
 
+test_that("compare_alignments() works with clustal and fasta input", {
+  file_a <- "AlignmentA.fasta"
+  file_b <- "AlignmentB.clustal"
+  scores <- compare_alignments(file_a,file_b)
+  
+  expect_equal(class(scores),"list")
+  expect_equal(scores$comlen,99)
+})
 
-# test_that("prepare_alignment_matrix() produces correct outputs",{
-#   data(reference_alignment)
-#   prepared_ref <- readRDS("prepared_ref.rda")
-#   r2 <- prepare_alignment_matrix(reference_alignment)
-# 
-#   expect_equal(prepared_ref,r2)
-# 
-# })
-
-
+test_that("compare_alignments() works with Grammicidins example", {
+  file_a <- "GrammicidinsClustal.fasta"
+  file_b <- "GrammicidinsMuscle.fasta"
+  scores <- compare_alignments(file_a,file_b)
+  
+  expect_equal(class(scores),"list")
+  expect_equal(scores$comlen,29)
+})
 
