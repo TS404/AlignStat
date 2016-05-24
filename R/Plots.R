@@ -230,7 +230,7 @@ plot_dissimilarity_summary <- function(x,scale=TRUE,stack=TRUE,display=TRUE){
 plot_SP_summary <- function(x,CS=TRUE,display=TRUE){
   
   columnwise.SPS <- x$sum_of_pairs$columnwise.SPS
-  columnwise.CS  <- 0.2*(x$sum_of_pairs$columnwise.CS)-0.2
+  columnwise.CS  <- 0.2*(x$sum_of_pairs$columnwise.CS)-0.22
   sum.SP         <- x$sum_of_pairs$sum.of.pairs.score
   sum.PS         <- x$sum_of_pairs$reverse.sum.of.pairs.score
   sum.CS         <- x$sum_of_pairs$column.score 

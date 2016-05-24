@@ -271,7 +271,7 @@ SPprep <- function(x){
 list_pairs <- function(x){
   data <- x[grep(pattern = "\\|[^-]" , x)]
   tryCatch(do.call(paste,
-                   as.data.frame(t(combn(data,2)),stringsAsFactors=FALSE)),
+                   as.data.frame(t(utils::combn(data,2)),stringsAsFactors=FALSE)),
            error=function(e) NULL)
 }
 
