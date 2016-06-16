@@ -1,7 +1,7 @@
 Package: AlignStat
 Type: Package
 Title: Comparison of Alternative Multiple Sequence Alignments
-Version: 1.1.3
+Version: 1.2.2
 Date: 2016-03-14
 Author: Thomas Shafee, Ira Cooke
 Maintainer: Thomas Shafee <thomas.shafee@gmail.com>
