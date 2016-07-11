@@ -39,17 +39,20 @@ compare_alignments <- function(ref,com,SP=FALSE){
     import_alignment(com) -> com
   }
   # Check that all sequences are same present in both alignments even if different order
-  if( !valid_alignments(ref,com)){
+  if (!valid_alignments(ref,com)){
     stop("both alignments must contain the same sets of sequences, even if they are in a different order")
   }
   # Degap both alignments
   ref.degap <- degap_alignment(ref)
   com.degap <- degap_alignment(com)
-  # Order full com alignment alphabetically
-  com.alpha <- com[,order(com.degap)]
-  # Reorder com.alpha by the order of ref.degap
-  com <- com.alpha[,as.factor(ref.degap)]
 
+  # If any sequences differ between ref and con then...
+  if (!all(ref.degap==com.degap)){
+    # Order full com alignment alphabetically
+    com.alpha <- com[,order(com.degap)]
+    # Reorder com.alpha by the order of ref.degap
+    com <- com.alpha[,as.factor(ref.degap)]
+  }
   
   ###########################################
   # Replacing letters with letter+occurance #
