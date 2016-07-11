@@ -1,12 +1,13 @@
 Package: AlignStat
 Type: Package
 Title: Comparison of Alternative Multiple Sequence Alignments
-Version: 1.2.1
+Version: 1.2.2
 Date: 2016-05-21
 Author: Thomas Shafee, Ira Cooke
 Maintainer: Thomas Shafee <thomas.shafee@gmail.com>
 URL: https://github.com/TS404/AlignStat
 BugReports: https://github.com/TS404/AlignStat/issues
+SystemRequirements: C++11
 Description: Methods for comparing two alternative multiple 
     sequence alignments (MSAs) to determine whether they align homologous residues in 
     the same columns as one another. It then classifies similarities and differences 

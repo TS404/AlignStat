@@ -1,6 +1,6 @@
 #include <sstream>
 
-#define SSTR( x ) dynamic_cast< std::ostringstream & >( ( std::ostringstream() << std::dec << x ) ).str()
+#define SSTR( x ) std::to_string(x)
 
 #include <Rcpp.h>
 using namespace Rcpp;
