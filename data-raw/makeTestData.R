@@ -19,7 +19,15 @@ com.aln <- "data-raw/Alignment B.clustal"
 ################
 
 data.frame(read.fasta(ref.fa,set.attributes=FALSE)) -> ref   # convert to data frame of letters
-data.frame(read.fasta(com.aln,set.attributes=FALSE)) -> com   # convert to data frame of letters
+
+temp <- seqinr::read.alignment(com.aln,format='clustal')
+temp$nam <- do.call("rbind", lapply(strsplit(temp$nam," "),"[[", 1))
+# reformat to data frame
+output <- data.frame(strsplit(gsub("[\r\n]","",unlist(temp$seq)),split = ""))
+colnames(output) <- temp$nam
+
+output -> com   # convert to data frame of letters
+
 
 reference_alignment <- ref
 comparison_alignment <- com
