@@ -12,6 +12,8 @@ compare_alignments(ref, com, SP = FALSE, CS = FALSE)
 \item{com}{The MSA to compare (in fasta, clustal, msf, phylip or mase format)}
 
 \item{SP}{Optionally also compute sum of pairs scores (default=FALSE)}
+
+\item{CS}{Optionally also compute total column score (default=FALSE)}
 }
 \value{
 Generates an object of class "pairwise alignment comparison" (PAC), providing the optimal pairwise column alignment of two alternative MSAs of the same sequences, and summary statistics of the differences between them. The details of the PAC output components are as follows:
