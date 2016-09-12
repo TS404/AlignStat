@@ -19,6 +19,7 @@
 #'  \item {refcon}               {The consensus sequence of the reference alignment}
 #'  \item {comcon}               {The consensus sequence of the comparison alignment}
 #'  \item {similarity_score}     {The overall similarity score}
+#'  \item {column_score}         {The proportion of columns that are fully identical between the reference and comparison MSAs and related data (optional)}
 #'  \item {sum_of_pairs}         {The sum of pairs score and related data (optional)}
 #' } 
 #' 
@@ -30,7 +31,7 @@
 #'
 #' @note The `compare_alignments` compares two alternative multiple sequence alignments (MSAs) of the same sequences. The alternative alignments must contain the same sequences. The function classifies similarities and differences between the two MSAs. It produces the "pairwise alignment comparison" object required as the first step any other package functions. The function converts the MSAs into matrices of sequence characters labelled by their occurrence number in the sequence (e.g. to distinguish between the first and second cysteines of a sequence). It then compares the two MSAs to determine which columns have the highest similarty between the reference and comparison MSAs to generate a similarity matrix (excluding conserved gaps). From this matrix, the comparison alignment column with the similarity to each reference alignment column is used to calculate further statistics for dissimilarity matrix, summarised for each reference MSA column in the results matrix. Lastly, it calculates the overall similarity score between the two MSAs.
 #'
-compare_alignments <- function(ref,com,SP=FALSE){
+compare_alignments <- function(ref,com,SP=FALSE,CS=FALSE){
   
   if (!is.data.frame(ref)){
     import_alignment(ref) -> ref
@@ -131,6 +132,14 @@ compare_alignments <- function(ref,com,SP=FALSE){
   refcon <- seqinr::consensus(t(ref))
   comcon <- seqinr::consensus(t(com))
 
+  # Column scores
+  if (CS==TRUE){
+    columnwise.column.score  <- (results_R[1,]==1)*1
+    column.score             <- sum(columnwise.column.score)/reflen
+    column_score <- list(columnwise.column.score = columnwise.column.score,
+                         column.score            = column.score)
+  }
+
   # Final mean identity score
   similarity_score <- mean(cat=="M")/(1-mean(cat=="g"))
   
@@ -153,12 +162,12 @@ compare_alignments <- function(ref,com,SP=FALSE){
       SPSs <- append(SPSs,SP(com.pairs[[x]],ref.pairs.all))
     }
     SPSs[is.nan(SPSs)] <- 0
-    columnwise.SPS <- SPSs
-    columnwise.CS  <- SPSs==1
+    columnwise.SPS     <- SPSs
+    columnwise.CS      <- SPSs==1
     
     sum.of.pairs.score         <- SP(ref.pairs.all,com.pairs.all)
     reverse.sum.of.pairs.score <- PS(ref.pairs.all,com.pairs.all)
-    column.score <- sum(columnwise.SPS==1)/comlen
+    column.score               <- sum(columnwise.SPS==1)/comlen
     
     sum_of_pairs <- list(sum.of.pairs.score         = sum.of.pairs.score,
                          reverse.sum.of.pairs.score = reverse.sum.of.pairs.score,
@@ -186,6 +195,7 @@ compare_alignments <- function(ref,com,SP=FALSE){
        refcon               = refcon,
        comcon               = comcon,
        similarity_score     = similarity_score,
+       column_score         = column_score,
        sum_of_pairs         = sum_of_pairs)
 }
 
