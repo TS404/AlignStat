@@ -133,6 +133,7 @@ compare_alignments <- function(ref,com,SP=FALSE,CS=FALSE){
   comcon <- seqinr::consensus(t(com))
 
   # Column scores
+  column_score=NA
   if (CS==TRUE){
     columnwise.column.score  <- (results_R[1,]==1)*1
     column.score             <- sum(columnwise.column.score)/reflen
