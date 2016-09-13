@@ -128,6 +128,7 @@ plot_similarity_summary <- function(x,scale=TRUE,cys=FALSE,CS=TRUE,display=TRUE)
   }
   proportion_cys <- 0.2*(x$cys)-0.2
   columnwise.CS  <- x$column_score$columnwise.column.score==1
+  sum.CS         <- x$column_score$column.score
   score          <- x$similarity_score
   col            <- 1:ncol(x$results)
   plot_data      <- data.frame(Identity=identity,columnwise.CS=columnwise.CS,PropCys=proportion_cys,Position=col)
@@ -140,7 +141,8 @@ plot_similarity_summary <- function(x,scale=TRUE,cys=FALSE,CS=TRUE,display=TRUE)
        ggplot2::theme_classic()                                            +
        ggplot2::theme(legend.title = ggplot2::element_text(face = "bold")) +
        ggplot2::scale_colour_discrete(breaks=c("Similarity","Cysteines"),
-                                      name=paste("Score =",percent(score)))
+                                      name=paste("Score =",percent(score),
+                                                 "\nCS score =",percent(sum.CS)))
   
   if(cys) {
     p  <- p + ggplot2::geom_line(ggplot2::aes(y=PropCys,colour="Cysteines")) +
@@ -150,7 +152,7 @@ plot_similarity_summary <- function(x,scale=TRUE,cys=FALSE,CS=TRUE,display=TRUE)
   
   if(CS) {
     cs_data <- plot_data[which(plot_data$columnwise.CS),]
-    p  <- p + ggplot2::geom_point(data=cs_data, ggplot2::aes(y=0, colour="red")) 
+    p  <- p + ggplot2::geom_point(data=cs_data, ggplot2::aes(y=0)) 
   }
   
   if (display){
@@ -257,7 +259,7 @@ plot_SP_summary <- function(x,CS=TRUE,display=TRUE){
   
   if(CS) {
     cs_data <- plot_data[which(plot_data$columnwise.CS),]
-    p  <- p + ggplot2::geom_point(data=cs_data, ggplot2::aes(y=0, colour="red")) 
+    p  <- p + ggplot2::geom_point(data=cs_data, ggplot2::aes(y=0)) 
   }
   
   if (display){
