@@ -3,6 +3,7 @@
 #' @param ref   The reference MSA (in fasta, clustal, msf, phylip or mase format)
 #' @param com   The MSA to compare (in fasta, clustal, msf, phylip or mase format)
 #' @param SP    Optionally also compute sum of pairs scores (default=FALSE)
+#' @param CS    Optionally also compute total column score (default=FALSE)
 #'
 #' @return Generates an object of class "pairwise alignment comparison" (PAC), providing the optimal pairwise column alignment of two alternative MSAs of the same sequences, and summary statistics of the differences between them. The details of the PAC output components are as follows:
 #' \itemize{
@@ -133,6 +134,7 @@ compare_alignments <- function(ref,com,SP=FALSE,CS=FALSE){
   comcon <- seqinr::consensus(t(com))
 
   # Column scores
+  column_score=NA
   if (CS==TRUE){
     columnwise.column.score  <- (results_R[1,]==1)*1
     column.score             <- sum(columnwise.column.score)/reflen

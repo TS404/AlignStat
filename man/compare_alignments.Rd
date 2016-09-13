@@ -4,7 +4,7 @@
 \alias{compare_alignments}
 \title{Compare alternative multiple sequence alignments}
 \usage{
-compare_alignments(ref, com, SP = FALSE)
+compare_alignments(ref, com, SP = FALSE, CS = FALSE)
 }
 \arguments{
 \item{ref}{The reference MSA (in fasta, clustal, msf, phylip or mase format)}
@@ -12,6 +12,8 @@ compare_alignments(ref, com, SP = FALSE)
 \item{com}{The MSA to compare (in fasta, clustal, msf, phylip or mase format)}
 
 \item{SP}{Optionally also compute sum of pairs scores (default=FALSE)}
+
+\item{CS}{Optionally also compute total column score (default=FALSE)}
 }
 \value{
 Generates an object of class "pairwise alignment comparison" (PAC), providing the optimal pairwise column alignment of two alternative MSAs of the same sequences, and summary statistics of the differences between them. The details of the PAC output components are as follows:
@@ -29,6 +31,7 @@ Generates an object of class "pairwise alignment comparison" (PAC), providing th
  \item {refcon}               {The consensus sequence of the reference alignment}
  \item {comcon}               {The consensus sequence of the comparison alignment}
  \item {similarity_score}     {The overall similarity score}
+ \item {column_score}         {The proportion of columns that are fully identical between the reference and comparison MSAs and related data (optional)}
  \item {sum_of_pairs}         {The sum of pairs score and related data (optional)}
 }
 }

@@ -230,18 +230,18 @@ plot_dissimilarity_summary <- function(x,scale=TRUE,stack=TRUE,display=TRUE){
 plot_SP_summary <- function(x,CS=TRUE,display=TRUE){
   
   columnwise.SPS <- x$sum_of_pairs$columnwise.SPS
-  columnwise.CS  <- 0.2*(x$sum_of_pairs$columnwise.CS)-0.22
+  columnwise.CS.y  <- -0.05*(x$sum_of_pairs$columnwise.CS)
+  columnwise.CS  <- x$sum_of_pairs$columnwise.CS
   sum.SP         <- x$sum_of_pairs$sum.of.pairs.score
   sum.PS         <- x$sum_of_pairs$reverse.sum.of.pairs.score
   sum.CS         <- x$sum_of_pairs$column.score 
   col            <- 1:length(x$sum_of_pairs$columnwise.SPS)
-  plot_data      <- data.frame(columnwise.SPS=columnwise.SPS,columnwise.CS=columnwise.CS,Position=col)
+  plot_data      <- data.frame(columnwise.SPS=columnwise.SPS,columnwise.CS=columnwise.CS,columnwise.CS.y=columnwise.CS.y,Position=col)
   
   p <- ggplot2::ggplot(plot_data,ggplot2::aes(x=Position))              +
     ggplot2::geom_line(ggplot2::aes(y=columnwise.SPS,colour="Sum of pairs score"))    +
     ggplot2::labs(x = "Comparison MSA column", y = "Proportion")         +
     ggplot2::scale_x_continuous(expand = c(0, 0))                       +
-    ggplot2::scale_y_continuous(expand = c(0, 0),breaks=seq(0,1,1/10))  +
     ggplot2::theme_classic()                                            +
     ggplot2::theme(legend.title = ggplot2::element_text(face = "bold")) +
     ggplot2::scale_colour_discrete(breaks=c("Sum of pairs score","Column score"),
@@ -250,9 +250,9 @@ plot_SP_summary <- function(x,CS=TRUE,display=TRUE){
                                               "\nCS score =", percent(sum.CS)))
   
   if(CS) {
-    p  <- p + ggplot2::geom_line(ggplot2::aes(y=columnwise.CS,colour="Column score")) +
-      ggplot2::geom_line(ggplot2::aes(y=0))                                           +
-      ggplot2::geom_line(ggplot2::aes(y=0))
+    cs_data <- plot_data[which(plot_data$columnwise.CS),]
+    p  <- p + ggplot2::geom_point(data=cs_data, ggplot2::aes(y=0, colour="red")) 
+
   }
   
   if (display){
