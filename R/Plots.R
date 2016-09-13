@@ -120,17 +120,18 @@ plot_dissimilarity_matrix <- function(x,display=TRUE){
 #'
 #' @note This function generates a plot that summarises the similarity between the two multiple sequence alignments for each column of the reference alignment. For each column, it plots the proportion of identical character matches as a proportion of the characters that are not merely conserved gaps. The overall average proportion of identical characters that are not conserved gaps is overlaid as a percentage. For alignments of cysteine-rich proteins, the cysteine abundance for each column may also be plotted to indicate columns containing conserved cysteines (`cys=TRUE`).
 #'
-plot_similarity_summary <- function(x,scale=TRUE,cys=FALSE,display=TRUE){
+plot_similarity_summary <- function(x,scale=TRUE,cys=FALSE,CS=TRUE,display=TRUE){
   
   identity       <- x$results_R[1,]
   if (scale){
-  identity       <- x$results_R[1,]/(1-x$results_R[2,]) # Similarity, excluding conserved gaps
+    identity       <- x$results_R[1,]/(1-x$results_R[2,]) # Similarity, excluding conserved gaps
   }
   proportion_cys <- 0.2*(x$cys)-0.2
+  columnwise.CS  <- x$column_score$columnwise.column.score==1
   score          <- x$similarity_score
   col            <- 1:ncol(x$results)
-  plot_data      <- data.frame(Identity=identity,PropCys=proportion_cys,Position=col)
-  
+  plot_data      <- data.frame(Identity=identity,columnwise.CS=columnwise.CS,PropCys=proportion_cys,Position=col)
+
   p <- ggplot2::ggplot(plot_data,ggplot2::aes(x=Position))                 +
        ggplot2::geom_line(ggplot2::aes(y=identity,colour="Similarity"))    +
        ggplot2::labs(x = "Reference MSA column", y = "Proportion")         +
@@ -145,6 +146,11 @@ plot_similarity_summary <- function(x,scale=TRUE,cys=FALSE,display=TRUE){
     p  <- p + ggplot2::geom_line(ggplot2::aes(y=PropCys,colour="Cysteines")) +
               ggplot2::geom_line(ggplot2::aes(y=0))                          +
               ggplot2::geom_line(ggplot2::aes(y=0))
+  }
+  
+  if(CS) {
+    cs_data <- plot_data[which(plot_data$columnwise.CS),]
+    p  <- p + ggplot2::geom_point(data=cs_data, ggplot2::aes(y=0, colour="red")) 
   }
   
   if (display){
@@ -229,14 +235,14 @@ plot_dissimilarity_summary <- function(x,scale=TRUE,stack=TRUE,display=TRUE){
 #'
 plot_SP_summary <- function(x,CS=TRUE,display=TRUE){
   
-  columnwise.SPS <- x$sum_of_pairs$columnwise.SPS
-  columnwise.CS.y  <- -0.05*(x$sum_of_pairs$columnwise.CS)
-  columnwise.CS  <- x$sum_of_pairs$columnwise.CS
-  sum.SP         <- x$sum_of_pairs$sum.of.pairs.score
-  sum.PS         <- x$sum_of_pairs$reverse.sum.of.pairs.score
-  sum.CS         <- x$sum_of_pairs$column.score 
-  col            <- 1:length(x$sum_of_pairs$columnwise.SPS)
-  plot_data      <- data.frame(columnwise.SPS=columnwise.SPS,columnwise.CS=columnwise.CS,columnwise.CS.y=columnwise.CS.y,Position=col)
+  columnwise.SPS  <- x$sum_of_pairs$columnwise.SPS
+  columnwise.CS.y <- -0.05*(x$sum_of_pairs$columnwise.CS)
+  columnwise.CS   <- x$sum_of_pairs$columnwise.CS
+  sum.SP          <- x$sum_of_pairs$sum.of.pairs.score
+  sum.PS          <- x$sum_of_pairs$reverse.sum.of.pairs.score
+  sum.CS          <- x$sum_of_pairs$column.score 
+  col             <- 1:length(x$sum_of_pairs$columnwise.SPS)
+  plot_data       <- data.frame(columnwise.SPS=columnwise.SPS,columnwise.CS=columnwise.CS,columnwise.CS.y=columnwise.CS.y,Position=col)
   
   p <- ggplot2::ggplot(plot_data,ggplot2::aes(x=Position))              +
     ggplot2::geom_line(ggplot2::aes(y=columnwise.SPS,colour="Sum of pairs score"))    +
@@ -252,7 +258,6 @@ plot_SP_summary <- function(x,CS=TRUE,display=TRUE){
   if(CS) {
     cs_data <- plot_data[which(plot_data$columnwise.CS),]
     p  <- p + ggplot2::geom_point(data=cs_data, ggplot2::aes(y=0, colour="red")) 
-
   }
   
   if (display){
