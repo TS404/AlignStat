@@ -12,7 +12,7 @@ plot_similarity_summary(x, scale = TRUE, CS = FALSE, cys = FALSE,
 
 \item{scale}{scale data to proportion of characters that are not conserved gaps (default = TRUE)}
 
-\item{CS}{additionally indicate columns with 100% identity using markers on the x-axis (default = FALSE)}
+\item{CS}{additionally indicate columns with 100 percent identity using markers on the x-axis (default = FALSE)}
 
 \item{cys}{additionally show the cysteine abundance for each column (default = FALSE)}
 
