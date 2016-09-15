@@ -158,7 +158,9 @@ plot_similarity_summary <- function(x, scale=TRUE, CS=FALSE, cys=FALSE, display=
   
   if(CS) {
     cs_data <- plot_data[which(plot_data$columnwise.CS),]
-    p  <- p + ggplot2::geom_point(data=cs_data, ggplot2::aes(y=0)) 
+    if ( nrow(cs_data)>0){
+      p  <- p + ggplot2::geom_point(data=cs_data, ggplot2::aes(y=0)) 
+    }
   }
   
   if (display){
