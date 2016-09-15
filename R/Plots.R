@@ -128,8 +128,13 @@ plot_similarity_summary <- function(x, scale=TRUE, CS=FALSE, cys=FALSE, display=
     identity       <- x$results_R[1,]/(1-x$results_R[2,]) # Similarity, excluding conserved gaps
   }
   proportion_cys <- 0.2*(x$cys)-0.2
-  columnwise.CS  <- x$column_score$columnwise.column.score==1
-  sum.CS         <- x$column_score$column.score
+  if ( !is.na(x$column_score) ){
+    columnwise.CS  <- x$column_score$columnwise.column.score==1
+    sum.CS         <- x$column_score$column.score
+  } else {
+    columnwise.CS <- FALSE
+    sum.CS <-  NA
+  }
   score          <- x$similarity_score
   col            <- 1:ncol(x$results)
   plot_data      <- data.frame(Identity=identity,columnwise.CS=columnwise.CS,PropCys=proportion_cys,Position=col)
