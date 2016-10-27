@@ -8,6 +8,8 @@
 #' on which sequence regions are agreed upon my both MSAs, and which differ. Several
 #' plotting functions enable easily visualisation of the comparison data for analysis.
 #' 
+#' Publication: [Shafee and Cooke, _BMC Bioinformatics_ 2016 17:434](dx.doi.org/10.1186/s12859-016-1300-6)
+
 #' @section Computing statistics:
 #' Use \code{\link{compare_alignments}} to calculate statistics comparing two MSAs
 #'
