@@ -11,7 +11,7 @@ plot_dissimilarity_summary(x, scale = TRUE, stack = TRUE, display = TRUE)
 
 \item{scale}{scale data to proportion of characters that are not conserved gaps (default = TRUE)}
 
-\item{stack}{stacked area plot in stead of line plot (deault = TRUE)}
+\item{stack}{stacked area plot in stead of line plot (default = TRUE)}
 
 \item{display}{display this plot (default = TRUE)}
 }
@@ -24,7 +24,7 @@ This function generates a detailed breakdown of the differences between the mult
 \examples{
 data(reference_alignment)
 data(comparison_alignment)
-PAC <- compare_alignments(reference_alignment,comparison_alignment)
+PAC <- compare_alignments(reference_alignment, comparison_alignment)
 plot_dissimilarity_summary(PAC, stack=TRUE)
 
 }
