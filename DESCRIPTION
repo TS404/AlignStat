@@ -14,10 +14,8 @@ Description: Methods for comparing two alternative multiple
     into conserved gaps, conserved sequence, merges, splits or shifts of one MSA relative 
     to the other. Summarising these categories for each MSA column yields information 
     on which sequence regions are agreed upon my both MSAs, and which differ. Several 
-    plotting functions enable easily visualisation of the comparison data for analysis.
-    
+    plotting functions enable easily visualisation of the comparison data for analysis. 
     Publication: [Shafee and Cooke, _BMC Bioinformatics_ 2016 17:434](dx.doi.org/10.1186/s12859-016-1300-6)
-    
 License: GPL (>= 2)
 Depends: R (>= 2.10)
 Imports:
