@@ -4,7 +4,9 @@
 \name{reference_alignment}
 \alias{reference_alignment}
 \title{Reference Alignment}
-\format{A data frame with sequences in columns and amino acid in rows}
+\format{
+A data frame with sequences in columns and amino acid in rows
+}
 \usage{
 reference_alignment
 }
@@ -12,4 +14,3 @@ reference_alignment
 An example alignment
 }
 \keyword{datasets}
-

@@ -3,7 +3,6 @@
 \docType{package}
 \name{AlignStat}
 \alias{AlignStat}
-\alias{AlignStat-package}
 \title{AlignStat: A tool for the statistical comparison of alternative multiple sequence alignments}
 \description{
 This package contains functions that compare two alternative multiple sequence 
@@ -13,6 +12,9 @@ conserved gaps, conserved sequence, merges, splits or shifts of one MSA relative
 to the other. Summarising these categories for each MSA column yields information
 on which sequence regions are agreed upon my both MSAs, and which differ. Several
 plotting functions enable easily visualisation of the comparison data for analysis.
+}
+\details{
+Publication: [Shafee and Cooke, _BMC Bioinformatics_ 2016 17:434](dx.doi.org/10.1186/s12859-016-1300-6)
 }
 \section{Computing statistics}{
 

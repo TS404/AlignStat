@@ -24,4 +24,3 @@ PAC <- compare_alignments(reference_alignment,comparison_alignment)
 plot_dissimilarity_matrix(PAC)
 
 }
-

@@ -25,4 +25,5 @@
 #' @name AlignStat
 #' @useDynLib AlignStat
 #' @importFrom Rcpp sourceCpp
+#' @importFrom stats var
 NULL

@@ -4,7 +4,9 @@
 \name{comparison_alignment}
 \alias{comparison_alignment}
 \title{Comparison Alignment}
-\format{A data frame with sequences in columns and amino acid in rows"comparison_alignment"}
+\format{
+A data frame with sequences in columns and amino acid in rows"comparison_alignment"
+}
 \usage{
 comparison_alignment
 }
@@ -12,4 +14,3 @@ comparison_alignment
 An example alignment
 }
 \keyword{datasets}
-

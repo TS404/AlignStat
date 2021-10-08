@@ -26,4 +26,3 @@ PAC <- compare_alignments(reference_alignment, comparison_alignment, SP=TRUE)
 plot_SP_summary(PAC)
 
 }
-

@@ -26,4 +26,3 @@ PAC <- compare_alignments(reference_alignment,comparison_alignment)
 plot_similarity_heatmap(PAC)
 
 }
-
